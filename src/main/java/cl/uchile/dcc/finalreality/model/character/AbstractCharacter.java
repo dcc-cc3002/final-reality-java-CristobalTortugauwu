@@ -18,8 +18,6 @@ import org.jetbrains.annotations.NotNull;
 public abstract class AbstractCharacter implements GameCharacter {
 
   private int currentHp;
-
-  private int test;
   protected int maxHp;
   protected int defense;
   protected final BlockingQueue<GameCharacter> turnsQueue;
