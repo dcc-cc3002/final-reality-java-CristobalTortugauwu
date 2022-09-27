@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author ~Your name~
  */
-public class Engineer extends AbstractPlayerCharacter {
+public class Engineer extends AbstractOrdinary {
 
 
   /**

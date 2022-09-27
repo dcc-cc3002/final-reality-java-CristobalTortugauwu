@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
  * @author ~Your name~
  * @version 2.0
  */
-public class Thief extends AbstractPlayerCharacter {
+public class Thief extends AbstractOrdinary {
 
   /**
    * Creates a new Thief.

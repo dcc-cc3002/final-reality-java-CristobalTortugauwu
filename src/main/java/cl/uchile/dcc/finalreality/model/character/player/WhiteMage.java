@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author ~Your name~
  */
-public class WhiteMage extends AbstractPlayerCharacter {
+public class WhiteMage extends AbstractMage {
 
   private int currentMp;
   private final int maxMp;
