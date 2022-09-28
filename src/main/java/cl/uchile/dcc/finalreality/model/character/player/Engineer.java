@@ -47,22 +47,19 @@ public class Engineer extends AbstractOrdinary {
     return "Engineer{maxHp=%d, defense=%d, name='%s'}".formatted(maxHp, defense, name);
   }
 
+  /**
+   *Equals method for the Engineer class
+   */
   @Override
-  public int hashCode() {
-    return Objects.hash(Engineer.class, name, maxHp, defense);
-  }
-
-  @Override
-  public boolean equals(final Object obj) {
-    if (this == obj) {
+  public boolean equals(Object o){
+    if(o == this){
       return true;
     }
-    if (!(obj instanceof final Engineer that)) {
+    if (o == null || getClass() != o.getClass())
       return false;
-    }
-    return hashCode() == that.hashCode()
-        && name.equals(that.name)
-        && maxHp == that.maxHp
-        && defense == that.defense;
+    Engineer engineer = (Engineer) o;
+    return this.getName().equals(engineer.getName()) && this.getDefense()==engineer.getDefense()
+            && this.getMaxHp()==engineer.getMaxHp();
   }
+
 }

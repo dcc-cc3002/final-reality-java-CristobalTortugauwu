@@ -47,18 +47,19 @@ public class Thief extends AbstractOrdinary {
     return Objects.hash(Thief.class, name, maxHp, defense);
   }
 
+  /**
+   *Equals method for the Thief class
+   */
   @Override
-  public boolean equals(final Object o) {
-    if (this == o) {
+  public boolean equals(Object o){
+    if(o == this){
       return true;
     }
-    if (!(o instanceof final Thief that)) {
+    if (o == null || getClass() != o.getClass())
       return false;
-    }
-    return hashCode() == that.hashCode()
-        && name.equals(that.name)
-        && maxHp == that.maxHp
-        && defense == that.defense;
+    Thief thief = (Thief) o;
+    return this.getName().equals(thief.getName()) && this.getDefense()==thief.getDefense()
+            && this.getMaxHp()==thief.getMaxHp();
   }
 
   @Override

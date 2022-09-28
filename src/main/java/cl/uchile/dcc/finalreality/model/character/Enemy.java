@@ -35,23 +35,16 @@ public class Enemy extends AbstractCharacter {
     return weight;
   }
 
+  /**
+   *Equals method for the Enemy class, we didn´t consider the turnsQueue parameter in the
+   * input, because for every instance of an object, they can´t share a turn.
+   */
   @Override
-  public boolean equals(final Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (!(o instanceof final Enemy enemy)) {
-      return false;
-    }
-    return hashCode() == enemy.hashCode()
-        && name.equals(enemy.name)
-        && weight == enemy.weight
-        && maxHp == enemy.maxHp
-        && defense == enemy.defense;
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(Enemy.class, name, weight, maxHp, defense);
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Enemy enemy = (Enemy) o;
+    return this.getName().equals(enemy.getName()) && weight == enemy.weight
+            && this.getMaxHp()==enemy.getMaxHp() && this.getDefense()==enemy.getDefense();
   }
 }

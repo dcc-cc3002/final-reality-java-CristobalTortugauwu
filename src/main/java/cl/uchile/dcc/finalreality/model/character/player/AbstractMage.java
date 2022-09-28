@@ -6,11 +6,17 @@ import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import java.util.concurrent.BlockingQueue;
 
 public class AbstractMage extends AbstractPlayerCharacter{
-    private double mana;
+    private int mana;
 
-    public AbstractMage(String name, int maxHp, int defense, BlockingQueue<GameCharacter> turnsQueue, double mana) throws InvalidStatValueException {
+    public AbstractMage(String name, int maxHp, int defense, BlockingQueue<GameCharacter> turnsQueue, int mana) throws InvalidStatValueException {
         super(name, maxHp, defense, turnsQueue);
         this.mana=mana;
     }
 
+    /**
+     * Returns the mana
+     */
+     public int getMana(){
+         return mana;
+     }
 }

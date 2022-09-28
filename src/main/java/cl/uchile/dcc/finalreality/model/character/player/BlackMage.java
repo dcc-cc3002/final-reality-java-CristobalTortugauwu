@@ -75,19 +75,16 @@ public class BlackMage extends AbstractMage {
   // endregion
 
   // region : UTILITY METHODS
+  /**
+   * Equals method for the WhiteMage Class
+   */
   @Override
-  public boolean equals(final Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (!(o instanceof final BlackMage that)) {
-      return false;
-    }
-    return hashCode() == that.hashCode()
-        && name.equals(that.name)
-        && maxHp == that.maxHp
-        && defense == that.defense
-        && maxMp == that.maxMp;
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    BlackMage blackmage = (BlackMage) o;
+    return this.getName().equals(blackmage.getName()) && this.getMaxHp() == blackmage.getMaxHp()
+            && this.getDefense()==blackmage.getDefense() && this.getMana()==blackmage.getMana();
   }
 
   @Override
