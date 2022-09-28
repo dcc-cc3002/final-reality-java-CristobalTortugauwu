@@ -9,7 +9,7 @@ import java.util.Objects;
  * @author ~Your name~
  */
 public class AbstractWeapon implements IWeapon{
-
+    //La clase es abstracta, porque después necesitaré implementar métodos abstractos
     private final String name;
     private final int damage;
     private final int weight;
@@ -23,10 +23,16 @@ public class AbstractWeapon implements IWeapon{
         this.weight = weight;
     }
 
-    public String getName() {
+    /**
+     * Returns the name of the weapon
+     */
+    public String getName()
+    {
         return name;
     }
-
+    /**
+    * Returns the damage of the weapon
+     */
     public int getDamage() {
         return damage;
     }
@@ -36,19 +42,6 @@ public class AbstractWeapon implements IWeapon{
      */
     public int getWeight() {
         return weight;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AbstractWeapon that = (AbstractWeapon) o;
-        return damage == that.damage && weight == that.weight && Objects.equals(name, that.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, damage, weight);
     }
 
     @Override

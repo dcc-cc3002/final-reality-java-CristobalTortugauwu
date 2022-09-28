@@ -5,8 +5,19 @@ public class Axe extends AbstractWeapon{
         super(name,damage,weight);
     }
 
+    /**
+     * Equals method for the Axe class
+     */
     @Override
-    public boolean equals(Object o) {
-        return super.equals(o);
+    public boolean equals(Object o){
+        if(this == o){
+            return true;
+        }
+        if(o == null || this.getClass()!=o.getClass()){
+            return false;
+        }
+        Axe axe = (Axe) o;
+        return this.getName().equals(axe.getName()) && this.getWeight()==axe.getWeight()
+                && this.getDamage()==axe.getDamage();
     }
 }

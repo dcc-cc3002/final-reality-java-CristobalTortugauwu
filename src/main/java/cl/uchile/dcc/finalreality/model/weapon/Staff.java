@@ -9,18 +9,28 @@ public class Staff extends AbstractWeapon{
         super(name,damage,weight);
         this.magicDamage =magicDamage;
     }
-    //agregar los métodos equals en todas las armas, y dps modificar los equals del paquete player
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Staff staff = (Staff) o;
-        return magicDamage == staff.magicDamage;
+
+    /**
+     *Return the magicDamage
+     */
+    public int getMagicDamage(){
+        return magicDamage;
     }
 
+    /**
+     *Equals method for the staff class
+     */
     @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), magicDamage);
+    public boolean equals(Object o){
+        if(this == o){
+            return true;
+        }
+        if(o == null || this.getClass()!=o.getClass()){
+            return false;
+        }
+        Staff staff = (Staff) o;
+        return this.getName().equals(staff.getName()) && this.getWeight()==staff.getWeight()
+                && this.getDamage()==staff.getDamage() && this.getMagicDamage()==staff.getMagicDamage();
     }
+
 }
