@@ -23,6 +23,19 @@ public class AbstractWeapon implements IWeapon{
         this.weight = weight;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        IWeapon that = (IWeapon) o;
+        return damage == that.getDamage() && weight == that.getWeight() && name.equals(that.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, damage, weight);
+    }
+
     /**
      * Returns the name of the weapon
      */

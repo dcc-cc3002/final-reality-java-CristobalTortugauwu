@@ -21,16 +21,16 @@ public class Staff extends AbstractWeapon{
      *Equals method for the staff class
      */
     @Override
-    public boolean equals(Object o){
-        if(this == o){
-            return true;
-        }
-        if(o == null || this.getClass()!=o.getClass()){
-            return false;
-        }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Staff staff = (Staff) o;
-        return this.getName().equals(staff.getName()) && this.getWeight()==staff.getWeight()
-                && this.getDamage()==staff.getDamage() && this.getMagicDamage()==staff.getMagicDamage();
+        return magicDamage == staff.magicDamage;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), magicDamage);
+    }
 }

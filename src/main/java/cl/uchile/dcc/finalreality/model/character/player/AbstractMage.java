@@ -12,7 +12,7 @@ public class AbstractMage extends AbstractPlayerCharacter{
         super(name, maxHp, defense, turnsQueue);
         this.mana=mana;
     }
-
+     //mover el max mana y el current mana a esta clase :D
     /**
      * Returns the mana
      */
