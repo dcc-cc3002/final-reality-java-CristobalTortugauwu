@@ -35,9 +35,9 @@ public class WhiteMage extends AbstractMage {
    *     the queue with the characters waiting for their turn
    */
   protected WhiteMage(final @NotNull String name, final int maxHp, final int defense,
-      int maxMp, final @NotNull BlockingQueue<GameCharacter> turnsQueue,final int mana)
+      int maxMana, final @NotNull BlockingQueue<GameCharacter> turnsQueue)
       throws InvalidStatValueException {
-    super(name, maxHp, defense, turnsQueue,mana);
+    super(name, maxHp, defense, turnsQueue,maxMana);
   }
 
   @Override

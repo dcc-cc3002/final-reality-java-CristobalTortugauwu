@@ -37,10 +37,10 @@ public class BlackMage extends AbstractMage {
    *     the queue with the characters waiting for their turn
    */
   protected BlackMage(final @NotNull String name, final int maxHp, final int defense,
-      int maxMp, final @NotNull BlockingQueue<GameCharacter> turnsQueue, final int mana)
+      int maxMana, final @NotNull BlockingQueue<GameCharacter> turnsQueue)
       throws InvalidStatValueException {
-    super(name, maxHp, defense, turnsQueue,mana);
-    Require.statValueAtLeast(0, maxMp, "Max MP");
+    super(name, maxHp, defense, turnsQueue,maxMana);
+    Require.statValueAtLeast(0, maxMana, "Max MP");
   }
   @Override
   public String toString() {
