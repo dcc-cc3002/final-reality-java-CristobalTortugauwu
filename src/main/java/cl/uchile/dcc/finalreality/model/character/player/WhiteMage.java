@@ -22,10 +22,6 @@ import org.jetbrains.annotations.NotNull;
  * @author ~Your name~
  */
 public class WhiteMage extends AbstractMage {
-
-  private int currentMp;
-  private final int maxMp;
-
   /**
    * Creates a new character.
    *
@@ -42,36 +38,11 @@ public class WhiteMage extends AbstractMage {
       int maxMp, final @NotNull BlockingQueue<GameCharacter> turnsQueue,final int mana)
       throws InvalidStatValueException {
     super(name, maxHp, defense, turnsQueue,mana);
-    this.maxMp = maxMp;
-    this.currentMp = maxMp;
   }
 
   @Override
   public String toString() {
     return "WhiteMage{maxMp=%d, maxHp=%d, defense=%d, name='%s'}"
-        .formatted(maxMp, maxHp, defense, name);
-  }
-
-  /**
-   * Returns the current MP of the character.
-   */
-  public int getCurrentMp() {
-    return currentMp;
-  }
-
-  /**
-   * Sets the current MP of the character to {@code newMp}.
-   */
-  public void setCurrentMp(final int newMp) throws InvalidStatValueException {
-    Require.statValueAtLeast(0, newMp, "Current MP");
-    Require.statValueAtMost(maxMp, newMp, "Current MP");
-    this.currentMp = newMp;
-  }
-
-  /**
-   * Returns the max MP of the character.
-   */
-  public int getMaxMp() {
-    return maxMp;
+        .formatted(this.getMaxMana(), maxHp, defense, name);
   }
 }
