@@ -43,8 +43,13 @@ public class Enemy extends AbstractCharacter {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
+    if (!super.equals(o)) return false;
     Enemy enemy = (Enemy) o;
-    return this.getName().equals(enemy.getName()) && weight == enemy.weight
-            && this.getMaxHp()==enemy.getMaxHp() && this.getDefense()==enemy.getDefense();
+    return weight == enemy.weight;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(super.hashCode(), weight);
   }
 }

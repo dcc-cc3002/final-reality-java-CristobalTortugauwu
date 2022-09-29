@@ -46,23 +46,6 @@ public class WhiteMage extends AbstractMage {
     this.currentMp = maxMp;
   }
 
-  /**
-   * Equals method for the WhiteMage Class
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    WhiteMage whitemage = (WhiteMage) o;
-    return this.getName().equals(whitemage.getName()) && this.getMaxHp() == whitemage.getMaxHp()
-            && this.getDefense()==whitemage.getDefense() && this.getMana()==whitemage.getMana();
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(WhiteMage.class, name, maxHp, defense, maxMp);
-  }
-
   @Override
   public String toString() {
     return "WhiteMage{maxMp=%d, maxHp=%d, defense=%d, name='%s'}"

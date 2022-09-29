@@ -41,27 +41,6 @@ public class Thief extends AbstractOrdinary {
       throws InvalidStatValueException {
     super(name, maxHp, defense, turnsQueue);
   }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(Thief.class, name, maxHp, defense);
-  }
-
-  /**
-   *Equals method for the Thief class
-   */
-  @Override
-  public boolean equals(Object o){
-    if(o == this){
-      return true;
-    }
-    if (o == null || getClass() != o.getClass())
-      return false;
-    Thief thief = (Thief) o;
-    return this.getName().equals(thief.getName()) && this.getDefense()==thief.getDefense()
-            && this.getMaxHp()==thief.getMaxHp();
-  }
-
   @Override
   public String toString() {
     return "Thief{maxHp=%d, defense=%d, name='%s'}".formatted(maxHp, defense, name);

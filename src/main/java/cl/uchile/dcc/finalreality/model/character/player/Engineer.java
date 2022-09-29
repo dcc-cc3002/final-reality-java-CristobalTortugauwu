@@ -47,19 +47,4 @@ public class Engineer extends AbstractOrdinary {
     return "Engineer{maxHp=%d, defense=%d, name='%s'}".formatted(maxHp, defense, name);
   }
 
-  /**
-   *Equals method for the Engineer class
-   */
-  @Override
-  public boolean equals(Object o){
-    if(o == this){
-      return true;
-    }
-    if (o == null || getClass() != o.getClass())
-      return false;
-    Engineer engineer = (Engineer) o;
-    return this.getName().equals(engineer.getName()) && this.getDefense()==engineer.getDefense()
-            && this.getMaxHp()==engineer.getMaxHp();
-  }
-
 }

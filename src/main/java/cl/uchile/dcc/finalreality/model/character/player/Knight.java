@@ -43,23 +43,4 @@ public class Knight extends AbstractOrdinary {
     return "Knight{maxHp=%d, defense=%d, name='%s'}".formatted(maxHp, defense, name);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(Knight.class, name, maxHp, defense);
-  }
-
-  /**
-   *Equals method for the Knight class
-   */
-  @Override
-  public boolean equals(Object o){
-    if(o == this){
-      return true;
-    }
-    if (o == null || getClass() != o.getClass())
-      return false;
-    Knight knight = (Knight) o;
-    return this.getName().equals(knight.getName()) && this.getDefense()==knight.getDefense()
-            && this.getMaxHp()==knight.getMaxHp();
-  }
 }

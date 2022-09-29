@@ -5,6 +5,7 @@ import cl.uchile.dcc.finalreality.exceptions.Require;
 import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -47,6 +48,23 @@ public abstract class AbstractCharacter implements GameCharacter {
     this.defense = defense;
     this.turnsQueue = turnsQueue;
     this.name = name;
+  }
+
+  /**
+   * Equals method that will be used for al GameCharacters, we didn´t include turnsQueue
+   * because it´s different for every instance
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GameCharacter that = (GameCharacter) o;
+    return maxHp == that.getMaxHp() && defense == that.getDefense() && name.equals(that.getName());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(maxHp, defense, name);
   }
 
   @Override
