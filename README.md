@@ -15,5 +15,6 @@ Broadly speaking for the combat the player has a group of characters to control 
 enemies controlled by the computer.
 
 ---
-
-**The rest of the documentation is left for the users of this template to complete**
+By the moment, there isn´t mucho to comment, the MainExample is the class were I instantiated every class in the
+source (that needs to be instantiated), and inside the class there are a lot of System.out.prinln(); that guides
+the flow of the test. :D
