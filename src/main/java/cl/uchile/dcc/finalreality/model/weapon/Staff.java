@@ -4,14 +4,14 @@ import java.util.Objects;
 
 public class Staff extends AbstractWeapon{
 
-    private int magicDamage;
+    private final int magicDamage;
     public Staff(final String name, final int damage, final int weight,final int magicDamage){
         super(name,damage,weight);
         this.magicDamage =magicDamage;
     }
 
     /**
-     *Return the magicDamage
+     *Returns the magicDamage
      */
     public int getMagicDamage(){
         return magicDamage;
@@ -26,9 +26,21 @@ public class Staff extends AbstractWeapon{
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Staff staff = (Staff) o;
-        return magicDamage == staff.magicDamage;
+        return magicDamage == staff.getMagicDamage();
     }
 
+    /**
+     * Returns a string with field and the name of the class
+     */
+    @Override
+    public String toString() {
+        return "Weapon{name='%s', damage=%d, weight=%d, magic= %d, class='%s'}"
+                .formatted(getName(), getDamage(), getWeight(),getMagicDamage(),getClass().getSimpleName());
+    }
+
+    /**
+     * HashCode function returns an int
+     */
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), magicDamage);

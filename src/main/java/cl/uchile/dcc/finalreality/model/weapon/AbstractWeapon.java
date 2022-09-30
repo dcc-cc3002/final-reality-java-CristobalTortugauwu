@@ -30,7 +30,9 @@ public class AbstractWeapon implements IWeapon{
         IWeapon that = (IWeapon) o;
         return damage == that.getDamage() && weight == that.getWeight() && name.equals(that.getName());
     }
-
+    /**
+     * HashCode function returns an int
+     */
     @Override
     public int hashCode() {
         return Objects.hash(name, damage, weight);
@@ -57,9 +59,12 @@ public class AbstractWeapon implements IWeapon{
         return weight;
     }
 
+    /**
+     * Returns a string with the details of the fields and the class name
+     */
     @Override
     public String toString() {
-        return "Weapon{name='%s', damage=%d, weight=%d, type=%s}"
-                .formatted(name, damage, weight);
+        return "Weapon{name='%s', damage=%d, weight=%d, class='%s'}"
+                .formatted(name, damage, weight,getClass().getSimpleName());
     }
 }
