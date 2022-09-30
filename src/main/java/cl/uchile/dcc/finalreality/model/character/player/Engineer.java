@@ -42,7 +42,7 @@ public class Engineer extends AbstractOrdinary {
     super(name, maxHp, defense, turnsQueue);
   }
   /**
-   * Returns a string with the fields and the name of the class
+   * {@inheritDoc}
    */
   @Override
   public String toString() {

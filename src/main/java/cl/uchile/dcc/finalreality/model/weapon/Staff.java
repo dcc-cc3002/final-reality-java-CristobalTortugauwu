@@ -30,7 +30,7 @@ public class Staff extends AbstractWeapon{
     }
 
     /**
-     * Returns a string with the fields and the name of the class
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
@@ -39,7 +39,7 @@ public class Staff extends AbstractWeapon{
     }
 
     /**
-     * HashCode function returns an int
+     * {@inheritDoc}
      */
     @Override
     public int hashCode() {
