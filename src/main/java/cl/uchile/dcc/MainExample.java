@@ -1,5 +1,9 @@
 package cl.uchile.dcc;
 
+import cl.uchile.dcc.finalreality.model.character.GameCharacter;
+import cl.uchile.dcc.finalreality.model.character.player.Engineer;
+import cl.uchile.dcc.finalreality.model.character.player.Knight;
+import cl.uchile.dcc.finalreality.model.character.player.Thief;
 import cl.uchile.dcc.finalreality.model.weapon.*;
 
 public class MainExample {
@@ -14,9 +18,9 @@ public class MainExample {
         IWeapon knife = new Knife("knife",1,1);
         IWeapon knife2 = new Knife("knife",1,1);
         IWeapon knife_distinto = new Knife("knife",2,2);
-        Staff staff = new Staff("staff",1,1,1);
-        Staff staff2 = new Staff("staff",1,1,1);
-        Staff staff_distinto = new Staff("staff",2,2,2);
+        var staff = new Staff("staff",1,1,1);
+        var staff2 = new Staff("staff",1,1,1);
+        var staff_distinto = new Staff("staff",2,2,2);
         IWeapon sword = new Sword("sword",1,1);
         IWeapon sword2 = new Sword("sword",1,1);
         IWeapon sword_distinto = new Sword("sword",2,2);
@@ -47,5 +51,19 @@ public class MainExample {
         System.out.println(1==staff2.getMagicDamage());
         System.out.println(knife);
         System.out.println(staff);
+        //Now we are going to test the methods of the character package, and also we are going
+        //to create instances of the classes in the character package
+        GameCharacter knight = new Knight("knight",1,1);
+        GameCharacter knight2 = new Knight("knight",1,1);
+        GameCharacter knight_distinto = new Knight(,"knight",2,2);
+        GameCharacter engineer = new Engineer("engineer",1,1);
+        GameCharacter engineer2 = new Engineer("engineer",1,1);
+        GameCharacter engineer_distinto = new Engineer("engineer",2,2);
+        GameCharacter thief = new Thief("thief",1,1);
+        GameCharacter thief2 = new Thief("thief",1,1);
+        GameCharacter thief_distinto = new Thief("thief",2,2);
+
+        //Finally we will try to reproduce or imitate the TimerExample, but adding
+        //new classes and weapons.
     }
 }
