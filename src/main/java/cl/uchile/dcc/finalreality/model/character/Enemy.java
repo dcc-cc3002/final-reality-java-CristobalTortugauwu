@@ -52,4 +52,12 @@ public class Enemy extends AbstractCharacter {
   public int hashCode() {
     return Objects.hash(super.hashCode(), weight);
   }
+  /**
+   * Returns a string with the fields and the name of the class
+   */
+  @Override
+  public String toString() {
+    return "Weapon{name='%s', damage=%d, weight=%d,, class='%s'}"
+            .formatted(getName(), getMaxHp(), getWeight(),getClass().getSimpleName());
+  }
 }

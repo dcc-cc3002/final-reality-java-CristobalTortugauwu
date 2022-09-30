@@ -34,12 +34,14 @@ public class WhiteMage extends AbstractMage {
    * @param turnsQueue
    *     the queue with the characters waiting for their turn
    */
-  protected WhiteMage(final @NotNull String name, final int maxHp, final int defense,
+  public WhiteMage(final @NotNull String name, final int maxHp, final int defense,
       int maxMana, final @NotNull BlockingQueue<GameCharacter> turnsQueue)
       throws InvalidStatValueException {
     super(name, maxHp, defense, turnsQueue,maxMana);
   }
-
+  /**
+   * Returns a string with the fields and the name of the class
+   */
   @Override
   public String toString() {
     return "WhiteMage{maxMp=%d, maxHp=%d, defense=%d, name='%s'}"

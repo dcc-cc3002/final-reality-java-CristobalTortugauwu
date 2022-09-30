@@ -41,6 +41,9 @@ public class Thief extends AbstractOrdinary {
       throws InvalidStatValueException {
     super(name, maxHp, defense, turnsQueue);
   }
+  /**
+   * Returns a string with the fields and the name of the class
+   */
   @Override
   public String toString() {
     return "Thief{maxHp=%d, defense=%d, name='%s'}".formatted(maxHp, defense, name);

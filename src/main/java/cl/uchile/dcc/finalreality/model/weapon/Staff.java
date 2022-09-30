@@ -30,7 +30,7 @@ public class Staff extends AbstractWeapon{
     }
 
     /**
-     * Returns a string with field and the name of the class
+     * Returns a string with the fields and the name of the class
      */
     @Override
     public String toString() {
