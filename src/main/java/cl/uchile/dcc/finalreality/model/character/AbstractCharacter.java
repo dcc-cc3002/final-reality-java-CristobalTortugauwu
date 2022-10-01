@@ -3,13 +3,12 @@ package cl.uchile.dcc.finalreality.model.character;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.exceptions.Require;
 import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import org.jetbrains.annotations.NotNull;
 //import org.jetbrains.annotations.NotNull;
 
 /**
@@ -40,7 +39,8 @@ public abstract class AbstractCharacter implements GameCharacter {
    *     the queue with the characters waiting for their turn
    */
   protected AbstractCharacter(@NotNull String name, int maxHp, int defense,
-                              @NotNull BlockingQueue<GameCharacter> turnsQueue) throws InvalidStatValueException {
+                              @NotNull BlockingQueue<GameCharacter> turnsQueue)
+          throws InvalidStatValueException {
     Require.statValueAtLeast(1, maxHp, "Max HP");
     Require.statValueAtLeast(0, defense, "Defense");
     this.maxHp = maxHp;
@@ -51,13 +51,17 @@ public abstract class AbstractCharacter implements GameCharacter {
   }
 
   /**
-   * Equals method that will be used for al GameCharacters, we didn´t include turnsQueue
-   * because it´s different for every instance
+   * Equals method that will be used for al GameCharacters, we did not include turnsQueue
+   * because it´s different for every instance.
    */
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     GameCharacter that = (GameCharacter) o;
     return maxHp == that.getMaxHp() && defense == that.getDefense() && name.equals(that.getName());
   }

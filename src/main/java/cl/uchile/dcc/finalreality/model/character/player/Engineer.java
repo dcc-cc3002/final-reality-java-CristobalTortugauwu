@@ -10,7 +10,6 @@ package cl.uchile.dcc.finalreality.model.character.player;
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
-import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import org.jetbrains.annotations.NotNull;
 
@@ -41,6 +40,7 @@ public class Engineer extends AbstractOrdinary {
       throws InvalidStatValueException {
     super(name, maxHp, defense, turnsQueue);
   }
+
   /**
    * {@inheritDoc}
    */

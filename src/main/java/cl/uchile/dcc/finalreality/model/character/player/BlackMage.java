@@ -11,7 +11,6 @@ package cl.uchile.dcc.finalreality.model.character.player;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.exceptions.Require;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
-import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,12 +38,13 @@ public class BlackMage extends AbstractMage {
   public BlackMage(final @NotNull String name, final int maxHp, final int defense,
       int maxMana, final @NotNull BlockingQueue<GameCharacter> turnsQueue)
       throws InvalidStatValueException {
-    super(name, maxHp, defense, turnsQueue,maxMana);
+    super(name, maxHp, defense, turnsQueue, maxMana);
     Require.statValueAtLeast(0, maxMana, "Max MP");
   }
   /**
-   * Returns a string with the fields and the name of the class
+   * Returns a string with the fields and the name of the class.
    */
+
   @Override
   public String toString() {
     return "BlackMage{currentMp=%d, maxMp=%d, maxHp=%d, defense=%d, name='%s'}"

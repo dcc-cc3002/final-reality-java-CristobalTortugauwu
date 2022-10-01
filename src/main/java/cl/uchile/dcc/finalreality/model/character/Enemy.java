@@ -36,14 +36,20 @@ public class Enemy extends AbstractCharacter {
   }
 
   /**
-   *Equals method for the Enemy class, we didn´t consider the turnsQueue parameter in the
+   *Equals method for the Enemy class, we did not consider the turnsQueue parameter in the
    * input, because for every instance of an object, they can´t share a turn.
    */
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    if (!super.equals(o)) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    if (!super.equals(o)) {
+      return false;
+    }
     Enemy enemy = (Enemy) o;
     return weight == enemy.weight;
   }
@@ -52,12 +58,13 @@ public class Enemy extends AbstractCharacter {
   public int hashCode() {
     return Objects.hash(super.hashCode(), weight);
   }
+
   /**
-   * Returns a string with the fields and the name of the class
+   * Returns a string with the fields and the name of the class.
    */
   @Override
   public String toString() {
     return "Weapon{name='%s', damage=%d, weight=%d,, class='%s'}"
-            .formatted(getName(), getMaxHp(), getWeight(),getClass().getSimpleName());
+            .formatted(getName(), getMaxHp(), getWeight(), getClass().getSimpleName());
   }
 }
