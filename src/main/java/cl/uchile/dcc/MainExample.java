@@ -3,6 +3,7 @@ package cl.uchile.dcc;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.Enemy;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
+
 import cl.uchile.dcc.finalreality.model.character.player.*;
 import cl.uchile.dcc.finalreality.model.weapon.*;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class MainExample {
     Iweapon sword = new Sword("sword", 1, 1);
     Iweapon sword2 = new Sword("sword", 1, 1);
     Iweapon swordDistinto = new Sword("sword", 2, 2);
+
     //now we will test the equals test for every class in the weapon package
     System.out.println("----------------Testing equals methods in weapons--------");
     System.out.println(axe.equals(axe2));
