@@ -40,7 +40,7 @@ public class AbstractWeapon implements Iweapon {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(name, damage, weight);
+    return Objects.hash(name, damage, weight,this.getClass());
   }
 
   /**
