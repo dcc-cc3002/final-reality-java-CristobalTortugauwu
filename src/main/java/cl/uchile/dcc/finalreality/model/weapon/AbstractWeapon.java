@@ -1,5 +1,7 @@
 package cl.uchile.dcc.finalreality.model.weapon;
 
+import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
+
 import java.util.Objects;
 
 /**
@@ -8,7 +10,7 @@ import java.util.Objects;
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author ~Your name~
  */
-public class AbstractWeapon implements Iweapon {
+public abstract class AbstractWeapon implements Iweapon {
   //La clase es abstracta, porque después necesitaré implementar métodos abstractos
   private final String name;
   private final int damage;
@@ -72,4 +74,5 @@ public class AbstractWeapon implements Iweapon {
     return "Weapon{name='%s', damage=%d, weight=%d, class='%s'}"
             .formatted(name, damage, weight, getClass().getSimpleName());
   }
+
 }

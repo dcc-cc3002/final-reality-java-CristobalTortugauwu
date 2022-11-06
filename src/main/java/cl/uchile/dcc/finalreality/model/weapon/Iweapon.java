@@ -1,5 +1,7 @@
 package cl.uchile.dcc.finalreality.model.weapon;
 
+import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
+
 /**
  * Interface Weapon.
  */
@@ -9,4 +11,5 @@ public interface Iweapon {
   int getWeight();
 
   String getName();
+
 }

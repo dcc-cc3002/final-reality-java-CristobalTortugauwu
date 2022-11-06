@@ -183,7 +183,6 @@ public class MainExample {
       if (i == 5) {
         enemy.waitTurn();
       } else {
-        list_characters.get(i).equip(list_weapons.get(i));
         list_characters.get(i).waitTurn();
       }
     }

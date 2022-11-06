@@ -13,6 +13,9 @@ import cl.uchile.dcc.finalreality.model.character.AbstractCharacter;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -49,13 +52,25 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
     super(name, maxHp, defense, turnsQueue);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
-  public void equip(Iweapon weapon) {
-    this.equippedWeapon = weapon;
+  public void waitTurn(){
+    scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
+    scheduledExecutor.schedule(
+                  /* command = */ this::addToQueue,
+                  /* delay = */ this.getEquippedWeapon().getWeight() / 10,
+                  /* unit = */ TimeUnit.SECONDS);
+  }
+
+  public void setWeapon(Iweapon weapon){
+    equippedWeapon = weapon;
   }
 
   @Override
   public Iweapon getEquippedWeapon() {
     return equippedWeapon;
   }
+
 }

@@ -11,6 +11,8 @@ package cl.uchile.dcc.finalreality.model.character.player;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import java.util.concurrent.BlockingQueue;
+
+import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWKnight;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -43,6 +45,14 @@ public class Knight extends AbstractOrdinary {
   @Override
   public String toString() {
     return "Knight{maxHp=%d, defense=%d, name='%s'}".formatted(maxHp, defense, name);
+  }
+
+  /**
+   * This method only equip the weapons that are compatible with a Knight.
+   * @param weapon
+   */
+  public void equip(EquipWKnight weapon){
+    weapon.equippableByKnight(this);
   }
 
 }

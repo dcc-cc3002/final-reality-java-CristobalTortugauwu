@@ -2,14 +2,11 @@ package cl.uchile.dcc.finalreality.model.character;
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.exceptions.Require;
-import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+
 //import org.jetbrains.annotations.NotNull;
 
 /**
@@ -25,7 +22,7 @@ public abstract class AbstractCharacter implements GameCharacter {
   protected int defense;
   protected final BlockingQueue<GameCharacter> turnsQueue;
   protected final String name;
-  private ScheduledExecutorService scheduledExecutor;
+  protected ScheduledExecutorService scheduledExecutor;
 
   /**
    * Creates a new character.
@@ -72,51 +69,17 @@ public abstract class AbstractCharacter implements GameCharacter {
     return Objects.hash(maxHp, defense, name);
   }
 
-  //@Override
-  //public void waitTurn2() {
-  //  scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
-  //  //Instanciamos dos clases, para que el case funcione, no tienen ningún otro propósito
-  //  PlayerCharacter playerClass = new ();
-  //  Enemy enemyClass;
-  //  switch (this.getClass()) {
-  //    case (playerClass.getClass()):
-  //      var player = (PlayerCharacter) this;
-  //      scheduledExecutor.schedule(
-  //              /* command = */ this::addToQueue,
-  //              /* delay = */ this.getEquippedWeapon().getWeight() / 10,
-  //              /* unit = */ TimeUnit.SECONDS);
-  //      break;
-  //    case (enemyClass.getClass()):
-  //      var enemy = (Enemy) this;
-  //      scheduledExecutor.schedule(
-  //              /* command = */ this::addToQueue,
-  //              /* delay = */ enemy.getWeight() / 10,
-  //              /* unit = */ TimeUnit.SECONDS);
-  //      break;
-  //  }
-  //}
+  /**
+   * This method is used with the purpose in which the GameCharacters will wait in a specific Queue
+   */
   @Override
-  public void waitTurn() {
-    scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
-    if (this instanceof PlayerCharacter player) {
-      scheduledExecutor.schedule(
-              /* command = */ this::addToQueue,
-              /* delay = */ player.getEquippedWeapon().getWeight() / 10,
-              /* unit = */ TimeUnit.SECONDS);
-    } else {
-      var enemy = (Enemy) this;
-      scheduledExecutor.schedule(
-              /* command = */ this::addToQueue,
-              /* delay = */ enemy.getWeight() / 10,
-              /* unit = */ TimeUnit.SECONDS);
-    }
-  }
+  public abstract void waitTurn();
 
 
   /**
    * Adds this character to the turns queue.
    */
-  private void addToQueue() {
+  protected void addToQueue() {
     try {
       turnsQueue.put(this);
     } catch (Exception e) {

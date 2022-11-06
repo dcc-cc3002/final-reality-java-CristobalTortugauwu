@@ -11,6 +11,8 @@ package cl.uchile.dcc.finalreality.model.character.player;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import java.util.concurrent.BlockingQueue;
+
+import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWEngineer;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -49,4 +51,7 @@ public class Engineer extends AbstractOrdinary {
     return "Engineer{maxHp=%d, defense=%d, name='%s'}".formatted(maxHp, defense, name);
   }
 
+  public void equip(EquipWEngineer engineer){
+    engineer.equippableByEngineer(this);
+  }
 }
