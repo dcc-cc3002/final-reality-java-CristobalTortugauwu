@@ -12,6 +12,8 @@ import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.AbstractCharacter;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
+
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -72,5 +74,8 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
   public Iweapon getEquippedWeapon() {
     return equippedWeapon;
   }
-
+  @Override
+  public int hashCode() {
+    return Objects.hash(super.hashCode(),this.getClass());
+  }
 }

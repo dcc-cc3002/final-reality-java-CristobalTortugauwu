@@ -70,7 +70,7 @@ public class Enemy extends AbstractCharacter {
   }
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode(), weight);
+    return Objects.hash(super.hashCode(), weight,this.getClass());
   }
 
   /**
@@ -78,7 +78,7 @@ public class Enemy extends AbstractCharacter {
    */
   @Override
   public String toString() {
-    return "Weapon{name='%s', damage=%d, weight=%d,, class='%s'}"
+    return "Enemy{name='%s', damage=%d, weight=%d,, class='%s'}"
             .formatted(getName(), getMaxHp(), getWeight(), getClass().getSimpleName());
   }
 }
