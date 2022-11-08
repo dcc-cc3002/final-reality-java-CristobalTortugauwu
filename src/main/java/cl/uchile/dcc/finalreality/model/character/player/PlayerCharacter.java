@@ -23,4 +23,6 @@ public interface PlayerCharacter extends GameCharacter {
   Iweapon getEquippedWeapon();
 
   void setWeapon(Iweapon weapon);
+
+
 }

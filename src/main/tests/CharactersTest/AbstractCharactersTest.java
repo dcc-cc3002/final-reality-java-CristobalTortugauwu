@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ScheduledExecutorService;
 
 import static org.junit.Assert.*;
 
@@ -65,6 +66,7 @@ public class AbstractCharactersTest {
         player.setCurrentHp(-1);
         assertEquals(expected,player.getCurrentHp());
     }
+
 
 
 }

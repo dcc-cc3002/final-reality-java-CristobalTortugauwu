@@ -39,9 +39,8 @@ public class EnemyTest extends AbstractCharactersTest{
     public void testWaitTurn() throws InterruptedException {
         enemy.addToQueue();
         enemy.waitTurn();
-        Thread.sleep(2000);
-        queue.poll();
-
+        Thread.sleep(6000);
+        assertEquals(enemy,queue.poll());
     }
     @Test
     public void testToString() {

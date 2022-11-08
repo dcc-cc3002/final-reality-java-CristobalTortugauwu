@@ -77,7 +77,7 @@ public abstract class AbstractCharacter implements GameCharacter {
 
 
   /**
-   * Adds this character to the turns queue.
+   * {@inheritDoc}
    */
   public void addToQueue() {
     try {

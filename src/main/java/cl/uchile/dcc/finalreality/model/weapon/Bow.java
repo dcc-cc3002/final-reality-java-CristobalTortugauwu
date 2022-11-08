@@ -2,6 +2,7 @@ package cl.uchile.dcc.finalreality.model.weapon;
 
 import cl.uchile.dcc.finalreality.model.character.player.Engineer;
 import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWEngineer;
+import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWThief;
 import cl.uchile.dcc.finalreality.model.character.player.Thief;
 
 import java.util.Objects;
@@ -9,7 +10,7 @@ import java.util.Objects;
 /**
  * Bow class.
  */
-public class Bow extends AbstractWeapon implements EquipWEngineer {
+public class Bow extends AbstractWeapon implements EquipWEngineer, EquipWThief {
   /**
    *  Bow class constructor.
    */
