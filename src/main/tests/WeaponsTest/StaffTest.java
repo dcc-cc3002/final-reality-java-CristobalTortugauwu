@@ -2,6 +2,7 @@ package WeaponsTest;
 
 import cl.uchile.dcc.finalreality.model.weapon.Axe;
 import cl.uchile.dcc.finalreality.model.weapon.Staff;
+import cl.uchile.dcc.finalreality.model.weapon.Sword;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,22 +20,30 @@ public class StaffTest {
         staff2 = new Staff("staff",5,12,6);
     }
     @Test
-    public void getMagicDamageTest(){
+    public void testGetMagicDamage(){
         int expected = 5;
         assertEquals(expected,staff.getMagicDamage());
         assertNotEquals(staff.getMagicDamage(),staff2.getMagicDamage());
     }
     @Test
-    public void equalsTest(){
+    public void testEquals(){
+        Sword notExpected = new Sword("sword",124,4);
         assertEquals(staff,staff);
         assertNotEquals(staff2,staff);
         assertEquals(staff,expected);
-        assertNotEquals(null,staff);
+        assertNotEquals(notExpected,staff);
 
     }
     @Test
-    public void hashCodeTest(){
+    public void testHashCode(){
         assertNotEquals(staff.hashCode(),staff2.hashCode());
         assertEquals(staff.hashCode(),expected.hashCode());
     }
+
+    @Test
+    public void testToString() {
+        String expected = "Weapon{name='staff', damage=5, weight=10, magic= 5, class='Staff'}";
+        assertEquals(expected,staff.toString());
+    }
+
 }

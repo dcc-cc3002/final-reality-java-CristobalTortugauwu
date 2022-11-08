@@ -2,10 +2,10 @@ package cl.uchile.dcc.finalreality.model.character;
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.exceptions.Require;
-import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
+import org.jetbrains.annotations.NotNull;
 
 //import org.jetbrains.annotations.NotNull;
 
@@ -70,7 +70,7 @@ public abstract class AbstractCharacter implements GameCharacter {
   }
 
   /**
-   * This method is used with the purpose in which the GameCharacters will wait in a specific Queue
+   * This method is used with the purpose in which the GameCharacters will wait in a specific Queue.
    */
   @Override
   public abstract void waitTurn();

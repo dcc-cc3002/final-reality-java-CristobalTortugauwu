@@ -2,6 +2,7 @@ package CharactersTest;
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
+import cl.uchile.dcc.finalreality.model.character.player.AbstractOrdinary;
 import cl.uchile.dcc.finalreality.model.character.player.Engineer;
 import cl.uchile.dcc.finalreality.model.character.player.Knight;
 import cl.uchile.dcc.finalreality.model.character.player.Thief;
@@ -18,7 +19,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-public class SturdinessTest {
+public class AbstractOrdinaryTest {
     BlockingQueue <GameCharacter> queue;
     Engineer engineer;
     Knight knight;
@@ -87,6 +88,21 @@ public class SturdinessTest {
     public void testToString3() {
         String expected = "Thief{maxHp=20, defense=1, name='thief'}" ;
         System.out.println(thief.toString());
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testWaitTurn() throws InterruptedException {
+        thief.equip(knife);
+        knight.equip(sword);
+        thief.addToQueue();
+        knight.addToQueue();
+        thief.waitTurn();
+        knight.waitTurn();
+        Thread.sleep(10000);
+        assertEquals("thief",queue.poll().getName());
+        assertEquals("knight",queue.poll().getName());
+
+
     }
     /*
      * Hay que testear getEquippedWeapon y waitTurn

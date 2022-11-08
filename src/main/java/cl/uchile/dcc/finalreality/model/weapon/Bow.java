@@ -1,16 +1,15 @@
 package cl.uchile.dcc.finalreality.model.weapon;
 
 import cl.uchile.dcc.finalreality.model.character.player.Engineer;
-import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWEngineer;
-import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWThief;
+import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponEngineer;
+import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponThief;
 import cl.uchile.dcc.finalreality.model.character.player.Thief;
-
 import java.util.Objects;
 
 /**
  * Bow class.
  */
-public class Bow extends AbstractWeapon implements EquipWEngineer, EquipWThief {
+public class Bow extends AbstractWeapon implements EquipWeaponEngineer, EquipWeaponThief {
   /**
    *  Bow class constructor.
    */
@@ -18,18 +17,19 @@ public class Bow extends AbstractWeapon implements EquipWEngineer, EquipWThief {
     super(name, damage, weight);
   }
   /**
-   * HashCode method
+   * {@inheritDoc}.
    */
+
   @Override
-  public int hashCode(){
+  public int hashCode() {
     return Objects.hash(super.hashCode());
   }
 
-  public void equippableByEngineer(Engineer engineer){
+  public void equippableByEngineer(Engineer engineer) {
     engineer.setWeapon(this);
   }
 
-  public void equippableByThief(Thief thief){
+  public void equippableByThief(Thief thief) {
     thief.setWeapon(this);
   }
 }

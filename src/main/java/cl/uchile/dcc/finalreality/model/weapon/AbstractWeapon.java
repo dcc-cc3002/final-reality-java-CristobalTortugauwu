@@ -1,7 +1,5 @@
 package cl.uchile.dcc.finalreality.model.weapon;
 
-import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
-
 import java.util.Objects;
 
 /**
@@ -42,7 +40,7 @@ public abstract class AbstractWeapon implements Iweapon {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(name, damage, weight,this.getClass());
+    return Objects.hash(name, damage, weight, this.getClass());
   }
 
   /**

@@ -6,7 +6,6 @@ import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -61,16 +60,17 @@ public class Enemy extends AbstractCharacter {
    * {@inheritDoc}
    */
   @Override
-  public void waitTurn(){
+  public void waitTurn() {
     scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
     scheduledExecutor.schedule(
             /* command = */ this::addToQueue,
             /* delay = */ this.getWeight() / 10,
             /* unit = */ TimeUnit.SECONDS);
   }
+
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode(), weight,this.getClass());
+    return Objects.hash(super.hashCode(), weight, this.getClass());
   }
 
   /**

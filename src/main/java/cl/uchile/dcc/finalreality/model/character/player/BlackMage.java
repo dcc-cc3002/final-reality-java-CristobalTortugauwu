@@ -11,9 +11,8 @@ package cl.uchile.dcc.finalreality.model.character.player;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.exceptions.Require;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
+import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponBlackMage;
 import java.util.concurrent.BlockingQueue;
-
-import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWBlackMage;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -53,7 +52,8 @@ public class BlackMage extends AbstractMage {
         .formatted(this.getCurrentMana(), this.getMaxMana(), maxHp, defense, name);
   }
 
-  public void equip(EquipWBlackMage weapon){
-     weapon.equippableByBlackMage(this);
+  public void equip(EquipWeaponBlackMage weapon) {
+    weapon.equippableByBlackMage(this);
   }
+
 }

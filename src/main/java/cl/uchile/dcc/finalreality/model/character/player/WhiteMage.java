@@ -10,9 +10,8 @@ package cl.uchile.dcc.finalreality.model.character.player;
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
+import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponWhiteMage;
 import java.util.concurrent.BlockingQueue;
-
-import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWWhiteMage;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -49,7 +48,7 @@ public class WhiteMage extends AbstractMage {
         .formatted(this.getMaxMana(), maxHp, defense, name);
   }
 
-  public void equip(EquipWWhiteMage weapon){
+  public void equip(EquipWeaponWhiteMage weapon) {
     weapon.equippableByWhiteMage(this);
   }
 }

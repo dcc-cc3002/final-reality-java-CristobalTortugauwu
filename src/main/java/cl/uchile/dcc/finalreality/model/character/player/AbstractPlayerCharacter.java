@@ -12,12 +12,10 @@ import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.AbstractCharacter;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
-
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -58,7 +56,7 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
    * {@inheritDoc}
    */
   @Override
-  public void waitTurn(){
+  public void waitTurn() {
     scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
     scheduledExecutor.schedule(
                   /* command = */ this::addToQueue,
@@ -66,7 +64,7 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
                   /* unit = */ TimeUnit.SECONDS);
   }
 
-  public void setWeapon(Iweapon weapon){
+  public void setWeapon(Iweapon weapon) {
     equippedWeapon = weapon;
   }
 
@@ -74,8 +72,10 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
   public Iweapon getEquippedWeapon() {
     return equippedWeapon;
   }
+
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode(),this.getClass());
+    return Objects.hash(super.hashCode(), this.getClass());
   }
+
 }

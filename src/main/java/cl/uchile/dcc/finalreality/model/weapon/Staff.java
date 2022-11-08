@@ -1,16 +1,15 @@
 package cl.uchile.dcc.finalreality.model.weapon;
 
 import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
-import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWBlackMage;
-import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWWhiteMage;
+import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponBlackMage;
+import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponWhiteMage;
 import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
-
 import java.util.Objects;
 
 /**
  * Abstract Weapon class.
  */
-public class Staff extends AbstractWeapon implements EquipWBlackMage, EquipWWhiteMage {
+public class Staff extends AbstractWeapon implements EquipWeaponBlackMage, EquipWeaponWhiteMage {
 
   private final int magicDamage;
 
@@ -61,11 +60,12 @@ public class Staff extends AbstractWeapon implements EquipWBlackMage, EquipWWhit
     return Objects.hash(super.hashCode(), magicDamage);
   }
 
-  public void equippableByBlackMage(BlackMage blackmage){
+  public void equippableByBlackMage(BlackMage blackmage) {
     blackmage.setWeapon(this);
   }
 
-  public void equippableByWhiteMage(WhiteMage whitemage){
+  public void equippableByWhiteMage(WhiteMage whitemage) {
     whitemage.setWeapon(this);
   }
+
 }
