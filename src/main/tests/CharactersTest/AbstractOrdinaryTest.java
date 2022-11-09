@@ -90,12 +90,10 @@ public class AbstractOrdinaryTest {
         System.out.println(thief.toString());
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test //(expected = NullPointerException.class)
     public void testWaitTurn() throws InterruptedException {
         thief.equip(knife);
         knight.equip(sword);
-        thief.addToQueue();
-        knight.addToQueue();
         thief.waitTurn();
         knight.waitTurn();
         Thread.sleep(10000);

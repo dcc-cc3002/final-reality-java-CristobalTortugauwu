@@ -35,12 +35,14 @@ public class EnemyTest extends AbstractCharactersTest{
         assertNotEquals(enemy,player);
     }
 
-    @Test (expected = NullPointerException.class)
-    public void testWaitTurn() throws InterruptedException {
-        enemy.addToQueue();
+    @Test //cd (expected = NullPointerException.class)
+    public void testWaitTurn() throws InterruptedException, InvalidStatValueException {
+        Enemy enemyTwo = new Enemy("enemy2",30,10,20,queue);
         enemy.waitTurn();
-        Thread.sleep(6000);
-        assertEquals(enemy,queue.poll());
+        enemyTwo.waitTurn();
+        Thread.sleep(10000);
+        assertEquals("enemy",queue.poll().getName());
+        assertEquals("enemy2",queue.poll().getName());
     }
     @Test
     public void testToString() {
