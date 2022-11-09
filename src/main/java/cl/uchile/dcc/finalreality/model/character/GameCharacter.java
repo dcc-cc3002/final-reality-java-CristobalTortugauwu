@@ -12,6 +12,11 @@ import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 public interface GameCharacter {
 
   /**
+   * Adds this character to the turns queue.
+   */
+  void addToQueue();
+
+  /**
    * Sets a scheduled executor to make this character (thread) wait for {@code speed / 10}
    * seconds before adding the character to the queue.
    */

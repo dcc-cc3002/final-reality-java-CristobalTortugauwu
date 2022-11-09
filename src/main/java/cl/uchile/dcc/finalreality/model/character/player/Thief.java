@@ -10,7 +10,7 @@ package cl.uchile.dcc.finalreality.model.character.player;
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
-import java.util.Objects;
+import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponThief;
 import java.util.concurrent.BlockingQueue;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
  * @author ~Your name~
  * @version 2.0
  */
-public class Thief extends AbstractPlayerCharacter {
+public class Thief extends AbstractOrdinary {
 
   /**
    * Creates a new Thief.
@@ -41,28 +41,17 @@ public class Thief extends AbstractPlayerCharacter {
       throws InvalidStatValueException {
     super(name, maxHp, defense, turnsQueue);
   }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(Thief.class, name, maxHp, defense);
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (!(o instanceof final Thief that)) {
-      return false;
-    }
-    return hashCode() == that.hashCode()
-        && name.equals(that.name)
-        && maxHp == that.maxHp
-        && defense == that.defense;
-  }
+  /**
+   * Returns a string with the fields and the name of the class.
+   */
 
   @Override
   public String toString() {
     return "Thief{maxHp=%d, defense=%d, name='%s'}".formatted(maxHp, defense, name);
   }
+
+  public void equip(EquipWeaponThief weapon) {
+    weapon.equippableByThief(this);
+  }
+
 }

@@ -11,8 +11,11 @@ package cl.uchile.dcc.finalreality.model.character.player;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.AbstractCharacter;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
-import cl.uchile.dcc.finalreality.model.weapon.Weapon;
+import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -20,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * <p>All player characters have a {@code name}, a maximum amount of <i>hit points</i>
  * ({@code maxHp}), a {@code defense} value, a queue of {@link GameCharacter}s that are
- * waiting for their turn ({@code turnsQueue}), and can equip a {@link Weapon}.
+ * waiting for their turn ({@code turnsQueue}), and can equip a {@link Iweapon}.
  *
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author ~Your name~
@@ -28,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
 public abstract class AbstractPlayerCharacter extends AbstractCharacter implements
     PlayerCharacter {
 
-  private Weapon equippedWeapon = null;
+  private Iweapon equippedWeapon = null;
 
   /**
    * Creates a new character.
@@ -49,13 +52,30 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
     super(name, maxHp, defense, turnsQueue);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
-  public void equip(Weapon weapon) {
-    this.equippedWeapon = weapon;
+  public void waitTurn() {
+    scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
+    scheduledExecutor.schedule(
+                  /* command = */ this::addToQueue,
+                  /* delay = */ this.getEquippedWeapon().getWeight() / 10,
+                  /* unit = */ TimeUnit.SECONDS);
+  }
+
+  public void setWeapon(Iweapon weapon) {
+    equippedWeapon = weapon;
   }
 
   @Override
-  public Weapon getEquippedWeapon() {
+  public Iweapon getEquippedWeapon() {
     return equippedWeapon;
   }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(super.hashCode(), this.getClass());
+  }
+
 }

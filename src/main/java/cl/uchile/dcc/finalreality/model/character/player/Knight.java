@@ -10,7 +10,7 @@ package cl.uchile.dcc.finalreality.model.character.player;
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
-import java.util.Objects;
+import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponKnight;
 import java.util.concurrent.BlockingQueue;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
  * A {@link PlayerCharacter} that can equip {@code Sword}s,{@code Knife}s and
  * {@code Axe}s.
  */
-public class Knight extends AbstractPlayerCharacter {
+public class Knight extends AbstractOrdinary {
 
   /**
    * Creates a new Knight.
@@ -38,27 +38,19 @@ public class Knight extends AbstractPlayerCharacter {
     super(name, maxHp, defense, turnsQueue);
   }
 
+  /**
+   *{@inheritDoc}
+   */
   @Override
   public String toString() {
     return "Knight{maxHp=%d, defense=%d, name='%s'}".formatted(maxHp, defense, name);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(Knight.class, name, maxHp, defense);
+  /**
+   * This method only equip the weapons that are compatible with a Knight.
+   */
+  public void equip(EquipWeaponKnight weapon) {
+    weapon.equippableByKnight(this);
   }
 
-  @Override
-  public boolean equals(final Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (!(obj instanceof final Knight that)) {
-      return false;
-    }
-    return hashCode() == that.hashCode()
-        && name.equals(that.name)
-        && maxHp == that.maxHp
-        && defense == that.defense;
-  }
 }
