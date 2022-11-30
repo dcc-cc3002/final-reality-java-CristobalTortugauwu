@@ -73,4 +73,11 @@ public abstract class AbstractWeapon implements Iweapon {
             .formatted(name, damage, weight, getClass().getSimpleName());
   }
 
+  public boolean isNull() {
+    return false;
+  }
+
+  public boolean hasMagicDamage() {
+    return false;
+  }
 }

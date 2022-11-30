@@ -7,9 +7,14 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
 import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
+import cl.uchile.dcc.finalreality.model.character.player.ValidSpell.ValidBMSpell;
 import cl.uchile.dcc.finalreality.model.character.player.attackable.AttackableByEnemy;
 import cl.uchile.dcc.finalreality.model.character.player.attackable.AttackableByPlayerCharacter;
+import cl.uchile.dcc.finalreality.model.spells.BMSpells.BlackMageSpells;
+import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
+import cl.uchile.dcc.finalreality.model.weapon.Staff;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -18,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author ~Your name~
  */
-public class Enemy extends AbstractCharacter implements AttackableByPlayerCharacter {
+public class Enemy extends AbstractCharacter implements AttackableByPlayerCharacter, ValidBMSpell {
 
   private final int weight;
 
@@ -91,6 +96,31 @@ public class Enemy extends AbstractCharacter implements AttackableByPlayerCharac
   }
 
   public void attackableByPlayerCharacter(PlayerCharacter pc) throws InvalidStatValueException {
-    this.setCurrentHp(this.getCurrentHp()-pc.getEquippedWeapon().getDamage());
+    int enemyHp = this.getCurrentHp();
+    Iweapon weapon = pc.getEquippedWeapon();
+    int newHp = enemyHp-weapon.getDamage();
+    if(weapon.isNull())
+        if(newHp<=0)
+            this.setCurrentHp(0);
+        else
+            this.setCurrentHp(newHp);
+  }
+
+  @Override
+  public void receiveBMSpell(BlackMage blackmage) throws InvalidStatValueException {
+      int enemyHp = this.getCurrentHp();
+      //We know that this weapon, has magicDamage. Pero sería mejor tener
+      //una clase que represente a los weapons que tengan magic damage, para que sea extensible
+      //por ahora dejemoslo así XD
+      Staff weapon = (Staff) blackmage.getEquippedWeapon();
+      BlackMageSpells spell = blackmage.getSpell();
+      int newHp = enemyHp-weapon.getMagicDamage();
+      if(weapon.isNull())
+        if(newHp<=0)
+          this.setCurrentHp(0);
+        else
+          this.setCurrentHp(newHp);
+      //Now we have to apply te effect of the spell
+      
   }
 }

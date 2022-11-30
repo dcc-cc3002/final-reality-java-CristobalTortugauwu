@@ -12,4 +12,8 @@ public interface Iweapon {
 
   String getName();
 
+  boolean isNull();
+
+  boolean hasMagicDamage();
+
 }

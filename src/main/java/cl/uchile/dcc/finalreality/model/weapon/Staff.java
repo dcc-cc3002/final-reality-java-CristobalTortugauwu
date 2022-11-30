@@ -61,11 +61,14 @@ public class Staff extends AbstractWeapon implements EquipWeaponBlackMage, Equip
   }
 
   public void equippableByBlackMage(BlackMage blackmage) {
-    blackmage.setWeapon(this);
+      blackmage.setWeapon(this);
   }
 
   public void equippableByWhiteMage(WhiteMage whitemage) {
-    whitemage.setWeapon(this);
+      whitemage.setWeapon(this);
   }
 
+  public boolean hasMagicDamage() {
+    return true;
+  }
 }
