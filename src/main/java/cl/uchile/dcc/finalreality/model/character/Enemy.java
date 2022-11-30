@@ -6,6 +6,10 @@ import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+
+import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
+import cl.uchile.dcc.finalreality.model.character.player.attackable.AttackableByEnemy;
+import cl.uchile.dcc.finalreality.model.character.player.attackable.AttackableByPlayerCharacter;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -14,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author ~Your name~
  */
-public class Enemy extends AbstractCharacter {
+public class Enemy extends AbstractCharacter implements AttackableByPlayerCharacter {
 
   private final int weight;
 
@@ -80,5 +84,13 @@ public class Enemy extends AbstractCharacter {
   public String toString() {
     return "Enemy{name='%s', damage=%d, weight=%d,, class='%s'}"
             .formatted(getName(), getMaxHp(), getWeight(), getClass().getSimpleName());
+  }
+
+  public void attack(AttackableByEnemy attacked) throws InvalidStatValueException {
+    attacked.attackableByEnemy(this);
+  }
+
+  public void attackableByPlayerCharacter(PlayerCharacter pc) throws InvalidStatValueException {
+    this.setCurrentHp(this.getCurrentHp()-pc.getEquippedWeapon().getDamage());
   }
 }

@@ -10,7 +10,10 @@ package cl.uchile.dcc.finalreality.model.character.player;
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.AbstractCharacter;
+import cl.uchile.dcc.finalreality.model.character.Enemy;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
+import cl.uchile.dcc.finalreality.model.character.player.attackable.AttackableByEnemy;
+import cl.uchile.dcc.finalreality.model.character.player.attackable.AttackableByPlayerCharacter;
 import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
@@ -29,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
  * @author ~Your name~
  */
 public abstract class AbstractPlayerCharacter extends AbstractCharacter implements
-    PlayerCharacter {
+    PlayerCharacter, AttackableByEnemy {
 
   private Iweapon equippedWeapon = null;
 
@@ -77,5 +80,11 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
   public int hashCode() {
     return Objects.hash(super.hashCode(), this.getClass());
   }
+  public void attack(AttackableByPlayerCharacter attacked) throws InvalidStatValueException {
+    attacked.attackableByPlayerCharacter(this);
+  }
 
+  public void attackableByEnemy(Enemy enemy) throws InvalidStatValueException {
+    this.setCurrentHp(this.getCurrentHp()-enemy.getWeight());
+  }
 }
