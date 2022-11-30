@@ -1,4 +1,7 @@
 package cl.uchile.dcc.finalreality.model.spells.WMSpells;
 
-public interface WhiteMageSpells {
+import cl.uchile.dcc.finalreality.model.spells.Spell;
+
+public interface WhiteMageSpells extends Spell {
+
 }

@@ -17,6 +17,7 @@ import java.util.concurrent.BlockingQueue;
 
 import cl.uchile.dcc.finalreality.model.character.player.ValidSpell.ValidBMSpell;
 import cl.uchile.dcc.finalreality.model.spells.BMSpells.BlackMageSpells;
+import cl.uchile.dcc.finalreality.model.weapon.Staff;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -28,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class BlackMage extends AbstractMage {
 
-  BlackMageSpells spell;
+  private BlackMageSpells spell;
   /**
    * Creates a new Black Mage.
    *
@@ -68,10 +69,11 @@ public class BlackMage extends AbstractMage {
   public BlackMageSpells getSpell() {
     return this.spell;
   }
-  //Implementar double dispatch, porque podrían haber enemigos inmunes a cierta magia
+
   public void useSpell(ValidBMSpell enemy) throws InvalidStatValueException {
       //If the object has magic damage, it can use spells, otherwise it won't
-      if(this.getEquippedWeapon().hasMagicDamage())
+    Staff weapon = (Staff) this.getEquippedWeapon();
+    if(this.getEquippedWeapon().hasMagicDamage() && !weapon.isNull())
           //implementar ataque
           enemy.receiveBMSpell(this);
   }

@@ -5,7 +5,10 @@ public class NullWeapon implements Iweapon{
     public NullWeapon() {
 
     }
-
+    @Override
+    public boolean hasMagicDamage(){
+        return false;
+    }
     @Override
     public int getDamage() {
         return 0;

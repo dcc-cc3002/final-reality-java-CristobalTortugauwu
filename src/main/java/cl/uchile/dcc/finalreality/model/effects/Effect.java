@@ -1,8 +1,8 @@
 package cl.uchile.dcc.finalreality.model.effects;
 
-import cl.uchile.dcc.finalreality.model.character.Enemy;
+import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 
 public interface Effect {
-    void applyEffect(Enemy enemy);
+    void applyEffect(GameCharacter gc);
 
 }

@@ -12,6 +12,7 @@ import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
 import cl.uchile.dcc.finalreality.model.character.player.ValidSpell.ValidBMSpell;
 import cl.uchile.dcc.finalreality.model.character.player.attackable.AttackableByEnemy;
 import cl.uchile.dcc.finalreality.model.character.player.attackable.AttackableByPlayerCharacter;
+import cl.uchile.dcc.finalreality.model.effects.Effect;
 import cl.uchile.dcc.finalreality.model.spells.BMSpells.BlackMageSpells;
 import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
 import cl.uchile.dcc.finalreality.model.weapon.Staff;
@@ -108,19 +109,16 @@ public class Enemy extends AbstractCharacter implements AttackableByPlayerCharac
 
   @Override
   public void receiveBMSpell(BlackMage blackmage) throws InvalidStatValueException {
-      int enemyHp = this.getCurrentHp();
       //We know that this weapon, has magicDamage. Pero sería mejor tener
       //una clase que represente a los weapons que tengan magic damage, para que sea extensible
       //por ahora dejemoslo así XD
       Staff weapon = (Staff) blackmage.getEquippedWeapon();
       BlackMageSpells spell = blackmage.getSpell();
-      int newHp = enemyHp-weapon.getMagicDamage();
-      if(weapon.isNull())
-        if(newHp<=0)
-          this.setCurrentHp(0);
-        else
-          this.setCurrentHp(newHp);
-      //Now we have to apply te effect of the spell
-      
+      int md = weapon.getMagicDamage();
+      spell.useBMSpell(this,md);
+      //Now we have to apply the effect of the spell
+      Effect effect = spell.getEffect();
+      if (Math.random()<=0.3)
+          effect.applyEffect(this);
   }
 }
