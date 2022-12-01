@@ -4,6 +4,6 @@ import cl.uchile.dcc.finalreality.model.effects.CompositeEffect;
 import cl.uchile.dcc.finalreality.model.effects.Effect;
 import cl.uchile.dcc.finalreality.model.spells.AbstractSpell;
 
-public class AbstractWhiteMageSpells extends AbstractSpell implements WhiteMageSpells {
+public abstract class AbstractWhiteMageSpells extends AbstractSpell implements WhiteMageSpells {
 
 }

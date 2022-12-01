@@ -71,7 +71,7 @@ public class BlackMage extends AbstractMage {
   }
 
   public void useSpell(ValidBMSpell enemy) throws InvalidStatValueException {
-      //If the object has magic damage, it can use spells, otherwise it won't
+    //If the object has magic damage, it can use spells, otherwise it won't
     Staff weapon = (Staff) this.getEquippedWeapon();
     if(this.getEquippedWeapon().hasMagicDamage() && !weapon.isNull())
           //implementar ataque

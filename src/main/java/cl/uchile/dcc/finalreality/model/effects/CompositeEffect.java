@@ -2,13 +2,13 @@ package cl.uchile.dcc.finalreality.model.effects;
 
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 
-import java.util.List;
+import java.util.HashSet;
 
 public class CompositeEffect implements Effect{
 
-    private List<Effect> effects = new List<Effect>;
+    private HashSet<Effect> effects = new HashSet<Effect>();
 
-    public List<Effect> getList() {
+    public HashSet<Effect> getList() {
         return this.effects;
     }
 
@@ -25,4 +25,5 @@ public class CompositeEffect implements Effect{
     public void removeEffect(Effect effect) {
         effects.remove(effect);
     }
+
 }

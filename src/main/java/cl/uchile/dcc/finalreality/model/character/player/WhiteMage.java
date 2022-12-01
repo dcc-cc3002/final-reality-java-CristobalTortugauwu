@@ -12,6 +12,8 @@ import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponWhiteMage;
 import java.util.concurrent.BlockingQueue;
+
+import cl.uchile.dcc.finalreality.model.character.player.ValidSpell.ValidWMSpell;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -50,5 +52,9 @@ public class WhiteMage extends AbstractMage {
 
   public void equip(EquipWeaponWhiteMage weapon) {
     weapon.equippableByWhiteMage(this);
+  }
+
+  public void useSpell(ValidWMSpell character) {
+
   }
 }
