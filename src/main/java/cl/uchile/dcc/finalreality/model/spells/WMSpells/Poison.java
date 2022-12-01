@@ -7,7 +7,7 @@ import cl.uchile.dcc.finalreality.model.effects.Paralyzed;
 import cl.uchile.dcc.finalreality.model.effects.Poisoned;
 import cl.uchile.dcc.finalreality.model.spells.WMSpells.WhiteMageSpells;
 
-public class Poison extends AbstractWhiteMageSpells implements WhiteMageSpells {
+public class Poison extends AbstractWhiteMageSpells {
 
     public int manaCost() {
         return 40;

@@ -4,7 +4,7 @@ import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import cl.uchile.dcc.finalreality.model.spells.WMSpells.WhiteMageSpells;
 
-public class Heal extends AbstractWhiteMageSpells implements WhiteMageSpells {
+public class Heal extends AbstractWhiteMageSpells {
 
     public int manaCost() {
         return 15;

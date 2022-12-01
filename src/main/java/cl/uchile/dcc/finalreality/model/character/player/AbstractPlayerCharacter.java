@@ -99,5 +99,5 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
     WhiteMageSpells spell = whitemage.getSpell();
     spell.useWMSpell(this);
   }
-  
+
 }

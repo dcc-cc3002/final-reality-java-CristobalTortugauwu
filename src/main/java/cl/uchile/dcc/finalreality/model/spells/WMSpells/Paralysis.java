@@ -5,7 +5,7 @@ import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import cl.uchile.dcc.finalreality.model.effects.CompositeEffect;
 import cl.uchile.dcc.finalreality.model.effects.Paralyzed;
 
-public class Paralysis extends AbstractWhiteMageSpells implements WhiteMageSpells {
+public class Paralysis extends AbstractWhiteMageSpells {
 
     public int manaCost() {
         return 25;
