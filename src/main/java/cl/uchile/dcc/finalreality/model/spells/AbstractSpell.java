@@ -13,4 +13,16 @@ public abstract class AbstractSpell implements Spell {
         return this.effect;
     }
 
+    /**
+     * This method exists solely with the purpose to verify if a spell can
+     * be used in an enemy or an ally. It's return false in case that it can be used on
+     * an enemy, and true otherwise.
+     * @return
+     */
+    public boolean spellOnAlly() {
+        return false;
+    }
+
+    public abstract int manaCost();
+
 }

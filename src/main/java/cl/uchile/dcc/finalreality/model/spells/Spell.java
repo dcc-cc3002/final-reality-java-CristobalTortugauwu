@@ -8,4 +8,8 @@ public interface Spell {
     void setEffect(CompositeEffect effects);
 
     CompositeEffect getEffect();
+
+    boolean spellOnAlly();
+
+    int manaCost();
 }

@@ -6,6 +6,7 @@ import cl.uchile.dcc.finalreality.model.effects.CompositeEffect;
 import cl.uchile.dcc.finalreality.model.effects.Paralyzed;
 
 public class Thunder extends AbstractBlackMageSpells {
+
     public void useBMSpell(Enemy enemy, int magicDamage) throws InvalidStatValueException {
         //First we do the magic damage
         int enemyHp = enemy.getCurrentHp();

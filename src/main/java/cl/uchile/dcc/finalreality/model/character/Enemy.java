@@ -12,11 +12,14 @@ import java.util.concurrent.TimeUnit;
 import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
 import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
 import cl.uchile.dcc.finalreality.model.character.player.ValidSpell.ValidBMSpell;
+import cl.uchile.dcc.finalreality.model.character.player.ValidSpell.ValidWMSpell;
+import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
 import cl.uchile.dcc.finalreality.model.character.player.attackable.AttackableByEnemy;
 import cl.uchile.dcc.finalreality.model.character.player.attackable.AttackableByPlayerCharacter;
 import cl.uchile.dcc.finalreality.model.effects.CompositeEffect;
 import cl.uchile.dcc.finalreality.model.effects.Effect;
 import cl.uchile.dcc.finalreality.model.spells.BMSpells.BlackMageSpells;
+import cl.uchile.dcc.finalreality.model.spells.WMSpells.WhiteMageSpells;
 import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
 import cl.uchile.dcc.finalreality.model.weapon.Staff;
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author ~Your name~
  */
-public class Enemy extends AbstractCharacter implements AttackableByPlayerCharacter, ValidBMSpell {
+public class Enemy extends AbstractCharacter implements AttackableByPlayerCharacter, ValidBMSpell, ValidWMSpell {
 
   private final int weight;
 
@@ -126,4 +129,12 @@ public class Enemy extends AbstractCharacter implements AttackableByPlayerCharac
       int md = weapon.getMagicDamage();
       spell.useBMSpell(this,md);
   }
+
+  @Override
+  public void receiveWMSpell(WhiteMage whitemage) throws InvalidStatValueException {
+      WhiteMageSpells spell = whitemage.getSpell();
+      spell.useWMSpell(this);
+  }
+
+
 }

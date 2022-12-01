@@ -14,6 +14,9 @@ import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.Eq
 import java.util.concurrent.BlockingQueue;
 
 import cl.uchile.dcc.finalreality.model.character.player.ValidSpell.ValidWMSpell;
+import cl.uchile.dcc.finalreality.model.spells.BMSpells.BlackMageSpells;
+import cl.uchile.dcc.finalreality.model.spells.WMSpells.WhiteMageSpells;
+import cl.uchile.dcc.finalreality.model.weapon.Staff;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -23,6 +26,8 @@ import org.jetbrains.annotations.NotNull;
  * @author ~Your name~
  */
 public class WhiteMage extends AbstractMage {
+
+  private WhiteMageSpells spell;
   /**
    * Creates a new character.
    *
@@ -51,10 +56,26 @@ public class WhiteMage extends AbstractMage {
   }
 
   public void equip(EquipWeaponWhiteMage weapon) {
-    weapon.equippableByWhiteMage(this);
+      weapon.equippableByWhiteMage(this);
+  }
+
+  public void setSpell(WhiteMageSpells spell) {
+      this.spell = spell;
+  }
+
+  public WhiteMageSpells getSpell() {
+      return this.spell;
   }
 
   public void useSpell(ValidWMSpell character) {
-
+      //First we check if the mage has enough mana to use the spell
+      WhiteMageSpells spell = this.getSpell();
+      int totalMana = (this.getCurrentMana()-spell.manaCost());
+      if(totalMana<0)
+          //If the mage doesn't have enough mana, it can't use the spell
+          return;
+      Staff weapon = (Staff) this.getEquippedWeapon();
+      if(!weapon.isNull())
+          character.receiveWMSpell(this);
   }
 }

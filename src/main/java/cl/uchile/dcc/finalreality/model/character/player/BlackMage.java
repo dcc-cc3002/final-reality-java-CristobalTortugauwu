@@ -71,6 +71,12 @@ public class BlackMage extends AbstractMage {
   }
 
   public void useSpell(ValidBMSpell enemy) throws InvalidStatValueException {
+    //First we check if the mage has enough mana to use the spell
+    BlackMageSpells spell = this.getSpell();
+    int totalMana = (this.getCurrentMana()-spell.manaCost());
+    if(totalMana<0)
+        //If the mage doesn't have enough mana, it can't use the spell
+        return;
     //If the object has magic damage, it can use spells, otherwise it won't
     Staff weapon = (Staff) this.getEquippedWeapon();
     if(this.getEquippedWeapon().hasMagicDamage() && !weapon.isNull())

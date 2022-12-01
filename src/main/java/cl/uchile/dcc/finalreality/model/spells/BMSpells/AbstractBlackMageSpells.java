@@ -6,9 +6,9 @@ import cl.uchile.dcc.finalreality.model.effects.Effect;
 import cl.uchile.dcc.finalreality.model.spells.AbstractSpell;
 
 public abstract class AbstractBlackMageSpells extends AbstractSpell implements BlackMageSpells {
-    public void useBMSpell(Enemy enemy, int magicDamage) throws InvalidStatValueException {
-        int enemyHp = enemy.getCurrentHp();
-        int newHp = enemyHp-magicDamage;
-        enemy.setCurrentHp(Math.max(newHp, 0));
+    public abstract void useBMSpell(Enemy enemy, int magicDamage) throws InvalidStatValueException;
+
+    public int manaCost() {
+        return 15;
     }
 }
