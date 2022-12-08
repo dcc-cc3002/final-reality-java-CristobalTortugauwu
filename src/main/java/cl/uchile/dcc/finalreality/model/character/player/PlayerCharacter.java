@@ -26,5 +26,6 @@ public interface PlayerCharacter extends GameCharacter {
 
   void equip(Iweapon weapon);
 
+  boolean hasMana();
 
 }

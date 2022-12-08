@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ScheduledExecutorService;
+
 
 import static org.junit.Assert.*;
 
@@ -42,6 +42,8 @@ public class AbstractCharactersTest {
     public void testAddToQueue() {
         enemy.addToQueue();
         enemy.addToQueue();
+        player.addToQueue();
+        queue.poll();
         queue.poll();
         System.out.println(queue.isEmpty());
     }

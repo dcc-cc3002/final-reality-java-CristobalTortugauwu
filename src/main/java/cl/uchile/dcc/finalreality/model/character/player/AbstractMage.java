@@ -68,4 +68,9 @@ public abstract class AbstractMage extends AbstractPlayerCharacter implements Ma
     Require.statValueAtMost(maxMana, currentMana, "Current Mana");
     this.currentMana = currentMana;
   }
+
+  @Override
+  public boolean hasMana() {
+    return true;
+  }
 }

@@ -8,13 +8,13 @@ public class CompositeEffect implements Effect{
 
     private HashSet<Effect> effects = new HashSet<Effect>();
 
-    public HashSet<Effect> getList() {
+    public HashSet<Effect> getHashSet() {
         return this.effects;
     }
 
     //Quiero que los efectos sean únicos, para que no se acumulen (?) ayudaaaa
     public void applyEffect(GameCharacter gc) {
-        for(Effect i : this.getList())
+        for(Effect i : this.getHashSet())
               i.applyEffect(gc);
     }
 

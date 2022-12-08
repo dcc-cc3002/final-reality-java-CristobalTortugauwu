@@ -102,4 +102,7 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
     spell.useWMSpell(this);
   }
 
+  public boolean hasMana() {
+      return false;
+  }
 }
