@@ -69,6 +69,8 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
                   /* unit = */ TimeUnit.SECONDS);
   }
 
+  public abstract void equip(Iweapon weapon);
+
   public void setWeapon(Iweapon weapon) {
     equippedWeapon = weapon;
   }

@@ -1,15 +1,13 @@
 package cl.uchile.dcc.finalreality.model.weapon;
 
 import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
-import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponBlackMage;
-import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponWhiteMage;
 import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
 import java.util.Objects;
 
 /**
  * Abstract Weapon class.
  */
-public class Staff extends AbstractWeapon implements EquipWeaponBlackMage, EquipWeaponWhiteMage {
+public class Staff extends AbstractWeapon {
 
   private final int magicDamage;
 

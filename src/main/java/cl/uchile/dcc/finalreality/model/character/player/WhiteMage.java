@@ -10,12 +10,10 @@ package cl.uchile.dcc.finalreality.model.character.player;
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
-import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponWhiteMage;
 import java.util.concurrent.BlockingQueue;
-
 import cl.uchile.dcc.finalreality.model.character.player.ValidSpell.ValidWMSpell;
-import cl.uchile.dcc.finalreality.model.spells.BMSpells.BlackMageSpells;
 import cl.uchile.dcc.finalreality.model.spells.WMSpells.WhiteMageSpells;
+import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
 import cl.uchile.dcc.finalreality.model.weapon.Staff;
 import org.jetbrains.annotations.NotNull;
 
@@ -55,7 +53,8 @@ public class WhiteMage extends AbstractMage {
         .formatted(this.getMaxMana(), maxHp, defense, name);
   }
 
-  public void equip(EquipWeaponWhiteMage weapon) {
+  @Override
+  public void equip(Iweapon weapon) {
       weapon.equippableByWhiteMage(this);
   }
 
@@ -67,7 +66,7 @@ public class WhiteMage extends AbstractMage {
       return this.spell;
   }
 
-  public void useSpell(ValidWMSpell character) {
+  public void useSpell(ValidWMSpell character) throws InvalidStatValueException {
       //First we check if the mage has enough mana to use the spell
       WhiteMageSpells spell = this.getSpell();
       int totalMana = (this.getCurrentMana()-spell.manaCost());

@@ -24,5 +24,7 @@ public interface PlayerCharacter extends GameCharacter {
 
   void setWeapon(Iweapon weapon);
 
+  void equip(Iweapon weapon);
+
 
 }

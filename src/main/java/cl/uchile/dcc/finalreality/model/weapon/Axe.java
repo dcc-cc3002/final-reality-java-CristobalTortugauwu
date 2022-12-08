@@ -1,15 +1,13 @@
 package cl.uchile.dcc.finalreality.model.weapon;
 
 import cl.uchile.dcc.finalreality.model.character.player.Engineer;
-import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponEngineer;
-import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponKnight;
 import cl.uchile.dcc.finalreality.model.character.player.Knight;
 import java.util.Objects;
 
 /**
  * Axe class.
  */
-public class Axe extends AbstractWeapon implements EquipWeaponKnight, EquipWeaponEngineer {
+public class Axe extends AbstractWeapon {
   /**
    * Axe constructor.
    */

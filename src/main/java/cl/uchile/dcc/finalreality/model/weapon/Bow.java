@@ -1,15 +1,13 @@
 package cl.uchile.dcc.finalreality.model.weapon;
 
 import cl.uchile.dcc.finalreality.model.character.player.Engineer;
-import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponEngineer;
-import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponThief;
 import cl.uchile.dcc.finalreality.model.character.player.Thief;
 import java.util.Objects;
 
 /**
  * Bow class.
  */
-public class Bow extends AbstractWeapon implements EquipWeaponEngineer, EquipWeaponThief {
+public class Bow extends AbstractWeapon {
   /**
    *  Bow class constructor.
    */

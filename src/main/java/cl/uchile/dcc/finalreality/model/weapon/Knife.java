@@ -1,9 +1,6 @@
 package cl.uchile.dcc.finalreality.model.weapon;
 
 import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
-import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponBlackMage;
-import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponKnight;
-import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponThief;
 import cl.uchile.dcc.finalreality.model.character.player.Knight;
 import cl.uchile.dcc.finalreality.model.character.player.Thief;
 import java.util.Objects;
@@ -11,8 +8,7 @@ import java.util.Objects;
 /**
  * Knife class.
  */
-public class Knife extends  AbstractWeapon implements EquipWeaponKnight,
-        EquipWeaponThief, EquipWeaponBlackMage {
+public class Knife extends  AbstractWeapon {
   /**
    * Knife Class constructor.
    */

@@ -1,5 +1,7 @@
 package cl.uchile.dcc.finalreality.model.weapon;
 
+import cl.uchile.dcc.finalreality.model.character.player.*;
+
 import java.util.Objects;
 
 /**
@@ -73,6 +75,33 @@ public abstract class AbstractWeapon implements Iweapon {
             .formatted(name, damage, weight, getClass().getSimpleName());
   }
 
+  void error() {
+    throw new AssertionError("No se puede equipar");
+  };
+
+  @Override
+  public void equippableByKnight(Knight knight) {
+    error();
+  }
+
+  @Override
+  public void equippableByThief(Thief thief) {
+    error();
+  }
+
+  @Override
+  public void equippableByEngineer(Engineer engineer) {
+    error();
+  }
+  @Override
+  public void equippableByWhiteMage(WhiteMage whitemage) {
+    error();
+  }
+
+  @Override
+  public void equippableByBlackMage(BlackMage blackmage) {
+    error();
+  }
   public boolean isNull() {
     return false;
   }

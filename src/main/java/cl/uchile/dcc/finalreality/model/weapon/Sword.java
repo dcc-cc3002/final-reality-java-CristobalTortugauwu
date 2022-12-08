@@ -1,7 +1,5 @@
 package cl.uchile.dcc.finalreality.model.weapon;
 
-import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponKnight;
-import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponThief;
 import cl.uchile.dcc.finalreality.model.character.player.Knight;
 import cl.uchile.dcc.finalreality.model.character.player.Thief;
 import java.util.Objects;
@@ -9,7 +7,7 @@ import java.util.Objects;
 /**
  * Sword class.
  */
-public class Sword extends AbstractWeapon implements EquipWeaponKnight, EquipWeaponThief {
+public class Sword extends AbstractWeapon {
   /**
    * Sword class constructor.
    * */

@@ -10,8 +10,9 @@ package cl.uchile.dcc.finalreality.model.character.player;
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
-import cl.uchile.dcc.finalreality.model.character.player.InterfacesEquippable.EquipWeaponThief;
 import java.util.concurrent.BlockingQueue;
+
+import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -50,7 +51,7 @@ public class Thief extends AbstractOrdinary {
     return "Thief{maxHp=%d, defense=%d, name='%s'}".formatted(maxHp, defense, name);
   }
 
-  public void equip(EquipWeaponThief weapon) {
+  public void equip(Iweapon weapon) {
     weapon.equippableByThief(this);
   }
 

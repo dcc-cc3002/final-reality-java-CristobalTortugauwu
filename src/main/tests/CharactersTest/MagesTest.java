@@ -36,11 +36,13 @@ public class MagesTest extends AbstractMageTest{
         blackmage.setWeapon(null);
     }
 
-    @Test
+
+    @Test(expected = AssertionError.class)
     public void testEquipWhiteMage() {
         assertEquals(null,whitemage.getEquippedWeapon());
         whitemage.equip(staff);
         assertEquals(staff,whitemage.getEquippedWeapon());
+        whitemage.equip(knife);
 
     }
     @Test
