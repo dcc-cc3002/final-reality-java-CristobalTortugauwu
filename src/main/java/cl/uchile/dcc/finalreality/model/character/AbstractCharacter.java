@@ -5,6 +5,8 @@ import cl.uchile.dcc.finalreality.exceptions.Require;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
+
+import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
 import org.jetbrains.annotations.NotNull;
 
 //import org.jetbrains.annotations.NotNull;
@@ -114,4 +116,21 @@ public abstract class AbstractCharacter implements GameCharacter {
     Require.statValueAtMost(maxHp, hp, "Current HP");
     currentHp = hp;
   }
+
+  void error() {
+    throw new AssertionError("You can't attack this character");
+  };
+
+  public abstract void attack(GameCharacter target)  throws InvalidStatValueException;
+
+  public void attackableByPlayerCharacter(PlayerCharacter pc) throws InvalidStatValueException{
+    error();
+  }
+
+  public void attackableByEnemy(Enemy enemy) throws InvalidStatValueException {
+    error();
+  }
+
+
+
 }

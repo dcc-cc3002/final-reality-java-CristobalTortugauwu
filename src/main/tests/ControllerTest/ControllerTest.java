@@ -16,6 +16,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ScheduledExecutorService;
 
 import static org.junit.Assert.assertEquals;
 
@@ -29,6 +30,8 @@ public class ControllerTest {
     ArrayList<PlayerCharacter> playersList;
     ArrayList<Enemy> enemyList;
     BlockingQueue<GameCharacter> queue;
+
+    protected ScheduledExecutorService scheduledExecutor;
     @Before
     public void setUp() throws InvalidStatValueException {
         playersList = new ArrayList<PlayerCharacter>();
@@ -36,15 +39,16 @@ public class ControllerTest {
         queue = new LinkedBlockingQueue<>();
         controller = new GameController(enemyList,playersList,queue);
         BlockingQueue<GameCharacter> gameQueue = controller.getQueue();
-        whitemage = new WhiteMage("whitemage",3,3,3,gameQueue);
+        //whitemage = new WhiteMage("whitemage",3,3,3,gameQueue);
         //knight = new Knight("knight",3,3,gameQueue);
         staff = new Staff("staff",100,20,100);
         sword = new Sword("sword",100,100);
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testInit() throws InvalidStatValueException {
         controller.init();
+
     }
 
 

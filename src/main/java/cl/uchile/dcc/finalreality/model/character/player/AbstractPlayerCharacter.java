@@ -34,7 +34,7 @@ import org.jetbrains.annotations.NotNull;
  * @author ~Your name~
  */
 public abstract class AbstractPlayerCharacter extends AbstractCharacter implements
-    PlayerCharacter, AttackableByEnemy, ValidWMSpell {
+    PlayerCharacter, ValidWMSpell {
 
   private Iweapon equippedWeapon = null;
 
@@ -84,17 +84,16 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
   public int hashCode() {
     return Objects.hash(super.hashCode(), this.getClass());
   }
-  public void attack(AttackableByPlayerCharacter attacked) throws InvalidStatValueException {
+
+  @Override
+  public void attack(GameCharacter attacked) throws InvalidStatValueException {
     attacked.attackableByPlayerCharacter(this);
   }
 
   public void attackableByEnemy(Enemy enemy) throws InvalidStatValueException {
     int playerHp = this.getCurrentHp();
     int newHp = playerHp - enemy.getWeight();
-    if(newHp<=0)
-        this.setCurrentHp(0);
-    else
-        this.setCurrentHp(newHp);
+    this.setCurrentHp(Math.max(newHp, 0));
   }
   @Override
   public void receiveWMSpell(WhiteMage whitemage) throws InvalidStatValueException {

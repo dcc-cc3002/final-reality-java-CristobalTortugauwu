@@ -14,10 +14,7 @@ import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
 import cl.uchile.dcc.finalreality.model.character.player.ValidSpell.ValidBMSpell;
 import cl.uchile.dcc.finalreality.model.character.player.ValidSpell.ValidWMSpell;
 import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
-import cl.uchile.dcc.finalreality.model.character.player.attackable.AttackableByEnemy;
-import cl.uchile.dcc.finalreality.model.character.player.attackable.AttackableByPlayerCharacter;
 import cl.uchile.dcc.finalreality.model.effects.CompositeEffect;
-import cl.uchile.dcc.finalreality.model.effects.Effect;
 import cl.uchile.dcc.finalreality.model.spells.BMSpells.BlackMageSpells;
 import cl.uchile.dcc.finalreality.model.spells.WMSpells.WhiteMageSpells;
 import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
@@ -30,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author ~Your name~
  */
-public class Enemy extends AbstractCharacter implements AttackableByPlayerCharacter, ValidBMSpell, ValidWMSpell {
+public class Enemy extends AbstractCharacter implements ValidBMSpell, ValidWMSpell {
 
   private final int weight;
 
@@ -107,10 +104,13 @@ public class Enemy extends AbstractCharacter implements AttackableByPlayerCharac
   public CompositeEffect getEffects() {
       return this.effects;
   }
-  public void attack(AttackableByEnemy attacked) throws InvalidStatValueException {
-    attacked.attackableByEnemy(this);
+
+  @Override
+  public void attack(GameCharacter target) throws InvalidStatValueException {
+    target.attackableByEnemy(this);
   }
 
+  @Override
   public void attackableByPlayerCharacter(PlayerCharacter pc) throws InvalidStatValueException {
     int enemyHp = this.getCurrentHp();
     Iweapon weapon = pc.getEquippedWeapon();

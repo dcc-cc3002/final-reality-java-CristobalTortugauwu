@@ -9,9 +9,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class GameController {
-    private final BlockingQueue<GameCharacter> turnsQueue;
+    private BlockingQueue<GameCharacter> turnsQueue;
     private final ArrayList<PlayerCharacter> playersList;
     private final ArrayList<Enemy> enemyList;
 
@@ -25,11 +26,12 @@ public class GameController {
     }
 
     public void init() throws InvalidStatValueException {
+        turnsQueue = new LinkedBlockingQueue<>();
+        this.createEnemy("enemy",1000,10,100);
         //getPlayerCharacterList().add(p1);
         //getPlayerCharacterList().add(p2);
         //we will add only enemy in the constructor
-        Enemy enemy = new Enemy("enemy1",100 ,1000,10,this.turnsQueue);
-
+        //this.createEnemy("enemy1",1000,10,100);
         //this.createPlayer("enemy1",100,1000,10);
         /**
         playersList.get(0).equip(w1);
@@ -93,16 +95,44 @@ public class GameController {
         this.getEnemyList().add(enemy);
     }
 
-    public void attack(GameCharacter attacker, GameCharacter target) {
-        //Ataca al target
+    public void attackByPlayerCharacter(PlayerCharacter attacker, GameCharacter target) throws InvalidStatValueException {
+        //First we see if the playerCharacter belongs to the party (i.e, isn't death), and the enemy is alive
+        if(this.getPlayerCharacterList().contains(attacker) && this.getEnemyList().contains((Enemy)target)) {
+
+            attacker.attack(target);
+        }
+        //do nothing
     }
 
+    public static void main(String[] args) {
+        int a = 100;
+        int b = 200;
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        list.add(a); list.add(b);
+        int newValue = list.get(0);
+        list.remove(a);
+        newValue =- 20;
+        list.add(newValue);
+        System.out.println(list.get(0));
+    }
+    public void attackByEnemy(Enemy attacker, GameCharacter target) throws InvalidStatValueException {
+        //First we see if the playerCharacter belongs to the party (i.e, isn't death), and the enemy is alive
+        if(this.getPlayerCharacterList().contains((PlayerCharacter) target) && this.getEnemyList().contains(attacker)) {
+            this.getEnemyList();
+            attacker.attack(target);
+        }
+        //do nothing
+    }
     public void useMagic(GameCharacter attacker, GameCharacter target) {
-      //Uses spell on a target
+        //We know that only mages are allowed to use magic
     }
 
-    public void waitTurn(GameCharacter character) {
-        // TODO: Call the waitTurn method of the character
+    public void waitTurnByEnemy(Enemy enemy) {
+        if(this.getEnemyList().contains(enemy));
+
+    }
+    public void waitTurnByPlayerCharacter(PlayerCharacter pc) {
+
     }
 
     public void onPlayerWin() {

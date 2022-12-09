@@ -1,6 +1,7 @@
 package cl.uchile.dcc.finalreality.model.character;
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
+import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
 
 /**
  * This represents a character from the game.
@@ -50,6 +51,10 @@ public interface GameCharacter {
   /**
    *
     */
-  //void attack(GameCharacter gamecharacter) throws InvalidStatValueException;
+  void attack(GameCharacter gamecharacter) throws InvalidStatValueException;
+
+  void attackableByPlayerCharacter(PlayerCharacter pc) throws InvalidStatValueException;
+
+  void attackableByEnemy(Enemy enemy) throws InvalidStatValueException;
 
 }
