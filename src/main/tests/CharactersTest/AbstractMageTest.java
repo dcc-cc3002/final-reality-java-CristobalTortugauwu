@@ -3,10 +3,12 @@ package CharactersTest;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
+import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
 import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -30,6 +32,17 @@ public class AbstractMageTest {
 
     }
 
+    @Test
+    public void changeValue() throws InvalidStatValueException {
+        ArrayList<PlayerCharacter> list = new ArrayList<PlayerCharacter>();
+        list.add(whitemage); list.add(blackmage);
+        BlackMage blackmage2 = new BlackMage("newbm",5,51,3,queue2);
+        int i = list.indexOf(blackmage);
+        list.set(i,blackmage2);
+        for(int k =0 ;k<2;k++) {
+            System.out.println(list.get(k));
+        }
+    }
     @Test
     public void testEquals() throws InvalidStatValueException {
         WhiteMage expected = new WhiteMage("whitemage",2,2,40,queue2);
