@@ -8,12 +8,13 @@
 
 package cl.uchile.dcc.finalreality.model.character.player;
 
+import cl.uchile.dcc.finalreality.ArgObsPattern;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.AbstractCharacter;
 import cl.uchile.dcc.finalreality.model.character.Enemy;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
-import cl.uchile.dcc.finalreality.model.character.player.ValidSpell.ValidWhiteMageSpell;
-import cl.uchile.dcc.finalreality.model.spells.WhiteMageSpells.WhiteMageSpells;
+import cl.uchile.dcc.finalreality.model.character.player.validspell.ValidWhiteMageSpell;
+import cl.uchile.dcc.finalreality.model.spells.whitemagespells.WhiteMageSpells;
 import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
@@ -91,7 +92,8 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
   public void attackableByEnemy(Enemy enemy) throws InvalidStatValueException {
     int playerHp = this.getCurrentHp();
     int newHp = playerHp - enemy.getWeight();
-    this.setCurrentHp(Math.max(newHp, 0));
+    setChanged();
+    notifyObservers(new ArgObsPattern("attack", Math.max(newHp, 0), 0));
   }
 
   @Override

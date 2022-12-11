@@ -13,8 +13,8 @@ import cl.uchile.dcc.finalreality.exceptions.Require;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import java.util.concurrent.BlockingQueue;
 
-import cl.uchile.dcc.finalreality.model.character.player.ValidSpell.ValidBlackMageSpell;
-import cl.uchile.dcc.finalreality.model.spells.BlackMageSpells.BlackMageSpells;
+import cl.uchile.dcc.finalreality.model.character.player.validspell.ValidBlackMageSpell;
+import cl.uchile.dcc.finalreality.model.spells.blackmagespells.BlackMageSpells;
 import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
 import cl.uchile.dcc.finalreality.model.weapon.Staff;
 import org.jetbrains.annotations.NotNull;

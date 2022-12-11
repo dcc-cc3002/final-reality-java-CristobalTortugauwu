@@ -1,7 +1,7 @@
 package cl.uchile.dcc.finalreality;
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
-import cl.uchile.dcc.finalreality.gameState.GameState;
+import cl.uchile.dcc.finalreality.gamestate.GameState;
 import cl.uchile.dcc.finalreality.model.character.Enemy;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import cl.uchile.dcc.finalreality.model.character.player.*;
@@ -34,7 +34,7 @@ public class GameController implements Observer {
                    String name2, int hp2, int defense2, int mana2, int kind2, Iweapon
                    weapon2) throws InvalidStatValueException {
     turnsQueue = new LinkedBlockingQueue<>();
-    this.createEnemy("enemy", 1000, 10, 100);
+    this.createEnemy("enemy", 1000, 10, 50);
     this.createPlayer(name, hp, defense, mana, kind, weapon);
     this.createPlayer(name2, hp2, defense2, mana2, kind2, weapon2);
   }
@@ -66,8 +66,7 @@ public class GameController implements Observer {
     Engineer pc = new Engineer(name, hp, defense, this.getQueue());;
     try {
       pc.equip(weapon);
-    }
-    catch(AssertionError e) {
+    } catch (AssertionError e) {
       System.out.println("weapon isn't compatible with this character");
     }
     //At this point, we're completely sure that we are free of errors, so we add
@@ -80,12 +79,6 @@ public class GameController implements Observer {
  /**
   * This method creates a BlackMage and add it to the controller Queue, and also
   * add the controller as an observer to the BlackMage.
-  * @param name
-  * @param hp
-  * @param defense
-  * @param weapon
-  * @param mana
-  * @throws InvalidStatValueException
   */
   public void createBlackMage(String name, int hp, int defense, int mana,
                              Iweapon weapon) throws InvalidStatValueException {
@@ -112,11 +105,6 @@ public class GameController implements Observer {
   /**
    * This method creates a Knight and add it to the controller Queue, and also
    * add the controller as an observer to the Knight.
-   * @param name
-   * @param hp
-   * @param defense
-   * @param weapon
-   * @throws InvalidStatValueException
    */
   public void createKnight(String name, int hp, int defense, Iweapon weapon)
         throws InvalidStatValueException {
@@ -143,17 +131,12 @@ public class GameController implements Observer {
   /**
    * This method creates a Thief and add it to the controller Queue, and also
    * add the controller as an observer to the Thief.
-   *
-   * @param name
-   * @param hp
-   * @param defense
-   * @param weapon
-   * @throws InvalidStatValueException
    */
 
   public void createThief(String name, int hp, int defense, Iweapon weapon)
         throws InvalidStatValueException {
-    if(this.getPlayerCharacterList().size()==4) {
+
+    if (this.getPlayerCharacterList().size()==4) {
       System.out.println("the party is full");
       return;
     }
@@ -161,8 +144,7 @@ public class GameController implements Observer {
     Thief pc = new Thief(name, hp, defense, this.getQueue());;
     try {
       pc.equip(weapon);
-    }
-    catch(AssertionError e) {
+    } catch (AssertionError e) {
       System.out.println("weapon isn't compatible with this character");
     }
     //At this point, we're completely sure that we are free of errors, so we add
@@ -175,16 +157,11 @@ public class GameController implements Observer {
   /**
    * This method creates a BlackMage and add it to the controller Queue, and also
    * add the controller as an observer to the BlackMage.
-   * @param name
-   * @param hp
-   * @param defense
-   * @param weapon
-   * @param mana
-   * @throws InvalidStatValueException
    */
   public void createWhiteMage(String name, int hp, int defense, int mana,
                             Iweapon weapon) throws InvalidStatValueException {
-    if(this.getPlayerCharacterList().size()==4) {
+
+    if (this.getPlayerCharacterList().size() == 4) {
       System.out.println("the party is full");
       return;
     }
@@ -192,8 +169,7 @@ public class GameController implements Observer {
     WhiteMage pc = new WhiteMage(name, hp, defense,mana, this.getQueue());;
     try {
       pc.equip(weapon);
-    }
-    catch(AssertionError e) {
+    } catch (AssertionError e) {
       System.out.println("weapon isn't compatible with this character");
     }
     //At this point, we're completely sure that we are free of errors, so we add
@@ -206,14 +182,10 @@ public class GameController implements Observer {
   /**
    * This method creates an enemy, it's add the controller as an observer, and also
    * adds the new enemy to the queue.
-   * @param name
-   * @param hp
-   * @param defense
-   * @param weight
-   * @throws InvalidStatValueException
    */
   public void createEnemy(String name,int hp, int defense, int weight) throws InvalidStatValueException {
-    if(this.enemyList.size()==6)
+
+    if (this.enemyList.size() == 6)
       return;
     Enemy enemy = new Enemy(name, weight, hp , defense, this.getQueue());
     enemy.addObserver(this);
@@ -221,11 +193,15 @@ public class GameController implements Observer {
     enemy.addToQueue();
   }
 
-  public void attackByPlayerCharacter(PlayerCharacter attacker, GameCharacter target) throws InvalidStatValueException {
-  if(this.handleError(attacker,target))
-    return;
-  //First we see if the playerCharacter belongs to the party (i.e., isn't death), and the enemy is alive
-  if(this.getPlayerCharacterList().contains(attacker) && this.getEnemyList().contains((Enemy)target)) {
+  public void attackByPlayerCharacter(PlayerCharacter attacker,
+                                      GameCharacter target) throws InvalidStatValueException {
+
+    if (this.handleError(attacker,target))
+      return;
+    //First we see if the playerCharacter belongs to the party (i.e., isn't death), and the enemy is alive
+
+    if (this.getPlayerCharacterList().contains(attacker) &&
+            this.getEnemyList().contains((Enemy)target)) {
     ArrayList<Enemy> list = this.getEnemyList();
     int ind_pc = list.indexOf(target);
     attacker.attack(target);
@@ -240,9 +216,7 @@ public class GameController implements Observer {
     //First we see if the playerCharacter belongs to the party (i.e., isn't death), and the enemy is alive
     if(this.getPlayerCharacterList().contains((PlayerCharacter) target) && this.getEnemyList().contains(attacker)) {
         ArrayList<PlayerCharacter> list = this.getPlayerCharacterList();
-        int ind_pc = list.indexOf(target);
         attacker.attack(target);
-        list.set(ind_pc,(PlayerCharacter) target);
     }
     //do nothing
   }
@@ -293,12 +267,11 @@ public class GameController implements Observer {
   //If this method returns true, it's because it did find an error
   public boolean handleError(GameCharacter attacker, GameCharacter target) {
       //If the target is already death, it can't be attacked.
-      if(attacker.getCurrentHp()==0) {
+      if( attacker.getCurrentHp() == 0) {
           System.out.println("you can not attack");
           return true;
-      }
-      //if the attacker doesn't have hp, he also can not attack and his turn ends.
-      if(target.getCurrentHp()==0) {
+      } if (target.getCurrentHp() == 0) {
+          //if the attacker doesn't have hp, he also can not attack and his turn ends.
           System.out.println("select another target");
           return true;
       }
@@ -324,7 +297,6 @@ public class GameController implements Observer {
           ArgObsPattern newArg = (ArgObsPattern) arg;
           if(newArg.getAction().equals("attack")) {
               //Here we will reduce the hp of the GameCharacter that was attacked
-
           }
           else if(newArg.getAction().equals(("spell"))) {
               //in this section, we will reduce the mana of the playerCharacter that used the
