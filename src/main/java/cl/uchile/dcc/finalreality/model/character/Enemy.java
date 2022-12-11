@@ -1,35 +1,28 @@
 package cl.uchile.dcc.finalreality.model.character;
 
 import cl.uchile.dcc.finalreality.ArgObsPattern;
-import cl.uchile.dcc.finalreality.GameController;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.exceptions.Require;
-
-import java.awt.*;
+import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
+import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
+import cl.uchile.dcc.finalreality.model.character.player.ValidSpell.ValidBlackMageSpell;
+import cl.uchile.dcc.finalreality.model.character.player.ValidSpell.ValidWhiteMageSpell;
+import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
+import cl.uchile.dcc.finalreality.model.effects.CompositeEffect;
+import cl.uchile.dcc.finalreality.model.spells.BlackMageSpells.BlackMageSpells;
+import cl.uchile.dcc.finalreality.model.spells.WhiteMageSpells.WhiteMageSpells;
+import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
+import cl.uchile.dcc.finalreality.model.weapon.Staff;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
-import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
-import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
-import cl.uchile.dcc.finalreality.model.character.player.ValidSpell.ValidBMSpell;
-import cl.uchile.dcc.finalreality.model.character.player.ValidSpell.ValidWMSpell;
-import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
-import cl.uchile.dcc.finalreality.model.effects.CompositeEffect;
-import cl.uchile.dcc.finalreality.model.spells.BMSpells.BlackMageSpells;
-import cl.uchile.dcc.finalreality.model.spells.WMSpells.WhiteMageSpells;
-import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
-import cl.uchile.dcc.finalreality.model.weapon.Staff;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * A class that holds all the information of a single enemy of the game.
- *
- * @author <a href="https://www.github.com/r8vnhill">R8V</a>
- * @author ~Your name~
  */
-public class Enemy extends AbstractCharacter implements ValidBMSpell, ValidWMSpell {
+public class Enemy extends AbstractCharacter implements ValidBlackMageSpell, ValidWhiteMageSpell {
 
   private final int weight;
 
@@ -100,11 +93,11 @@ public class Enemy extends AbstractCharacter implements ValidBMSpell, ValidWMSpe
   }
 
   public void setEffects(CompositeEffect ce) {
-      this.effects = ce;
+    this.effects = ce;
   }
 
   public CompositeEffect getEffects() {
-      return this.effects;
+    return this.effects;
   }
 
   @Override
@@ -117,28 +110,28 @@ public class Enemy extends AbstractCharacter implements ValidBMSpell, ValidWMSpe
     int enemyHp = this.getCurrentHp();
     Iweapon weapon = pc.getEquippedWeapon();
     //If the weapon is not null, then the attack will be valid
-    if (!weapon.isNull()){
-        int newHp = enemyHp - weapon.getDamage();
-        setChanged();
-        notifyObservers(new ArgObsPattern("attack",Math.max(newHp, 0),0));
+    if (!weapon.isNull()) {
+      int newHp = enemyHp - weapon.getDamage();
+      setChanged();
+      notifyObservers(new ArgObsPattern("attack", Math.max(newHp, 0), 0));
     }
   }
 
   @Override
   public void receiveBMSpell(BlackMage blackmage) throws InvalidStatValueException {
-      //We know that this weapon, has magicDamage. Pero sería mejor tener
-      //una clase que represente a los weapons que tengan magic damage, para que sea extensible.
-      //Por ahora dejemoslo así XD
-      Staff weapon = (Staff) blackmage.getEquippedWeapon();
-      BlackMageSpells spell = blackmage.getSpell();
-      int md = weapon.getMagicDamage();
-      spell.useBMSpell(this,md);
+    //We know that this weapon, has magicDamage. Pero sería mejor tener
+    //una clase que represente a los weapons que tengan magic damage, para que sea extensible.
+    //Por ahora dejemoslo así XD
+    Staff weapon = (Staff) blackmage.getEquippedWeapon();
+    BlackMageSpells spell = blackmage.getSpell();
+    int md = weapon.getMagicDamage();
+    spell.useBlackMageSpell(this, md);
   }
 
   @Override
   public void receiveWMSpell(WhiteMage whitemage) throws InvalidStatValueException {
-      WhiteMageSpells spell = whitemage.getSpell();
-      spell.useWMSpell(this);
+    WhiteMageSpells spell = whitemage.getSpell();
+    spell.useWhiteMageSpell(this);
   }
 
 }

@@ -1,4 +1,4 @@
-package cl.uchile.dcc.finalreality.model.spells.WMSpells;
+package cl.uchile.dcc.finalreality.model.spells.WhiteMageSpells;
 
 import cl.uchile.dcc.finalreality.model.character.Enemy;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
@@ -10,7 +10,7 @@ public class Paralysis extends AbstractWhiteMageSpells {
     public int manaCost() {
         return 25;
     }
-    public void useWMSpell(GameCharacter gamecharacter){
+    public void useWhiteMageSpell(GameCharacter gamecharacter){
         if(this.spellOnAlly()){
              //At this point, we're sure that we can use the spell on an enemy.
              Enemy enemy = (Enemy) gamecharacter;

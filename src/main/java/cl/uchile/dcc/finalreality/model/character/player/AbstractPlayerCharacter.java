@@ -12,10 +12,8 @@ import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.AbstractCharacter;
 import cl.uchile.dcc.finalreality.model.character.Enemy;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
-import cl.uchile.dcc.finalreality.model.character.player.ValidSpell.ValidWMSpell;
-import cl.uchile.dcc.finalreality.model.character.player.attackable.AttackableByEnemy;
-import cl.uchile.dcc.finalreality.model.character.player.attackable.AttackableByPlayerCharacter;
-import cl.uchile.dcc.finalreality.model.spells.WMSpells.WhiteMageSpells;
+import cl.uchile.dcc.finalreality.model.character.player.ValidSpell.ValidWhiteMageSpell;
+import cl.uchile.dcc.finalreality.model.spells.WhiteMageSpells.WhiteMageSpells;
 import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
@@ -34,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
  * @author ~Your name~
  */
 public abstract class AbstractPlayerCharacter extends AbstractCharacter implements
-    PlayerCharacter, ValidWMSpell {
+    PlayerCharacter, ValidWhiteMageSpell {
 
   private Iweapon equippedWeapon = null;
 
@@ -95,13 +93,14 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
     int newHp = playerHp - enemy.getWeight();
     this.setCurrentHp(Math.max(newHp, 0));
   }
+
   @Override
   public void receiveWMSpell(WhiteMage whitemage) throws InvalidStatValueException {
     WhiteMageSpells spell = whitemage.getSpell();
-    spell.useWMSpell(this);
+    spell.useWhiteMageSpell(this);
   }
 
   public boolean hasMana() {
-      return false;
+    return false;
   }
 }
