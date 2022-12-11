@@ -13,7 +13,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
 import org.jetbrains.annotations.NotNull;
 
-//import org.jetbrains.annotations.NotNull;
 
 /**
  * An abstract class that holds the common behaviour of all the characters in the game.
@@ -40,14 +39,10 @@ public abstract class AbstractCharacter extends Observable implements GameCharac
   /**
    * Creates a new character.
    *
-   * @param name
-   *     the character's name
-   * @param maxHp
-   *     the character's max hp
-   * @param defense
-   *     the character's defense
-   * @param turnsQueue
-   *     the queue with the characters waiting for their turn
+   * @param name       the character's name
+   * @param maxHp      the character's max hp
+   * @param defense    the character's defense
+   * @param turnsQueue the queue with the characters waiting for their turn
    */
   protected AbstractCharacter(@NotNull String name, int maxHp, int defense,
                               @NotNull BlockingQueue<GameCharacter> turnsQueue)
@@ -130,11 +125,13 @@ public abstract class AbstractCharacter extends Observable implements GameCharac
 
   void error() {
     throw new AssertionError("You can't attack this character");
-  };
+  }
 
-  public abstract void attack(GameCharacter target)  throws InvalidStatValueException;
+  ;
 
-  public void attackableByPlayerCharacter(PlayerCharacter pc) throws InvalidStatValueException{
+  public abstract void attack(GameCharacter target) throws InvalidStatValueException;
+
+  public void attackableByPlayerCharacter(PlayerCharacter pc) throws InvalidStatValueException {
     error();
   }
 
@@ -148,14 +145,5 @@ public abstract class AbstractCharacter extends Observable implements GameCharac
    * Method that adds a new observer.
    * @param controller   an observer to be added.
    */
-  @Override
-  public void addObserver(Observer controller) {
-      this.addObserver(controller);
-  }
-
-  @Override
-  public void removeObserver(Observer controller) {
-      this.removeObserver(controller);
-  }
 
 }

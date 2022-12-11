@@ -60,8 +60,4 @@ public interface GameCharacter {
 
   void attackableByEnemy(Enemy enemy) throws InvalidStatValueException;
 
-  //Section of the methods implemented for the Observer pattern
-  void addObserver(Observer controller);
-
-  void removeObserver(Observer controller);
 }

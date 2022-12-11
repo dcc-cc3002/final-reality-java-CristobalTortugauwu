@@ -9,7 +9,6 @@ import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
 import org.jetbrains.annotations.NotNull;
 
 
-import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -38,7 +37,7 @@ public class GameController implements Observer {
         turnsQueue = new LinkedBlockingQueue<>();
         this.createEnemy("enemy",1000,10,100);
         this.createPlayer(name, hp, defense, mana, kind, weapon);
-        //this.createPlayer(name2,hp2, defense2, mana2, kind2, weapon2);
+        this.createPlayer(name2,hp2, defense2, mana2, kind2, weapon2);
     }
     public ArrayList<PlayerCharacter> getPlayerCharacterList() {
         return this.playersList;
@@ -52,34 +51,175 @@ public class GameController implements Observer {
         return this.turnsQueue;
     }
 
-    public void createPlayer(String name, int hp, int defense, int mana,int character,
-                             Iweapon weapon) throws InvalidStatValueException {
+    /**
+     * This method creates an Engineer and add it to the controller Queue, and also
+     * add the controller as an observer to the engineer.
+     * @param name
+     * @param hp
+     * @param defense
+     * @param weapon
+     * @throws InvalidStatValueException
+     */
+    public void createEngineer(String name, int hp, int defense, Iweapon weapon)
+            throws InvalidStatValueException {
         if(this.getPlayerCharacterList().size()==4) {
             System.out.println("the party is full");
             return;
         }
         //
-        PlayerCharacter pc = selectPlayerCharacter(name, hp, defense, mana, character);
-        pc.addToQueue();
+        Engineer pc = new Engineer(name, hp, defense, this.getQueue());;
         try {
             pc.equip(weapon);
         }
         catch(AssertionError e) {
             System.out.println("weapon isn't compatible with this character");
-            this.getQueue().remove(pc);
-            this.getPlayerCharacterList().remove(pc);
         }
-        this.getPlayerCharacterList().add(pc);
         //At this point, we're completely sure that we are free of errors, so we add
         //the controller as an observer to the playerCharacter
         pc.addObserver(this);
+        this.getPlayerCharacterList().add(pc);
+        pc.addToQueue();
     }
+
+    /**
+     * This method creates a BlackMage and add it to the controller Queue, and also
+     * add the controller as an observer to the BlackMage.
+     * @param name
+     * @param hp
+     * @param defense
+     * @param weapon
+     * @param mana
+     * @throws InvalidStatValueException
+     */
+    public void createBlackMage(String name, int hp, int defense, int mana,
+                               Iweapon weapon) throws InvalidStatValueException {
+        if(this.getPlayerCharacterList().size()==4) {
+            System.out.println("the party is full");
+            return;
+        }
+        //
+        BlackMage pc = new BlackMage(name, hp, defense,mana, this.getQueue());;
+        try {
+            pc.equip(weapon);
+        }
+        catch(AssertionError e) {
+            System.out.println("weapon isn't compatible with this character");
+        }
+        //At this point, we're completely sure that we are free of errors, so we add
+        //the controller as an observer to the playerCharacter
+        pc.addObserver(this);
+        this.getPlayerCharacterList().add(pc);
+        pc.addToQueue();
+    }
+
+    /**
+     * This method creates a Knight and add it to the controller Queue, and also
+     * add the controller as an observer to the Knight.
+     * @param name
+     * @param hp
+     * @param defense
+     * @param weapon
+     * @throws InvalidStatValueException
+     */
+    public void createKnight(String name, int hp, int defense, Iweapon weapon)
+            throws InvalidStatValueException {
+        if(this.getPlayerCharacterList().size()==4) {
+            System.out.println("the party is full");
+            return;
+        }
+        //
+        Knight pc = new Knight(name, hp, defense, this.getQueue());;
+        try {
+            pc.equip(weapon);
+        }
+        catch(AssertionError e) {
+            System.out.println("weapon isn't compatible with this character");
+        }
+        //At this point, we're completely sure that we are free of errors, so we add
+        //the controller as an observer to the playerCharacter
+        pc.addObserver(this);
+        this.getPlayerCharacterList().add(pc);
+        pc.addToQueue();
+    }
+
+    /**
+     * This method creates a Thief and add it to the controller Queue, and also
+     * add the controller as an observer to the Thief.
+     * @param name
+     * @param hp
+     * @param defense
+     * @param weapon
+     * @throws InvalidStatValueException
+     */
+
+    public void createThief(String name, int hp, int defense, Iweapon weapon)
+            throws InvalidStatValueException {
+        if(this.getPlayerCharacterList().size()==4) {
+            System.out.println("the party is full");
+            return;
+        }
+        //
+        Thief pc = new Thief(name, hp, defense, this.getQueue());;
+        try {
+            pc.equip(weapon);
+        }
+        catch(AssertionError e) {
+            System.out.println("weapon isn't compatible with this character");
+        }
+        //At this point, we're completely sure that we are free of errors, so we add
+        //the controller as an observer to the playerCharacter
+        pc.addObserver(this);
+        this.getPlayerCharacterList().add(pc);
+        pc.addToQueue();
+    }
+
+    /**
+     * This method creates a BlackMage and add it to the controller Queue, and also
+     * add the controller as an observer to the BlackMage.
+     * @param name
+     * @param hp
+     * @param defense
+     * @param weapon
+     * @param mana
+     * @throws InvalidStatValueException
+     */
+    public void createWhiteMage(String name, int hp, int defense, int mana,
+                                Iweapon weapon) throws InvalidStatValueException {
+        if(this.getPlayerCharacterList().size()==4) {
+            System.out.println("the party is full");
+            return;
+        }
+        //
+        WhiteMage pc = new WhiteMage(name, hp, defense,mana, this.getQueue());;
+        try {
+            pc.equip(weapon);
+        }
+        catch(AssertionError e) {
+            System.out.println("weapon isn't compatible with this character");
+        }
+        //At this point, we're completely sure that we are free of errors, so we add
+        //the controller as an observer to the playerCharacter
+        pc.addObserver(this);
+        this.getPlayerCharacterList().add(pc);
+        pc.addToQueue();
+    }
+
+    /**
+     * This method creates an enemy, it's add the controller as an observer, and also
+     * adds the new enemy to the queue.
+     * @param name
+     * @param hp
+     * @param defense
+     * @param weight
+     * @throws InvalidStatValueException
+     */
     public void createEnemy(String name,int hp, int defense, int weight) throws InvalidStatValueException {
         if(this.enemyList.size()==6)
             return;
         Enemy enemy = new Enemy(name, weight, hp , defense, this.getQueue());
-        enemy.addToQueue();
+        enemy.addObserver(this);
         this.getEnemyList().add(enemy);
+        enemy.addToQueue();
     }
 
     public void attackByPlayerCharacter(PlayerCharacter attacker, GameCharacter target) throws InvalidStatValueException {
@@ -128,19 +268,27 @@ public class GameController implements Observer {
     }
 
 
-    //This method is used to give us abstraction in the method createPlayer, and the most
-    //important part, is that it returns a PlayerCharacter
-    public PlayerCharacter selectPlayerCharacter(String name, int hp, int defense, int mana,
-                                                 int character) throws InvalidStatValueException {
-        return switch (character)
-                {
-                    case 0 -> new BlackMage(name, hp, defense, mana, this.getQueue());
-                    case 1 -> new Engineer(name, hp, defense, this.getQueue());
-                    case 2 -> new Knight(name, hp, defense, this.getQueue());
-                    case 3 -> new Thief(name, hp, defense, this.getQueue());
-                    case 4 -> new WhiteMage(name, hp, defense, mana, this.getQueue());
-                    default -> throw new IllegalStateException("Unexpected value: " + character);
-                };
+    /**
+     *This method is used in the init method, if someone wants to create a certain type of character
+     * he/she has to use the following ints in the character input:
+     *             case 0 -> createBlackMage(name, hp, defense, mana,weapon);
+     *             case 1 -> createEngineer(name, hp, defense, weapon);
+     *             case 2 -> createKnight(name, hp, defense, weapon);
+     *             case 3 -> createThief(name, hp, defense, weapon);
+     *             case 4 -> createWhiteMage(name, hp, defense, mana, weapon);
+     *             default -> throw new IllegalStateException("Unexpected value: " + character);
+     *
+    **/
+    public void createPlayer(String name, int hp, int defense, int mana,
+                             int character, Iweapon weapon) throws InvalidStatValueException {
+        switch (character) {
+            case 0 -> createBlackMage(name, hp, defense, mana,weapon);
+            case 1 -> createEngineer(name, hp, defense, weapon);
+            case 2 -> createKnight(name, hp, defense, weapon);
+            case 3 -> createThief(name, hp, defense, weapon);
+            case 4 -> createWhiteMage(name, hp, defense, mana, weapon);
+            default -> throw new IllegalStateException("Unexpected value: " + character);
+        };
     }
 
     //If this method returns true, it's because it did find an error
@@ -157,6 +305,8 @@ public class GameController implements Observer {
         }
         return false;
     }
+
+
 
     public void setState(GameState state) {
         this.state = state;

@@ -16,18 +16,17 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ScheduledExecutorService;
 
 import static org.junit.Assert.assertEquals;
 
 public class ControllerTest {
 
-    GameController controller;
-    Staff staff;
-    Sword sword;;
-    ArrayList<PlayerCharacter> playersList;
-    ArrayList<Enemy> enemyList;
-    BlockingQueue<GameCharacter> queue;
+    protected GameController controller;
+    protected Staff staff;
+    protected Sword sword;;
+    protected ArrayList<PlayerCharacter> playersList;
+    protected ArrayList<Enemy> enemyList;
+    protected BlockingQueue<GameCharacter> queue;
 
     @Before
     public void setUp() throws InvalidStatValueException {
