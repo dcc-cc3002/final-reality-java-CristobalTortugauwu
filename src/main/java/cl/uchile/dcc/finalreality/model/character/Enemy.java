@@ -1,5 +1,7 @@
 package cl.uchile.dcc.finalreality.model.character;
 
+import cl.uchile.dcc.finalreality.ArgObsPattern;
+import cl.uchile.dcc.finalreality.GameController;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.exceptions.Require;
 
@@ -114,9 +116,12 @@ public class Enemy extends AbstractCharacter implements ValidBMSpell, ValidWMSpe
   public void attackableByPlayerCharacter(PlayerCharacter pc) throws InvalidStatValueException {
     int enemyHp = this.getCurrentHp();
     Iweapon weapon = pc.getEquippedWeapon();
-    int newHp = enemyHp-weapon.getDamage();
-    if(weapon.isNull())
-      this.setCurrentHp(Math.max(newHp, 0));
+    //If the weapon is not null, then the attack will be valid
+    if (!weapon.isNull()){
+        int newHp = enemyHp - weapon.getDamage();
+        setChanged();
+        notifyObservers(new ArgObsPattern("attack",Math.max(newHp, 0),0));
+    }
   }
 
   @Override
@@ -135,6 +140,5 @@ public class Enemy extends AbstractCharacter implements ValidBMSpell, ValidWMSpe
       WhiteMageSpells spell = whitemage.getSpell();
       spell.useWMSpell(this);
   }
-
 
 }

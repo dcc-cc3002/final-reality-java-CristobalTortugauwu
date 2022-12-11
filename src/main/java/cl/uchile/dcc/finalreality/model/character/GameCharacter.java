@@ -1,7 +1,10 @@
 package cl.uchile.dcc.finalreality.model.character;
 
+import cl.uchile.dcc.finalreality.GameController;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
+
+import java.util.Observer;
 
 /**
  * This represents a character from the game.
@@ -57,4 +60,8 @@ public interface GameCharacter {
 
   void attackableByEnemy(Enemy enemy) throws InvalidStatValueException;
 
+  //Section of the methods implemented for the Observer pattern
+  void addObserver(Observer controller);
+
+  void removeObserver(Observer controller);
 }

@@ -4,7 +4,7 @@ public class EnemyTurnState extends GameState {
 
     @Override
     public void enemyTurnAction() {
-        
+
     }
 }
 

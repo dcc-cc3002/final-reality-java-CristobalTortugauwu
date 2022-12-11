@@ -1,8 +1,12 @@
 package cl.uchile.dcc.finalreality.model.character;
 
+import cl.uchile.dcc.finalreality.GameController;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.exceptions.Require;
+
 import java.util.Objects;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -14,17 +18,24 @@ import org.jetbrains.annotations.NotNull;
 /**
  * An abstract class that holds the common behaviour of all the characters in the game.
  *
+ * We will use observable instead of propertychangesupport because it´s easier XD,
+ * I will change it after I've delivered the last task
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author ~Your name~
  */
-public abstract class AbstractCharacter implements GameCharacter {
+public abstract class AbstractCharacter extends Observable implements GameCharacter {
 
+  //attributes of the character
   private int currentHp;
   protected int maxHp;
   protected int defense;
-  protected final BlockingQueue<GameCharacter> turnsQueue;
   protected final String name;
+
+  //Queue elements
+  protected final BlockingQueue<GameCharacter> turnsQueue;
   protected ScheduledExecutorService scheduledExecutor;
+
+  //Observer Pattern variable
 
   /**
    * Creates a new character.
@@ -131,6 +142,20 @@ public abstract class AbstractCharacter implements GameCharacter {
     error();
   }
 
+  //---------Section of the observer pattern methods.-----------
 
+  /**
+   * Method that adds a new observer.
+   * @param controller   an observer to be added.
+   */
+  @Override
+  public void addObserver(Observer controller) {
+      this.addObserver(controller);
+  }
+
+  @Override
+  public void removeObserver(Observer controller) {
+      this.removeObserver(controller);
+  }
 
 }

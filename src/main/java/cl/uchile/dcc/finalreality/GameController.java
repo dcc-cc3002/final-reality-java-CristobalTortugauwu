@@ -11,10 +11,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class GameController {
+public class GameController implements Observer {
     private BlockingQueue<GameCharacter> turnsQueue;
     private final ArrayList<PlayerCharacter> playersList;
     private final ArrayList<Enemy> enemyList;
@@ -36,7 +38,7 @@ public class GameController {
         turnsQueue = new LinkedBlockingQueue<>();
         this.createEnemy("enemy",1000,10,100);
         this.createPlayer(name, hp, defense, mana, kind, weapon);
-        this.createPlayer(name2,hp2, defense2, mana2, kind2, weapon2);
+        //this.createPlayer(name2,hp2, defense2, mana2, kind2, weapon2);
     }
     public ArrayList<PlayerCharacter> getPlayerCharacterList() {
         return this.playersList;
@@ -56,9 +58,9 @@ public class GameController {
             System.out.println("the party is full");
             return;
         }
+        //
         PlayerCharacter pc = selectPlayerCharacter(name, hp, defense, mana, character);
         pc.addToQueue();
-        this.getPlayerCharacterList().add(pc);
         try {
             pc.equip(weapon);
         }
@@ -67,7 +69,10 @@ public class GameController {
             this.getQueue().remove(pc);
             this.getPlayerCharacterList().remove(pc);
         }
-
+        this.getPlayerCharacterList().add(pc);
+        //At this point, we're completely sure that we are free of errors, so we add
+        //the controller as an observer to the playerCharacter
+        pc.addObserver(this);
     }
     public void createEnemy(String name,int hp, int defense, int weight) throws InvalidStatValueException {
         if(this.enemyList.size()==6)
@@ -156,5 +161,26 @@ public class GameController {
     public void setState(GameState state) {
         this.state = state;
         this.state.setGameController(this);
+    }
+
+    /**
+     * The most important method right now XD
+     * @param o     the observable object.
+     * @param arg   an argument passed to the {@code notifyObservers}
+     *                 method.
+     */
+    @Override
+    public void update(Observable o, Object arg) {
+        if(arg instanceof ArgObsPattern){
+            ArgObsPattern newArg = (ArgObsPattern) arg;
+            if(newArg.getAction().equals("attack")) {
+                //Here we will reduce the hp of the GameCharacter that was attacked
+
+            }
+            else if(newArg.getAction().equals(("spell"))) {
+                //in this section, we will reduce the mana of the playerCharacter that used the
+                //spell and reduce his mana, and also we will reduce the enemy's hp.
+            }
+        }
     }
 }
