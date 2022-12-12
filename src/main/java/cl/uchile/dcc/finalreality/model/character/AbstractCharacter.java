@@ -6,13 +6,11 @@ import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.exceptions.Require;
 import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
 import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
+import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
 import java.util.Objects;
 import java.util.Observable;
-import java.util.Observer;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
-
-import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -123,11 +121,15 @@ public abstract class AbstractCharacter extends Observable
     currentHp = hp;
   }
 
+  public boolean isEnemy() {
+    return false;
+  }
 
   //------------------Assertion errors section------------------------
   void attackError() {
     throw new AssertionError("You can't attack this character");
   }
+
   void spellError() {
     throw new AssertionError("Invalid target for spell");
   }

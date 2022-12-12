@@ -5,10 +5,9 @@ import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.exceptions.Require;
 import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
 import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
-import cl.uchile.dcc.finalreality.model.character.player.validspell.ValidBlackMageSpell;
-import cl.uchile.dcc.finalreality.model.character.player.validspell.ValidWhiteMageSpell;
 import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
 import cl.uchile.dcc.finalreality.model.effects.CompositeEffect;
+import cl.uchile.dcc.finalreality.model.effects.Effect;
 import cl.uchile.dcc.finalreality.model.spells.blackmagespells.BlackMageSpells;
 import cl.uchile.dcc.finalreality.model.spells.whitemagespells.WhiteMageSpells;
 import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
@@ -26,7 +25,7 @@ public class Enemy extends AbstractCharacter {
 
   private final int weight;
 
-  private CompositeEffect effects;
+  private CompositeEffect effects = new CompositeEffect();
 
   /**
    * Creates a new enemy with a name, a weight and the queue with the characters ready to
@@ -92,8 +91,8 @@ public class Enemy extends AbstractCharacter {
             .formatted(getName(), getMaxHp(), getWeight(), getClass().getSimpleName());
   }
 
-  public void setEffects(CompositeEffect ce) {
-    this.effects = ce;
+  public void addEffects(Effect ce) {
+    getEffects().addEffect(ce);
   }
 
   public CompositeEffect getEffects() {
@@ -132,6 +131,11 @@ public class Enemy extends AbstractCharacter {
   public void receiveWhiteMageSpell(WhiteMage whitemage) throws InvalidStatValueException {
     WhiteMageSpells spell = whitemage.getSpell();
     spell.useWhiteMageSpell(this);
+  }
+
+  @Override
+  public boolean isEnemy() {
+    return true;
   }
 
 }

@@ -34,4 +34,14 @@ public class NullSpell implements Spell {
   public void equippableByBlackMage(BlackMage bm) {
     spellError();
   }
+
+  @Override
+  public void removeObserver(WhiteMage wm) {
+
+  }
+
+  @Override
+  public void removeObserver(BlackMage bm) {
+
+  }
 }

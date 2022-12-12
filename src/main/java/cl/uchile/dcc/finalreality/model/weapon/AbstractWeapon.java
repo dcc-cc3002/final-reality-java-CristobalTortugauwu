@@ -1,14 +1,15 @@
 package cl.uchile.dcc.finalreality.model.weapon;
 
-import cl.uchile.dcc.finalreality.model.character.player.*;
-
+import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
+import cl.uchile.dcc.finalreality.model.character.player.Engineer;
+import cl.uchile.dcc.finalreality.model.character.player.Knight;
+import cl.uchile.dcc.finalreality.model.character.player.Thief;
+import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
 import java.util.Objects;
 
 /**
  * A class that holds all the information of a weapon.
  *
- * @author <a href="https://www.github.com/r8vnhill">R8V</a>
- * @author ~Your name~
  */
 public abstract class AbstractWeapon implements Iweapon {
   //La clase es abstracta, porque después necesitaré implementar métodos abstractos
@@ -77,7 +78,7 @@ public abstract class AbstractWeapon implements Iweapon {
 
   void error() {
     throw new AssertionError("No se puede equipar");
-  };
+  }
 
   @Override
   public void equippableByKnight(Knight knight) {
@@ -93,6 +94,7 @@ public abstract class AbstractWeapon implements Iweapon {
   public void equippableByEngineer(Engineer engineer) {
     error();
   }
+
   @Override
   public void equippableByWhiteMage(WhiteMage whitemage) {
     error();
@@ -102,6 +104,7 @@ public abstract class AbstractWeapon implements Iweapon {
   public void equippableByBlackMage(BlackMage blackmage) {
     error();
   }
+
   public boolean isNull() {
     return false;
   }

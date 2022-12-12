@@ -7,6 +7,10 @@ import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import cl.uchile.dcc.finalreality.model.character.player.Knight;
 import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
 import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
+import cl.uchile.dcc.finalreality.model.effects.Paralyzed;
+import cl.uchile.dcc.finalreality.model.spells.whitemagespells.Paralysis;
+import cl.uchile.dcc.finalreality.model.spells.whitemagespells.Poison;
+import cl.uchile.dcc.finalreality.model.weapon.Axe;
 import cl.uchile.dcc.finalreality.model.weapon.Staff;
 import cl.uchile.dcc.finalreality.model.weapon.Sword;
 import org.junit.Before;
@@ -17,6 +21,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ControllerTest {
 
@@ -35,6 +40,8 @@ public class ControllerTest {
         controller = new GameController(enemyList,playersList,queue);
         staff = new Staff("staff",100,20,100);
         sword = new Sword("sword",100,100);
+        controller.init("whitemage", 100, 20, 100, 4, staff,
+                "knight", 200, 50, 0, 2, sword);
     }
 
     @Test
@@ -51,14 +58,46 @@ public class ControllerTest {
     }
 
 
-    /**@Test
+    @Test
     public void testCreatePlayer() throws InvalidStatValueException {
-        BlackMage blackmage = new BlackMage("blackmage",3,31,2, gameQueue);
-        BlackMage expected = new BlackMage("blackmage",3,31,2, gameQueue);
-        controller.createPlayer(blackmage,staff);
-        assertEquals(expected,controller.getPlayerCharacterList().get(2));
+        controller.createPlayer("engineer", 100, 250, 0, 1, sword);
+        int expected = 2;
+        assertEquals(expected,controller.getPlayerCharacterList().size());
+        Axe axe = new Axe("axe",300,200);
+        controller.createPlayer("engineer", 100, 250, 0, 1, axe);
+        expected = 3;
+        assertEquals(expected,controller.getPlayerCharacterList().size());
+        controller.createPlayer("blackmage", 120, 50, 200, 0, axe);
+        controller.createPlayer("blackmage", 120, 50, 200, 0, staff);
+        expected = 4;
+        assertEquals(expected,controller.getPlayerCharacterList().size());
     }
-    */
+
+    @Test
+    public void testUseSpellByWhiteMage() throws InvalidStatValueException {
+      PlayerCharacter wm =  controller.getPlayerCharacterList().get(0);
+      Enemy enemy = controller.getEnemyList().get(0);
+      Paralysis par = new Paralysis("paralysis");
+      controller.equipSpell(par, (WhiteMage) wm);
+      controller.useSpellByWhiteMage((WhiteMage) wm, enemy);
+      int expected = 75;
+      assertEquals(expected,wm.getCurrentMana());
+      assertTrue("hope this works",!enemy.getEffects().getHashSet().isEmpty());
+      Poison poison = new Poison("poison");
+      controller.changeSpellByWhiteMage((WhiteMage) wm, poison);
+      Poison expectedSpell = new Poison("poison");
+      assertEquals(expectedSpell,((WhiteMage) wm).getSpell());
+      controller.useSpellByWhiteMage((WhiteMage) wm, enemy);
+      expected = 35;
+      assertEquals(expected,wm.getCurrentMana());
+      expected = 2;
+      assertEquals(expected,enemy.getEffects().getHashSet().size());
+    }
+
+    @Test
+    public void testUseSpellByBlackMAge() {
+
+    }
 
 
 

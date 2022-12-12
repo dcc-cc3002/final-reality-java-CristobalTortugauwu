@@ -5,22 +5,26 @@ import cl.uchile.dcc.finalreality.model.character.Enemy;
 import cl.uchile.dcc.finalreality.model.effects.CompositeEffect;
 import cl.uchile.dcc.finalreality.model.effects.Paralyzed;
 
+/**
+ * Thunder class.
+ */
 public class Thunder extends AbstractBlackMageSpells {
 
-    public Thunder(String name) {
-        super(name);
+  public Thunder(String name) {
+    super(name);
+  }
+
+  public void useBlackMageSpell(Enemy enemy, int magicDamage) throws InvalidStatValueException {
+    //First we do the magic damage
+    int enemyHp = enemy.getCurrentHp();
+    int newHp = enemyHp - magicDamage;
+    enemy.setCurrentHp(Math.max(newHp, 0));
+    //Now we care about the effect being added to the
+    //effects instance in the enemy class.
+    if (Math.random() <= 0.3) {
+      CompositeEffect effects = enemy.getEffects();
+      effects.addEffect(new Paralyzed());
+      //enemy.setEffects(effects);
     }
-    public void useBlackMageSpell(Enemy enemy, int magicDamage) throws InvalidStatValueException {
-        //First we do the magic damage
-        int enemyHp = enemy.getCurrentHp();
-        int newHp = enemyHp-magicDamage;
-        enemy.setCurrentHp(Math.max(newHp, 0));
-        //Now we care about the effect being added to the
-        //effects instance in the enemy class.
-        if (Math.random()<=0.3) {
-            CompositeEffect effects = enemy.getEffects();
-            effects.addEffect(new Paralyzed());
-            enemy.setEffects(effects);
-        }
-    }
+  }
 }

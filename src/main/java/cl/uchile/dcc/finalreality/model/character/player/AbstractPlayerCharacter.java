@@ -105,6 +105,9 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter
     attacked.attackableByPlayerCharacter((PlayerCharacter) this);
   }
 
+  /**
+   *Method that is invoked by the characters that can be attacked by an enemy.
+   */
   public void attackableByEnemy(Enemy enemy) throws InvalidStatValueException {
     int playerHp = this.getCurrentHp();
     int newHp = playerHp - enemy.getWeight();

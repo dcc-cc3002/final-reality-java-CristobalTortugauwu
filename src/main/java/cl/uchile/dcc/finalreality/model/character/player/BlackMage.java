@@ -12,12 +12,11 @@ import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.exceptions.Require;
 import cl.uchile.dcc.finalreality.model.character.Enemy;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
-import java.util.concurrent.BlockingQueue;
-
 import cl.uchile.dcc.finalreality.model.spells.Spell;
 import cl.uchile.dcc.finalreality.model.spells.blackmagespells.BlackMageSpells;
 import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
 import cl.uchile.dcc.finalreality.model.weapon.Staff;
+import java.util.concurrent.BlockingQueue;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -48,10 +47,10 @@ public class BlackMage extends AbstractMage {
     super(name, maxHp, defense, turnsQueue, maxMana);
     Require.statValueAtLeast(0, maxMana, "Max MP");
   }
+
   /**
    * Returns a string with the fields and the name of the class.
    */
-
   @Override
   public String toString() {
     return "BlackMage{currentMp=%d, maxMp=%d, maxHp=%d, defense=%d, name='%s'}"
@@ -78,15 +77,17 @@ public class BlackMage extends AbstractMage {
   public void useSpell(GameCharacter enemy) throws InvalidStatValueException {
     //First we check if the mage has enough mana to use the spell
     BlackMageSpells spell = this.getSpell();
-    int totalMana = (this.getCurrentMana()-spell.manaCost());
-    if(totalMana<0)
-        //If the mage doesn't have enough mana, it can't use the spell
-        return;
+    int totalMana = (this.getCurrentMana() - spell.manaCost());
+    if (totalMana < 0) {
+      //If the mage doesn't have enough mana, it can't use the spell
+      return;
+    }
     //If the object has magic damage, it can use spells, otherwise it won't
     Staff weapon = (Staff) this.getEquippedWeapon();
-    if(this.getEquippedWeapon().hasMagicDamage() && !weapon.isNull())
+    if (this.getEquippedWeapon().hasMagicDamage() && !weapon.isNull()) {
       //implementar ataque
-      ((Enemy)enemy).receiveBlackMageSpell(this);
+      ((Enemy) enemy).receiveBlackMageSpell(this);
+    }
   }
 
 }

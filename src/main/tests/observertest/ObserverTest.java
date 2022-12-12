@@ -66,9 +66,6 @@ public class ObserverTest extends ControllerTest {
 
     @Test
     public void notifyObserversTest() throws InvalidStatValueException {
-      //First we use the init method
-      controller.init("whitemage",100,20,100,4,staff,
-              "knight",200,50,0,2,sword);
       //Now we will test if the hp changes when we attack.
       ArrayList<Enemy> eList = controller.getEnemyList();
       ArrayList<PlayerCharacter> pcList = controller.getPlayerCharacterList();

@@ -5,7 +5,6 @@ import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.exceptions.Require;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import cl.uchile.dcc.finalreality.model.spells.Spell;
-
 import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
@@ -21,13 +20,14 @@ public abstract class AbstractMage extends AbstractPlayerCharacter
 
   /**
    * AbstractMage constructor.
-   * */
+   */
   public AbstractMage(String name, int maxHp, int defense, BlockingQueue<GameCharacter> turnsQueue,
                       int maxMana) throws InvalidStatValueException {
     super(name, maxHp, defense, turnsQueue);
     this.maxMana = maxMana;
     this.currentMana = maxMana;
   }
+
   /**
    * Equals method for mages.
    */
@@ -61,16 +61,16 @@ public abstract class AbstractMage extends AbstractPlayerCharacter
   }
 
   /**
-  * * Return the current mana.
-  */
+   * * Return the current mana.
+   */
   @Override
   public int getCurrentMana() {
     return currentMana;
   }
 
   /**
-  * Sets the character's current Mana.
-  */
+   * Sets the character's current Mana.
+   */
   @Override
   public void setCurrentMana(final int currentMana) throws InvalidStatValueException {
     Require.statValueAtLeast(0, currentMana, "Current Mana");
@@ -94,14 +94,27 @@ public abstract class AbstractMage extends AbstractPlayerCharacter
         //we set the mage that used the spell, so the controller knows
         //who he has to update, and also set the new mana
         newArg.setMage(this);
-        int newMana = this.getCurrentMana()-newArg.getNewMana();
+        int newMana = this.getCurrentMana() - newArg.getNewMana();
         newArg.setMana(newMana);
         setChanged();
         notifyObservers(newArg);
       }
-    }
+      if (newArg.getArg().getAction().equals("paralysisSpell")) {
+        newArg.setMage(this);
+        int newMana = this.getCurrentMana() - newArg.getNewMana();
+        newArg.setMana(newMana);
+        setChanged();
+        notifyObservers(newArg);
+      }
+      if (newArg.getArg().getAction().equals("poisonSpell")) {
+        newArg.setMage(this);
+        int newMana = this.getCurrentMana() - newArg.getNewMana();
+        newArg.setMana(newMana);
+        setChanged();
+        notifyObservers(newArg);
+      }
 
+    }
   }
 
 }
-

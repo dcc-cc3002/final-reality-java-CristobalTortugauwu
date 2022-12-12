@@ -5,8 +5,13 @@ import cl.uchile.dcc.finalreality.model.character.Enemy;
 import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
 import cl.uchile.dcc.finalreality.model.spells.AbstractSpell;
 
-public abstract class AbstractBlackMageSpells extends AbstractSpell implements BlackMageSpells {
-  //public abstract void useBlackMageSpell(Enemy enemy, int magicDamage) throws InvalidStatValueException;
+/**
+ * Abstract blackMageSpells.
+ */
+public abstract class AbstractBlackMageSpells extends AbstractSpell
+        implements BlackMageSpells {
+  //public abstract void useBlackMageSpell(Enemy enemy, int magicDamage)
+  //throws InvalidStatValueException;
 
   public AbstractBlackMageSpells(String name) {
     super(name);
@@ -21,6 +26,10 @@ public abstract class AbstractBlackMageSpells extends AbstractSpell implements B
     //Once the spell is equipped, we add the mage as an observer
     this.addObserver(bm);
     bm.setSpell(this);
+  }
+
+  public void removeObserver(BlackMage bm) {
+    this.deleteObserver(bm);
   }
 
 }

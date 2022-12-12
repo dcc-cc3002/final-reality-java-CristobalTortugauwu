@@ -7,13 +7,17 @@ import cl.uchile.dcc.finalreality.model.effects.Effect;
 
 public interface Spell {
 
-    void setEffect(CompositeEffect effects);
+  void setEffect(CompositeEffect effects);
 
-    CompositeEffect getEffect();
+  CompositeEffect getEffect();
 
-    int manaCost();
+  int manaCost();
 
-    void equippableByWhiteMage(WhiteMage wm);
+  void equippableByWhiteMage(WhiteMage wm);
 
-    void equippableByBlackMage(BlackMage bm);
+  void equippableByBlackMage(BlackMage bm);
+
+  void removeObserver(WhiteMage wm);
+
+  void removeObserver(BlackMage bm);
 }

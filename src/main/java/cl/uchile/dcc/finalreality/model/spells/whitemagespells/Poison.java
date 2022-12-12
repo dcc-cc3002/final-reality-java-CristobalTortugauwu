@@ -1,11 +1,16 @@
 package cl.uchile.dcc.finalreality.model.spells.whitemagespells;
 
+import cl.uchile.dcc.finalreality.ArgObsPattern;
+import cl.uchile.dcc.finalreality.ArgSpellObsPattern;
 import cl.uchile.dcc.finalreality.model.character.Enemy;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import cl.uchile.dcc.finalreality.model.effects.CompositeEffect;
+import cl.uchile.dcc.finalreality.model.effects.Paralyzed;
 import cl.uchile.dcc.finalreality.model.effects.Poisoned;
 
-
+/**
+ * Poison class.
+ */
 public class Poison extends AbstractWhiteMageSpells {
 
   public Poison(String name) {
@@ -17,10 +22,13 @@ public class Poison extends AbstractWhiteMageSpells {
   }
 
   public void useWhiteMageSpell(GameCharacter gamecharacter) {
-    Enemy enemy = (Enemy) gamecharacter;
-    CompositeEffect effect = enemy.getEffects();
-    effect.addEffect(new Poisoned());
-    enemy.setEffects(effect);
+    if (gamecharacter.isEnemy()) {
+      //At this point, we're sure that we can use the spell on an enemy.
+      ArgObsPattern arg = new ArgObsPattern("poisonSpell",
+              gamecharacter, 0, new Poisoned());
+      setChanged();
+      notifyObservers(new ArgSpellObsPattern(null,manaCost(),arg));
+    }
   }
 
 }
