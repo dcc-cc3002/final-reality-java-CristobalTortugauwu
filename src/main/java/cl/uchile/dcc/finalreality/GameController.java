@@ -75,7 +75,7 @@ public class GameController implements Observer {
     //At this point, we're completely sure that we are free of errors, so we add
     //the controller as an observer to the playerCharacter
     pc.addObserver(this);
-    this.getPlayerCharacterList().add(pc);
+    this.getPlayerCharacterList().add((PlayerCharacter) pc);
     pc.waitTurn();
  }
 
@@ -127,7 +127,7 @@ public class GameController implements Observer {
     //At this point, we're completely sure that we are free of errors, so we add
     //the controller as an observer to the playerCharacter
     pc.addObserver(this);
-    this.getPlayerCharacterList().add(pc);
+    this.getPlayerCharacterList().add((PlayerCharacter) pc);
     pc.waitTurn();
   }
 
@@ -153,7 +153,7 @@ public class GameController implements Observer {
     //At this point, we're completely sure that we are free of errors, so we add
     //the controller as an observer to the playerCharacter
     pc.addObserver(this);
-    this.getPlayerCharacterList().add(pc);
+    this.getPlayerCharacterList().add((PlayerCharacter) pc);
     pc.waitTurn();
   }
 
