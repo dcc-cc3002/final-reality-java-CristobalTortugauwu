@@ -15,4 +15,5 @@ public interface MagesCharacter extends PlayerCharacter {
   int getCurrentMana();
 
   void setCurrentMana(int mana)  throws InvalidStatValueException;
+
 }

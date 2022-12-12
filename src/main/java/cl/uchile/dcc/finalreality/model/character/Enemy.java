@@ -113,7 +113,7 @@ public class Enemy extends AbstractCharacter implements ValidBlackMageSpell, Val
     if (!weapon.isNull()) {
       int newHp = enemyHp - weapon.getDamage();
       setChanged();
-      notifyObservers(new ArgObsPattern("attack", Math.max(newHp, 0), 0));
+      notifyObservers(new ArgObsPattern("attackByPlayerCharacter", this,newHp,0));
     }
   }
 
@@ -129,7 +129,7 @@ public class Enemy extends AbstractCharacter implements ValidBlackMageSpell, Val
   }
 
   @Override
-  public void receiveWMSpell(WhiteMage whitemage) throws InvalidStatValueException {
+  public void receiveWhiteMagicSpell(WhiteMage whitemage) throws InvalidStatValueException {
     WhiteMageSpells spell = whitemage.getSpell();
     spell.useWhiteMageSpell(this);
   }

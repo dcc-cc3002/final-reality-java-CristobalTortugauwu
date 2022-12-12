@@ -5,6 +5,9 @@ import cl.uchile.dcc.finalreality.gamestate.GameState;
 import cl.uchile.dcc.finalreality.model.character.Enemy;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import cl.uchile.dcc.finalreality.model.character.player.*;
+import cl.uchile.dcc.finalreality.model.character.player.validspell.ValidBlackMageSpell;
+import cl.uchile.dcc.finalreality.model.character.player.validspell.ValidWhiteMageSpell;
+import cl.uchile.dcc.finalreality.model.spells.Spell;
 import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -73,7 +76,7 @@ public class GameController implements Observer {
     //the controller as an observer to the playerCharacter
     pc.addObserver(this);
     this.getPlayerCharacterList().add(pc);
-    pc.addToQueue();
+    pc.waitTurn();
  }
 
  /**
@@ -99,7 +102,7 @@ public class GameController implements Observer {
     //the controller as an observer to the playerCharacter
     pc.addObserver(this);
     this.getPlayerCharacterList().add(pc);
-    pc.addToQueue();
+    pc.waitTurn();
   }
 
   /**
@@ -125,7 +128,7 @@ public class GameController implements Observer {
     //the controller as an observer to the playerCharacter
     pc.addObserver(this);
     this.getPlayerCharacterList().add(pc);
-    pc.addToQueue();
+    pc.waitTurn();
   }
 
   /**
@@ -151,7 +154,7 @@ public class GameController implements Observer {
     //the controller as an observer to the playerCharacter
     pc.addObserver(this);
     this.getPlayerCharacterList().add(pc);
-    pc.addToQueue();
+    pc.waitTurn();
   }
 
   /**
@@ -176,7 +179,7 @@ public class GameController implements Observer {
     //the controller as an observer to the playerCharacter
     pc.addObserver(this);
     this.getPlayerCharacterList().add(pc);
-    pc.addToQueue();
+    pc.waitTurn();
   }
 
   /**
@@ -190,14 +193,15 @@ public class GameController implements Observer {
     Enemy enemy = new Enemy(name, weight, hp , defense, this.getQueue());
     enemy.addObserver(this);
     this.getEnemyList().add(enemy);
-    enemy.addToQueue();
+    enemy.waitTurn();
   }
 
   public void attackByPlayerCharacter(PlayerCharacter attacker,
                                       GameCharacter target) throws InvalidStatValueException {
 
-    if (this.handleError(attacker,target))
+    if (this.handleError(attacker,target)) {
       return;
+    }
     //First we see if the playerCharacter belongs to the party (i.e., isn't death), and the enemy is alive
 
     if (this.getPlayerCharacterList().contains(attacker) &&
@@ -214,22 +218,45 @@ public class GameController implements Observer {
     if(this.handleError(attacker,target))
         return;
     //First we see if the playerCharacter belongs to the party (i.e., isn't death), and the enemy is alive
-    if(this.getPlayerCharacterList().contains((PlayerCharacter) target) && this.getEnemyList().contains(attacker)) {
-        ArrayList<PlayerCharacter> list = this.getPlayerCharacterList();
+    if(this.getPlayerCharacterList().contains((PlayerCharacter) target)
+            && this.getEnemyList().contains(attacker)) {
         attacker.attack(target);
     }
     //do nothing
   }
-  public void useMagic(GameCharacter attacker, GameCharacter target) {
-      //We know that only mages are allowed to use magic
+
+  public void setSpell(Spell spell, MagesCharacter mc) {
+    mc.setSpell()
   }
+
+  public void useSpellByBlackMage(BlackMage attacker, ValidBlackMageSpell target) throws InvalidStatValueException {
+      if(this.handleError(attacker, (GameCharacter) target)) {
+        return;
+      }
+      if (this.getPlayerCharacterList().contains(attacker)
+              && this.getEnemyList().contains((Enemy)target)) {
+          attacker.useSpell(target);
+      }
+  }
+
+    public void useSpellByWhiteMage(WhiteMage attacker, ValidWhiteMageSpell target) throws InvalidStatValueException {
+        if(this.handleError(attacker, (GameCharacter) target)) {
+            return;
+        }
+        if (this.getPlayerCharacterList().contains(attacker)
+                && this.getEnemyList().contains((Enemy)target)) {
+            attacker.useSpell(target);
+        }
+    }
 
   public void waitTurnByEnemy(Enemy enemy) {
       if(this.getEnemyList().contains(enemy));
 
   }
   public void waitTurnByPlayerCharacter(PlayerCharacter pc) {
+    if (this.getPlayerCharacterList().contains(pc)) {
 
+    }
   }
 
   public void onPlayerWin() {
@@ -287,20 +314,55 @@ public class GameController implements Observer {
 
   /**
    * The most important method right now XD
-   * @param o     the observable object.
-   * @param arg   an argument passed to the {@code notifyObservers}
-   *                 method.
    */
+
+  public static void main(String[] args) throws InvalidStatValueException {
+
+      BlockingQueue<GameCharacter> turnsQueueExample;
+      turnsQueueExample = new LinkedBlockingQueue<>();
+      ArrayList<Enemy> list = new ArrayList<Enemy>();
+      Enemy enemy1 = new Enemy("enemy",100,100,100,turnsQueueExample);
+      Enemy enemy2 = new Enemy("enemy2",100,100,100,turnsQueueExample);
+      list.add(enemy1); list.add(enemy2);
+      list.get(0).setCurrentHp(50);
+      System.out.println(list.get(0).getCurrentHp());
+
+  }
   @Override
   public void update(Observable o, Object arg) {
-      if(arg instanceof ArgObsPattern){
+
+      if (arg instanceof ArgObsPattern) {
           ArgObsPattern newArg = (ArgObsPattern) arg;
-          if(newArg.getAction().equals("attack")) {
-              //Here we will reduce the hp of the GameCharacter that was attacked
-          }
-          else if(newArg.getAction().equals(("spell"))) {
+          //Here we will reduce the hp of the GameCharacter that was attacked
+          if (newArg.getAction().equals("attackByEnemy")) {
+              int index = playersList.indexOf((PlayerCharacter)
+                      newArg.getGameCharacter());
+              PlayerCharacter pc = playersList.get(index);
+              try {
+                  pc.setCurrentHp(newArg.getNewHp());
+              } catch (InvalidStatValueException e) {
+                  throw new RuntimeException(e);
+              }
+          //Here we will reduce the hp of the Enemy that was attacked
+          } else if (newArg.getAction().equals("attackByPlayerCharacter")) {
+                int index = enemyList.indexOf((Enemy) newArg.getGameCharacter());
+                Enemy enemy = enemyList.get(index);
+              try {
+                  enemy.setCurrentHp(newArg.getNewHp());
+              } catch (InvalidStatValueException e) {
+                  throw new RuntimeException(e);
+              }
+          //Here we will use the HealSpell
+          } else if (newArg.getAction().equals(("healSpell"))) {
               //in this section, we will reduce the mana of the playerCharacter that used the
-              //spell and reduce his mana, and also we will reduce the enemy's hp.
+              //spell and reduce the enemy's hp.
+            int index = playersList.indexOf((PlayerCharacter) newArg.getGameCharacter());
+            PlayerCharacter pc = playersList.get(index);
+              try {
+                  pc.setCurrentHp(newArg.getNewHp());
+              } catch (InvalidStatValueException e) {
+                  throw new RuntimeException(e);
+              }
           }
       }
   }

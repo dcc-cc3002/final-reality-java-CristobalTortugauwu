@@ -4,7 +4,9 @@ import cl.uchile.dcc.finalreality.GameController;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.Enemy;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
+import cl.uchile.dcc.finalreality.model.character.player.Knight;
 import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
+import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
 import cl.uchile.dcc.finalreality.model.weapon.Staff;
 import cl.uchile.dcc.finalreality.model.weapon.Sword;
 import org.junit.Before;
@@ -35,10 +37,17 @@ public class ControllerTest {
         sword = new Sword("sword",100,100);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testInit() throws InvalidStatValueException {
-        controller.init("whitemage",100,20,100,4,staff,
-                "knight",200,50,0,2,sword);
+        controller.init("whitemage", 100, 20, 100, 4, staff,
+                "knight", 200, 50, 0, 2, sword);
+        Enemy expected = new Enemy("enemy", 50, 1000, 10, queue);
+        assertEquals(expected, controller.getEnemyList().get(0));
+        WhiteMage expected2 = new WhiteMage("whitemage", 100, 20, 100, queue);
+        ArrayList<PlayerCharacter> list = controller.getPlayerCharacterList();
+        assertEquals(expected2, list.get(0));
+        Knight expected3 = new Knight("knight",200,50,queue);
+        assertEquals(expected3, list.get(1));
     }
 
 

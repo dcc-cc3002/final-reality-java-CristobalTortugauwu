@@ -1,37 +1,46 @@
 package cl.uchile.dcc.finalreality;
 
 
+import cl.uchile.dcc.finalreality.model.character.GameCharacter;
+
 /**
  * This class exists because we will use it to update the information that changes
  * in the observable, so that the observers subscribed will be updated.
  */
 public class ArgObsPattern {
 
-    private String action;
+  private String action;
 
-    private int hp;
+  private GameCharacter pc;
 
-    private int mana;
+  private int newHp;
 
-    public ArgObsPattern(String action, int new_hp, int new_mana) {
-        this.action = action;
+  private int newMana;
 
-        this.hp = new_hp;
+  public ArgObsPattern(String action, GameCharacter pc, int newHp, int newMana) {
 
-        this.mana = new_mana;
+    this.action = action;
 
-        //Quizás tengamos que agregar una nueva variable, por los efectos
-    }
+    this.pc = pc;
 
-    public String getAction() {
-        return action;
-    }
+    this.newHp = newHp;
 
-    public int getNewHp() {
-        return hp;
-    }
+    this.newMana = newMana;
+  }
 
-    public int getNewMana() {
-        return mana;
-    }
+  public String getAction() {
+      return action;
+  }
+
+  public GameCharacter getGameCharacter() {
+      return this.pc;
+  }
+
+  public int getNewHp() {
+      return this.newHp;
+  }
+
+  public int getNewMana() {
+      return this.newMana;
+  }
 }

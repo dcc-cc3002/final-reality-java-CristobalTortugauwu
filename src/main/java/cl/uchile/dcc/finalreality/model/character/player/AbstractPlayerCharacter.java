@@ -17,6 +17,8 @@ import cl.uchile.dcc.finalreality.model.character.player.validspell.ValidWhiteMa
 import cl.uchile.dcc.finalreality.model.spells.whitemagespells.WhiteMageSpells;
 import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
 import java.util.Objects;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -33,7 +35,7 @@ import org.jetbrains.annotations.NotNull;
  * @author ~Your name~
  */
 public abstract class AbstractPlayerCharacter extends AbstractCharacter implements
-    PlayerCharacter, ValidWhiteMageSpell {
+    PlayerCharacter, ValidWhiteMageSpell, Observer {
 
   private Iweapon equippedWeapon = null;
 
@@ -93,16 +95,29 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
     int playerHp = this.getCurrentHp();
     int newHp = playerHp - enemy.getWeight();
     setChanged();
-    notifyObservers(new ArgObsPattern("attack", Math.max(newHp, 0), 0));
+    notifyObservers(new ArgObsPattern("attackByEnemy",this,newHp,0));
   }
 
   @Override
-  public void receiveWMSpell(WhiteMage whitemage) throws InvalidStatValueException {
+  public void receiveWhiteMagicSpell(WhiteMage whitemage) throws InvalidStatValueException {
     WhiteMageSpells spell = whitemage.getSpell();
     spell.useWhiteMageSpell(this);
   }
 
   public boolean hasMana() {
     return false;
+  }
+
+  @Override
+  public void update(Observable o, Object arg) {
+
+    if (arg instanceof ArgObsPattern) {
+      ArgObsPattern newArg = (ArgObsPattern) arg;
+      if (newArg.getAction().equals("healSpell")) {
+        setChanged();
+        notifyObservers(newArg);
+      }
+    }
+
   }
 }

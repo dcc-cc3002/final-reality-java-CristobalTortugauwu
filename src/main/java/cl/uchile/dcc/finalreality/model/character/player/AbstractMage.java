@@ -73,4 +73,6 @@ public abstract class AbstractMage extends AbstractPlayerCharacter implements Ma
   public boolean hasMana() {
     return true;
   }
+
 }
+
