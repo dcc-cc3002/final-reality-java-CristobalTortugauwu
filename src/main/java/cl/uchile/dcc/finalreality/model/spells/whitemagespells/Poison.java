@@ -17,14 +17,10 @@ public class Poison extends AbstractWhiteMageSpells {
   }
 
   public void useWhiteMageSpell(GameCharacter gamecharacter) {
-
-    if (this.spellOnAlly()) {
-      //At this point, we're sure that we can use the spell on an enemy.
-      Enemy enemy = (Enemy) gamecharacter;
-      CompositeEffect effect = enemy.getEffects();
-      effect.addEffect(new Poisoned());
-      enemy.setEffects(effect);
-    }
+    Enemy enemy = (Enemy) gamecharacter;
+    CompositeEffect effect = enemy.getEffects();
+    effect.addEffect(new Poisoned());
+    enemy.setEffects(effect);
   }
 
 }

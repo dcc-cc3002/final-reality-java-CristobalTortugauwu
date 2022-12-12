@@ -2,6 +2,7 @@ package cl.uchile.dcc.finalreality;
 
 
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
+import cl.uchile.dcc.finalreality.model.effects.CompositeEffect;
 
 /**
  * This class exists because we will use it to update the information that changes
@@ -15,17 +16,14 @@ public class ArgObsPattern {
 
   private int newHp;
 
-  private int newMana;
+  private CompositeEffect effects;
 
-  public ArgObsPattern(String action, GameCharacter pc, int newHp, int newMana) {
+  public ArgObsPattern(String action, GameCharacter pc, int newHp, CompositeEffect effects) {
 
     this.action = action;
-
     this.pc = pc;
-
     this.newHp = newHp;
-
-    this.newMana = newMana;
+    this.effects = effects;
   }
 
   public String getAction() {
@@ -38,9 +36,5 @@ public class ArgObsPattern {
 
   public int getNewHp() {
       return this.newHp;
-  }
-
-  public int getNewMana() {
-      return this.newMana;
   }
 }

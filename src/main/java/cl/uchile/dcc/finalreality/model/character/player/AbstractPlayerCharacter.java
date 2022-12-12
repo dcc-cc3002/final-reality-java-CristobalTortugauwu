@@ -34,7 +34,8 @@ import org.jetbrains.annotations.NotNull;
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author ~Your name~
  */
-public abstract class AbstractPlayerCharacter extends AbstractCharacter implements Observer {
+public abstract class AbstractPlayerCharacter extends AbstractCharacter
+        implements PlayerCharacter {
 
   private Iweapon equippedWeapon = null;
 
@@ -85,6 +86,21 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
   }
 
   @Override
+  public void setCurrentMana(int mana) throws InvalidStatValueException {
+    new AssertionError("doesn't have the property mana");
+  }
+
+  @Override
+  public int getMaxMana() {
+    return -1;
+  }
+
+  @Override
+  public int getCurrentMana() {
+    return -1;
+  }
+
+  @Override
   public void attack(GameCharacter attacked) throws InvalidStatValueException {
     attacked.attackableByPlayerCharacter((PlayerCharacter) this);
   }
@@ -93,7 +109,7 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
     int playerHp = this.getCurrentHp();
     int newHp = playerHp - enemy.getWeight();
     setChanged();
-    notifyObservers(new ArgObsPattern("attackByEnemy",this,newHp,0));
+    notifyObservers(new ArgObsPattern("attackByEnemy", this, newHp, null));
   }
 
   @Override
@@ -106,16 +122,5 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
     return false;
   }
 
-  @Override
-  public void update(Observable o, Object arg) {
 
-    if (arg instanceof ArgObsPattern) {
-      ArgObsPattern newArg = (ArgObsPattern) arg;
-      if (newArg.getAction().equals("healSpell")) {
-        setChanged();
-        notifyObservers(newArg);
-      }
-    }
-
-  }
 }

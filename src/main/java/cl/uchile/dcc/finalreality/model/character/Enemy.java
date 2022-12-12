@@ -113,7 +113,7 @@ public class Enemy extends AbstractCharacter {
     if (!weapon.isNull()) {
       int newHp = enemyHp - weapon.getDamage();
       setChanged();
-      notifyObservers(new ArgObsPattern("attackByPlayerCharacter", this,newHp,0));
+      notifyObservers(new ArgObsPattern("attackByPlayerCharacter", this, newHp, null));
     }
   }
 

@@ -15,12 +15,10 @@ public class Paralysis extends AbstractWhiteMageSpells {
         return 25;
     }
     public void useWhiteMageSpell(GameCharacter gamecharacter){
-        if(this.spellOnAlly()){
-             //At this point, we're sure that we can use the spell on an enemy.
-             Enemy enemy = (Enemy) gamecharacter;
-             CompositeEffect effect = enemy.getEffects();
-             effect.addEffect(new Paralyzed());
-             enemy.setEffects(effect);
-        }
+      //At this point, we're sure that we can use the spell on an enemy.
+      Enemy enemy = (Enemy) gamecharacter;
+      CompositeEffect effect = enemy.getEffects();
+      effect.addEffect(new Paralyzed());
+      enemy.setEffects(effect);
     }
 }

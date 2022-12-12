@@ -1,11 +1,14 @@
 package cl.uchile.dcc.finalreality.model.character;
 
+import cl.uchile.dcc.finalreality.ArgObsPattern;
+import cl.uchile.dcc.finalreality.ArgSpellObsPattern;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.exceptions.Require;
 import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
 import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
 import java.util.Objects;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -18,7 +21,8 @@ import org.jetbrains.annotations.NotNull;
  * We will use observable instead of "propertychangesupport" because it´s easier XD,
  * I will change it after I've delivered the last task.
  */
-public abstract class AbstractCharacter extends Observable implements GameCharacter {
+public abstract class AbstractCharacter extends Observable
+        implements GameCharacter {
 
   //attributes of the character
   private int currentHp;
@@ -151,4 +155,5 @@ public abstract class AbstractCharacter extends Observable implements GameCharac
   public void receiveWhiteMageSpell(WhiteMage wm) throws InvalidStatValueException {
     spellError();
   }
+
 }

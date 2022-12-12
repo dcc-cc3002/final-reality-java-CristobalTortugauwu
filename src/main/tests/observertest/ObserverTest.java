@@ -66,30 +66,30 @@ public class ObserverTest extends ControllerTest {
 
     @Test
     public void notifyObserversTest() throws InvalidStatValueException {
-        //First we use the init method
-        controller.init("whitemage",100,20,100,4,staff,
-                "knight",200,50,0,2,sword);
-        //Now we will test if the hp changes when we attack.
-        ArrayList<Enemy> eList = controller.getEnemyList();
-        ArrayList<PlayerCharacter> pcList = controller.getPlayerCharacterList();
-        controller.attackByEnemy(eList.get(0),
-                pcList.get(1));
-        int expected = 150;
-        assertEquals(expected, pcList.get(1).getCurrentHp());
-        controller.attackByEnemy(eList.get(0), pcList.get(1));
-        expected = 100;
-        assertEquals(expected, pcList.get(1).getCurrentHp());
-        //case where a PlayerCharacter attacks an enemy.
-        controller.attackByPlayerCharacter(pcList.get(1), eList.get(0));
-        expected = 900;
-        assertEquals(expected, eList.get(0).getCurrentHp());
-        //Now we will test the spells
-        Spell heal = new Heal("heal");
-        ((MagesCharacter)pcList.get(0)).equipSpell(heal);
-        controller.useSpellByWhiteMage((WhiteMage) pcList.get(0),
-                pcList.get(1));
-        expected = 160;
-        assertEquals(expected, pcList.get(0).getCurrentHp());
+      //First we use the init method
+      controller.init("whitemage",100,20,100,4,staff,
+              "knight",200,50,0,2,sword);
+      //Now we will test if the hp changes when we attack.
+      ArrayList<Enemy> eList = controller.getEnemyList();
+      ArrayList<PlayerCharacter> pcList = controller.getPlayerCharacterList();
+      controller.attackByEnemy(eList.get(0),
+              pcList.get(1));
+      int expected = 150;
+      assertEquals(expected, pcList.get(1).getCurrentHp());
+      controller.attackByEnemy(eList.get(0), pcList.get(1));
+      expected = 100;
+      assertEquals(expected, pcList.get(1).getCurrentHp());
+      //case where a PlayerCharacter attacks an enemy.
+      controller.attackByPlayerCharacter(pcList.get(1), eList.get(0));
+      expected = 900;
+      assertEquals(expected, eList.get(0).getCurrentHp());
+      //Now we will test the spells
+      Spell heal = new Heal("heal");
+      ((MagesCharacter)pcList.get(0)).equipSpell(heal);
+      controller.useSpellByWhiteMage((WhiteMage) pcList.get(0),
+              pcList.get(1));
+      expected = 160;
+      assertEquals(expected, pcList.get(1).getCurrentHp());
     }
 
 }

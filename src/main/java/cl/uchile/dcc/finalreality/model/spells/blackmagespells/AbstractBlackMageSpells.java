@@ -11,12 +11,15 @@ public abstract class AbstractBlackMageSpells extends AbstractSpell implements B
   public AbstractBlackMageSpells(String name) {
     super(name);
   }
+
   public int manaCost() {
     return 15;
   }
 
   @Override
   public void equippableByBlackMage(BlackMage bm) {
+    //Once the spell is equipped, we add the mage as an observer
+    this.addObserver(bm);
     bm.setSpell(this);
   }
 

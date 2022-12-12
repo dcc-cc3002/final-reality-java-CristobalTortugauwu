@@ -15,7 +15,7 @@ public interface MagesCharacter extends PlayerCharacter {
 
   int getCurrentMana();
 
-  void setCurrentMana(int mana)  throws InvalidStatValueException;
+  void setCurrentMana(int mana) throws InvalidStatValueException;
 
   void equipSpell(Spell spell);
 }

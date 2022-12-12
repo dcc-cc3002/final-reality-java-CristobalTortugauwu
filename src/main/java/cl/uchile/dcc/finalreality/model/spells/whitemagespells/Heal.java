@@ -1,6 +1,7 @@
 package cl.uchile.dcc.finalreality.model.spells.whitemagespells;
 
 import cl.uchile.dcc.finalreality.ArgObsPattern;
+import cl.uchile.dcc.finalreality.ArgSpellObsPattern;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 
@@ -13,15 +14,17 @@ public class Heal extends AbstractWhiteMageSpells {
     public int manaCost() {
         return 15;
     }
-    public void useWhiteMageSpell(GameCharacter gamecharacter) throws InvalidStatValueException {
-        //First we have to make sure, that the method spellOnAlly is true.
-        if (this.spellOnAlly()) {
-          int maxHp = gamecharacter.getMaxHp();
-          int currHp = gamecharacter.getCurrentHp();
-          int newHp = Math.min(maxHp, currHp + maxHp*(3/10));
-          setChanged();
-          notifyObservers(new ArgObsPattern("healSpell",gamecharacter,newHp,15));
-        }
 
+    public static void main(String[] args) {
+        System.out.println((100*3)/10);
+    }
+
+    public void useWhiteMageSpell(GameCharacter gamecharacter) throws InvalidStatValueException {
+       int maxHp = gamecharacter.getMaxHp();
+       int currHp = gamecharacter.getCurrentHp();
+       int newHp = Math.min(maxHp, (currHp + (maxHp*3)/10));
+       ArgObsPattern arg = new ArgObsPattern("healSpell", gamecharacter, newHp, null);
+       setChanged();
+       notifyObservers(new ArgSpellObsPattern(null,15, arg));
     }
 }

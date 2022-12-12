@@ -239,12 +239,17 @@ public class GameController implements Observer {
       }
   }
 
-    public void useSpellByWhiteMage(WhiteMage attacker, GameCharacter target) throws InvalidStatValueException {
-        if(this.handleError(attacker, (GameCharacter) target)) {
+    public void useSpellByWhiteMage(WhiteMage attacker, GameCharacter target)
+            throws InvalidStatValueException {
+        if(this.handleError(attacker, target)) {
             return;
         }
+        //if (this.getPlayerCharacterList().contains(attacker)
+        //        && this.getEnemyList().contains((Enemy)target)) {
+        //    attacker.useSpell(target);
+        //}
         if (this.getPlayerCharacterList().contains(attacker)
-                && this.getEnemyList().contains((Enemy)target)) {
+                && this.getPlayerCharacterList().contains((PlayerCharacter) target)) {
             attacker.useSpell(target);
         }
     }
@@ -345,25 +350,37 @@ public class GameController implements Observer {
               }
           //Here we will reduce the hp of the Enemy that was attacked
           } else if (newArg.getAction().equals("attackByPlayerCharacter")) {
-                int index = enemyList.indexOf((Enemy) newArg.getGameCharacter());
-                Enemy enemy = enemyList.get(index);
+              int index = enemyList.indexOf((Enemy) newArg.getGameCharacter());
+              Enemy enemy = enemyList.get(index);
               try {
                   enemy.setCurrentHp(newArg.getNewHp());
               } catch (InvalidStatValueException e) {
                   throw new RuntimeException(e);
               }
-          //Here we will use the HealSpell
-          } else if (newArg.getAction().equals(("healSpell"))) {
-              //in this section, we will reduce the mana of the playerCharacter that used the
-              //spell and reduce the enemy's hp.
-            int index = playersList.indexOf((PlayerCharacter) newArg.getGameCharacter());
-            PlayerCharacter pc = playersList.get(index);
-              try {
-                  pc.setCurrentHp(newArg.getNewHp());
-              } catch (InvalidStatValueException e) {
-                  throw new RuntimeException(e);
-              }
           }
+      }
+
+      if (arg instanceof ArgSpellObsPattern){
+        ArgSpellObsPattern newArg = (ArgSpellObsPattern) arg;
+        //Here we will use the HealSpell
+        if (newArg.getArg().getAction().equals(("healSpell"))) {
+        //in this section, we will reduce the mana of the playerCharacter that used the
+        //spell and restore some missing hp to the selected playerCharacter.
+        int index = playersList.indexOf((PlayerCharacter) newArg.getMage());
+        PlayerCharacter mage = playersList.get(index);
+            try {
+              mage.setCurrentMana(newArg.getNewMana());
+            } catch (InvalidStatValueException e) {
+              throw new RuntimeException(e);
+            }
+        index = playersList.indexOf((PlayerCharacter) newArg.getArg().getGameCharacter());
+        PlayerCharacter pc = playersList.get(index);
+            try {
+              pc.setCurrentHp(newArg.getArg().getNewHp());
+            } catch (InvalidStatValueException e) {
+              throw new RuntimeException(e);
+            }
+        }
       }
   }
 }

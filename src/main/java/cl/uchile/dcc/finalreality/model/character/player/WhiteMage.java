@@ -74,14 +74,13 @@ public class WhiteMage extends AbstractMage {
 
   public void useSpell(GameCharacter character) throws InvalidStatValueException {
       //First we check if the mage has enough mana to use the spell
+
       WhiteMageSpells spell = this.getSpell();
       int totalMana = (this.getCurrentMana()-spell.manaCost());
-
       if (totalMana<0)
         //If the mage doesn't have enough mana, it can't use the spell
         return;
       Staff weapon = (Staff) this.getEquippedWeapon();
-
       if (!weapon.isNull()) {
         character.receiveWhiteMageSpell(this);
       }

@@ -11,8 +11,6 @@ public interface Spell {
 
     CompositeEffect getEffect();
 
-    boolean spellOnAlly();
-
     int manaCost();
 
     void equippableByWhiteMage(WhiteMage wm);

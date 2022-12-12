@@ -21,11 +21,6 @@ public class NullSpell implements Spell {
   }
 
   @Override
-  public boolean spellOnAlly() {
-    return false;
-  }
-
-  @Override
   public int manaCost() {
     return 0;
   }
