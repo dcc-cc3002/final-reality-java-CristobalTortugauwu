@@ -3,11 +3,12 @@ package cl.uchile.dcc.finalreality.model.spells.whitemagespells;
 import cl.uchile.dcc.finalreality.ArgObsPattern;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
-import cl.uchile.dcc.finalreality.model.character.player.Knight;
-
-import java.util.Observable;
 
 public class Heal extends AbstractWhiteMageSpells {
+
+    public Heal(String name) {
+        super(name);
+    }
 
     public int manaCost() {
         return 15;

@@ -5,6 +5,9 @@ import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
 import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
 import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
+import cl.uchile.dcc.finalreality.model.spells.Spell;
+import cl.uchile.dcc.finalreality.model.spells.blackmagespells.Thunder;
+import cl.uchile.dcc.finalreality.model.spells.whitemagespells.Poison;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -74,6 +77,18 @@ public class AbstractMageTest {
         blackmage.setCurrentMana(25);
         assertEquals(expected,blackmage.getCurrentMana());
 
+    }
+
+    @Test(expected = AssertionError.class)
+    public void testEquipSpell() {
+        Thunder spell = new Thunder("thunder");
+        blackmage.equipSpell(spell);
+        Thunder expected = new Thunder("thunder");
+        assertEquals(blackmage.getSpell(),expected);
+        Poison poison = new Poison("poison");
+        //In this part we check that black mage doesn't equip spells that he can't use.
+        blackmage.equipSpell(poison);
+        assertNotEquals(blackmage.getSpell(),poison);
     }
 
 

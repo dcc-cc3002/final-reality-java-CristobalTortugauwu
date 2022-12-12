@@ -10,10 +10,11 @@ package cl.uchile.dcc.finalreality.model.character.player;
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.exceptions.Require;
+import cl.uchile.dcc.finalreality.model.character.Enemy;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import java.util.concurrent.BlockingQueue;
 
-import cl.uchile.dcc.finalreality.model.character.player.validspell.ValidBlackMageSpell;
+import cl.uchile.dcc.finalreality.model.spells.Spell;
 import cl.uchile.dcc.finalreality.model.spells.blackmagespells.BlackMageSpells;
 import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
 import cl.uchile.dcc.finalreality.model.weapon.Staff;
@@ -69,7 +70,12 @@ public class BlackMage extends AbstractMage {
     return this.spell;
   }
 
-  public void useSpell(ValidBlackMageSpell enemy) throws InvalidStatValueException {
+  public void equipSpell(Spell spell) {
+    spell.equippableByBlackMage(this);
+  }
+
+  @Override
+  public void useSpell(GameCharacter enemy) throws InvalidStatValueException {
     //First we check if the mage has enough mana to use the spell
     BlackMageSpells spell = this.getSpell();
     int totalMana = (this.getCurrentMana()-spell.manaCost());
@@ -79,8 +85,8 @@ public class BlackMage extends AbstractMage {
     //If the object has magic damage, it can use spells, otherwise it won't
     Staff weapon = (Staff) this.getEquippedWeapon();
     if(this.getEquippedWeapon().hasMagicDamage() && !weapon.isNull())
-          //implementar ataque
-          enemy.receiveBMSpell(this);
+      //implementar ataque
+      ((Enemy)enemy).receiveBlackMageSpell(this);
   }
 
 }

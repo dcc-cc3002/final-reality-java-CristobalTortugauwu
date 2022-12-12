@@ -1,6 +1,7 @@
 package cl.uchile.dcc.finalreality.model.character.player;
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
+import cl.uchile.dcc.finalreality.model.spells.Spell;
 
 //We implemented this interface by now, because we want to
 //cast inside the equals methods, so we don´t use a cast with an abstract type
@@ -16,4 +17,5 @@ public interface MagesCharacter extends PlayerCharacter {
 
   void setCurrentMana(int mana)  throws InvalidStatValueException;
 
+  void equipSpell(Spell spell);
 }

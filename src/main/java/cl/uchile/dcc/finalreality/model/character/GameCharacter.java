@@ -2,7 +2,9 @@ package cl.uchile.dcc.finalreality.model.character;
 
 import cl.uchile.dcc.finalreality.GameController;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
+import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
 import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
+import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
 
 import java.util.Observer;
 
@@ -52,7 +54,7 @@ public interface GameCharacter {
   void setCurrentHp(int hp) throws InvalidStatValueException;
 
   /**
-   *
+   *Attack section
     */
   void attack(GameCharacter gamecharacter) throws InvalidStatValueException;
 
@@ -60,4 +62,12 @@ public interface GameCharacter {
 
   void attackableByEnemy(Enemy enemy) throws InvalidStatValueException;
 
+  /**
+   *Spell section
+   */
+  void useSpell(GameCharacter gameCharacter) throws InvalidStatValueException;
+
+  void receiveWhiteMageSpell(WhiteMage wm) throws InvalidStatValueException;
+
+  void receiveBlackMageSpell(BlackMage bm) throws InvalidStatValueException;
 }

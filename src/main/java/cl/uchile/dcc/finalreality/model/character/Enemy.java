@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * A class that holds all the information of a single enemy of the game.
  */
-public class Enemy extends AbstractCharacter implements ValidBlackMageSpell, ValidWhiteMageSpell {
+public class Enemy extends AbstractCharacter {
 
   private final int weight;
 
@@ -118,7 +118,7 @@ public class Enemy extends AbstractCharacter implements ValidBlackMageSpell, Val
   }
 
   @Override
-  public void receiveBMSpell(BlackMage blackmage) throws InvalidStatValueException {
+  public void receiveBlackMageSpell(BlackMage blackmage) throws InvalidStatValueException {
     //We know that this weapon, has magicDamage. Pero sería mejor tener
     //una clase que represente a los weapons que tengan magic damage, para que sea extensible.
     //Por ahora dejemoslo así XD
@@ -129,7 +129,7 @@ public class Enemy extends AbstractCharacter implements ValidBlackMageSpell, Val
   }
 
   @Override
-  public void receiveWhiteMagicSpell(WhiteMage whitemage) throws InvalidStatValueException {
+  public void receiveWhiteMageSpell(WhiteMage whitemage) throws InvalidStatValueException {
     WhiteMageSpells spell = whitemage.getSpell();
     spell.useWhiteMageSpell(this);
   }

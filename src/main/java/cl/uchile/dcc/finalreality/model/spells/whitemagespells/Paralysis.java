@@ -7,6 +7,10 @@ import cl.uchile.dcc.finalreality.model.effects.Paralyzed;
 
 public class Paralysis extends AbstractWhiteMageSpells {
 
+    public Paralysis(String name) {
+        super(name);
+    }
+
     public int manaCost() {
         return 25;
     }

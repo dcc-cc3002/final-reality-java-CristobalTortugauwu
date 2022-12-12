@@ -225,11 +225,11 @@ public class GameController implements Observer {
     //do nothing
   }
 
-  public void setSpell(Spell spell, MagesCharacter mc) {
-    mc.setSpell()
+  public void equipSpell(Spell spell, MagesCharacter mc) {
+    mc.equipSpell(spell);
   }
 
-  public void useSpellByBlackMage(BlackMage attacker, ValidBlackMageSpell target) throws InvalidStatValueException {
+  public void useSpellByBlackMage(BlackMage attacker, GameCharacter target) throws InvalidStatValueException {
       if(this.handleError(attacker, (GameCharacter) target)) {
         return;
       }
@@ -239,7 +239,7 @@ public class GameController implements Observer {
       }
   }
 
-    public void useSpellByWhiteMage(WhiteMage attacker, ValidWhiteMageSpell target) throws InvalidStatValueException {
+    public void useSpellByWhiteMage(WhiteMage attacker, GameCharacter target) throws InvalidStatValueException {
         if(this.handleError(attacker, (GameCharacter) target)) {
             return;
         }

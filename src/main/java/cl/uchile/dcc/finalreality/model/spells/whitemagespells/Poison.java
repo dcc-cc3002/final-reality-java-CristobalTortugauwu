@@ -8,6 +8,10 @@ import cl.uchile.dcc.finalreality.model.effects.Poisoned;
 
 public class Poison extends AbstractWhiteMageSpells {
 
+  public Poison(String name) {
+    super(name);
+  }
+
   public int manaCost() {
     return 40;
   }

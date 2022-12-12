@@ -4,5 +4,5 @@ import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
 
 public interface ValidBlackMageSpell {
-    void receiveBMSpell(BlackMage blackmage) throws InvalidStatValueException;
+    void receiveBlackMageSpell(BlackMage blackmage) throws InvalidStatValueException;
 }

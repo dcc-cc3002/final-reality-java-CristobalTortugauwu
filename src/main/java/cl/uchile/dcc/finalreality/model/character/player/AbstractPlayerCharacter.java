@@ -34,8 +34,7 @@ import org.jetbrains.annotations.NotNull;
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author ~Your name~
  */
-public abstract class AbstractPlayerCharacter extends AbstractCharacter implements
-    PlayerCharacter, ValidWhiteMageSpell, Observer {
+public abstract class AbstractPlayerCharacter extends AbstractCharacter implements Observer {
 
   private Iweapon equippedWeapon = null;
 
@@ -76,7 +75,6 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
     equippedWeapon = weapon;
   }
 
-  @Override
   public Iweapon getEquippedWeapon() {
     return equippedWeapon;
   }
@@ -88,7 +86,7 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
 
   @Override
   public void attack(GameCharacter attacked) throws InvalidStatValueException {
-    attacked.attackableByPlayerCharacter(this);
+    attacked.attackableByPlayerCharacter((PlayerCharacter) this);
   }
 
   public void attackableByEnemy(Enemy enemy) throws InvalidStatValueException {
@@ -99,7 +97,7 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter implemen
   }
 
   @Override
-  public void receiveWhiteMagicSpell(WhiteMage whitemage) throws InvalidStatValueException {
+  public void receiveWhiteMageSpell(WhiteMage whitemage) throws InvalidStatValueException {
     WhiteMageSpells spell = whitemage.getSpell();
     spell.useWhiteMageSpell(this);
   }

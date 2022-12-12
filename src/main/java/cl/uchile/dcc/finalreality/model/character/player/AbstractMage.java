@@ -3,6 +3,8 @@ package cl.uchile.dcc.finalreality.model.character.player;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.exceptions.Require;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
+import cl.uchile.dcc.finalreality.model.spells.Spell;
+
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
@@ -73,6 +75,8 @@ public abstract class AbstractMage extends AbstractPlayerCharacter implements Ma
   public boolean hasMana() {
     return true;
   }
+
+  public abstract void equipSpell(Spell spell);
 
 }
 

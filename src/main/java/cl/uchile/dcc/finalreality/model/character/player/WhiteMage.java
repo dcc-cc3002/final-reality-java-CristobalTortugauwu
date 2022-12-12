@@ -12,6 +12,7 @@ import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import java.util.concurrent.BlockingQueue;
 import cl.uchile.dcc.finalreality.model.character.player.validspell.ValidWhiteMageSpell;
+import cl.uchile.dcc.finalreality.model.spells.Spell;
 import cl.uchile.dcc.finalreality.model.spells.whitemagespells.WhiteMageSpells;
 import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
 import cl.uchile.dcc.finalreality.model.weapon.Staff;
@@ -66,7 +67,12 @@ public class WhiteMage extends AbstractMage {
       return this.spell;
   }
 
-  public void useSpell(ValidWhiteMageSpell character) throws InvalidStatValueException {
+  @Override
+  public void equipSpell(Spell spell) {
+    spell.equippableByWhiteMage(this);
+  }
+
+  public void useSpell(GameCharacter character) throws InvalidStatValueException {
       //First we check if the mage has enough mana to use the spell
       WhiteMageSpells spell = this.getSpell();
       int totalMana = (this.getCurrentMana()-spell.manaCost());
@@ -77,7 +83,7 @@ public class WhiteMage extends AbstractMage {
       Staff weapon = (Staff) this.getEquippedWeapon();
 
       if (!weapon.isNull()) {
-        character.receiveWhiteMagicSpell(this);
+        character.receiveWhiteMageSpell(this);
       }
   }
 }

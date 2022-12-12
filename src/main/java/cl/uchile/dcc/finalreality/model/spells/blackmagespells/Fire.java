@@ -6,6 +6,10 @@ import cl.uchile.dcc.finalreality.model.effects.Burned;
 import cl.uchile.dcc.finalreality.model.effects.CompositeEffect;
 
 public class Fire extends AbstractBlackMageSpells {
+
+    public Fire(String name) {
+        super(name);
+    }
     public void useBlackMageSpell(Enemy enemy, int magicDamage) throws InvalidStatValueException {
         //First we do the magic damage
         int enemyHp = enemy.getCurrentHp();

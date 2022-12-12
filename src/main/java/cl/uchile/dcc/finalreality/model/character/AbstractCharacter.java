@@ -2,11 +2,14 @@ package cl.uchile.dcc.finalreality.model.character;
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.exceptions.Require;
+import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
 import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
+
+import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -116,20 +119,36 @@ public abstract class AbstractCharacter extends Observable implements GameCharac
     currentHp = hp;
   }
 
-  void error() {
+
+  //------------------Assertion errors section------------------------
+  void attackError() {
     throw new AssertionError("You can't attack this character");
   }
+  void spellError() {
+    throw new AssertionError("Invalid target for spell");
+  }
 
-  ;
-
+  //-------------------------Attack section-----------------------------
   public abstract void attack(GameCharacter target) throws InvalidStatValueException;
 
   public void attackableByPlayerCharacter(PlayerCharacter pc) throws InvalidStatValueException {
-    error();
+    attackError();
   }
 
   public void attackableByEnemy(Enemy enemy) throws InvalidStatValueException {
-    error();
+    attackError();
   }
 
+  //-----------------------Spell section----------------------------------
+  public void useSpell(GameCharacter gc) throws InvalidStatValueException {
+    spellError();
+  }
+
+  public void receiveBlackMageSpell(BlackMage bm) throws InvalidStatValueException {
+    spellError();
+  }
+
+  public void receiveWhiteMageSpell(WhiteMage wm) throws InvalidStatValueException {
+    spellError();
+  }
 }
