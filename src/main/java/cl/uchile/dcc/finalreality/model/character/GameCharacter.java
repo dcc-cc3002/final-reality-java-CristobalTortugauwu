@@ -1,15 +1,22 @@
 package cl.uchile.dcc.finalreality.model.character;
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
+import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
+import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
+import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
+import cl.uchile.dcc.finalreality.model.effects.Effect;
+
 
 /**
  * This represents a character from the game.
  * A character can be controlled by the player or by the CPU (an enemy).
- *
- * @author <a href="https://www.github.com/r8vnhill">R8V</a>
- * @author ~Your name~
  */
 public interface GameCharacter {
+
+  /**
+   * Adds this character to the turns queue.
+   */
+  void addToQueue();
 
   /**
    * Sets a scheduled executor to make this character (thread) wait for {@code speed / 10}
@@ -41,4 +48,26 @@ public interface GameCharacter {
    * Sets this character's current HP to {@code newHp}.
    */
   void setCurrentHp(int hp) throws InvalidStatValueException;
+
+  void addEffects(Effect effect);
+
+  /**
+   *Attack section.
+    */
+  void attack(GameCharacter gamecharacter) throws InvalidStatValueException;
+
+  void attackableByPlayerCharacter(PlayerCharacter pc) throws InvalidStatValueException;
+
+  void attackableByEnemy(Enemy enemy) throws InvalidStatValueException;
+
+  /**
+   *Spell section.
+   */
+  void useSpell(GameCharacter gameCharacter) throws InvalidStatValueException;
+
+  void receiveWhiteMageSpell(WhiteMage wm) throws InvalidStatValueException;
+
+  void receiveBlackMageSpell(BlackMage bm) throws InvalidStatValueException;
+
+  boolean isEnemy();
 }

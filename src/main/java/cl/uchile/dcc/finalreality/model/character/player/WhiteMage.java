@@ -9,9 +9,11 @@
 package cl.uchile.dcc.finalreality.model.character.player;
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
-import cl.uchile.dcc.finalreality.exceptions.Require;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
-import java.util.Objects;
+import cl.uchile.dcc.finalreality.model.spells.Spell;
+import cl.uchile.dcc.finalreality.model.spells.whitemagespells.WhiteMageSpells;
+import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
+import cl.uchile.dcc.finalreality.model.weapon.Staff;
 import java.util.concurrent.BlockingQueue;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,11 +23,9 @@ import org.jetbrains.annotations.NotNull;
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author ~Your name~
  */
-public class WhiteMage extends AbstractPlayerCharacter {
+public class WhiteMage extends AbstractMage {
 
-  private int currentMp;
-  private final int maxMp;
-
+  private WhiteMageSpells spell;
   /**
    * Creates a new character.
    *
@@ -38,60 +38,55 @@ public class WhiteMage extends AbstractPlayerCharacter {
    * @param turnsQueue
    *     the queue with the characters waiting for their turn
    */
-  protected WhiteMage(final @NotNull String name, final int maxHp, final int defense,
-      int maxMp, final @NotNull BlockingQueue<GameCharacter> turnsQueue)
+
+  public WhiteMage(final @NotNull String name, final int maxHp, final int defense,
+      int maxMana, final @NotNull BlockingQueue<GameCharacter> turnsQueue)
       throws InvalidStatValueException {
-    super(name, maxHp, defense, turnsQueue);
-    this.maxMp = maxMp;
-    this.currentMp = maxMp;
+    super(name, maxHp, defense, turnsQueue, maxMana);
   }
 
-  @Override
-  public boolean equals(final Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (!(o instanceof final WhiteMage that)) {
-      return false;
-    }
-    return hashCode() == that.hashCode()
-        && maxMp == that.maxMp
-        && name.equals(that.name)
-        && maxHp == that.maxHp
-        && defense == that.defense;
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(WhiteMage.class, name, maxHp, defense, maxMp);
-  }
-
+  /**
+   * Returns a string with the fields and the name of the class.
+   */
   @Override
   public String toString() {
     return "WhiteMage{maxMp=%d, maxHp=%d, defense=%d, name='%s'}"
-        .formatted(maxMp, maxHp, defense, name);
+        .formatted(this.getMaxMana(), maxHp, defense, name);
+  }
+
+  @Override
+  public void equip(Iweapon weapon) {
+    weapon.equippableByWhiteMage(this);
+  }
+
+  public void setSpell(WhiteMageSpells spell) {
+    this.spell = spell;
+  }
+
+  public WhiteMageSpells getSpell() {
+    return this.spell;
+  }
+
+  @Override
+  public void equipSpell(Spell spell) {
+    spell.equippableByWhiteMage(this);
   }
 
   /**
-   * Returns the current MP of the character.
+   *  This methods allow the white mage to uses his spells.
    */
-  public int getCurrentMp() {
-    return currentMp;
-  }
+  public void useSpell(GameCharacter character) throws InvalidStatValueException {
+    //First we check if the mage has enough mana to use the spell
 
-  /**
-   * Sets the current MP of the character to {@code newMp}.
-   */
-  public void setCurrentMp(final int newMp) throws InvalidStatValueException {
-    Require.statValueAtLeast(0, newMp, "Current MP");
-    Require.statValueAtMost(maxMp, newMp, "Current MP");
-    this.currentMp = newMp;
-  }
-
-  /**
-   * Returns the max MP of the character.
-   */
-  public int getMaxMp() {
-    return maxMp;
+    WhiteMageSpells spell = this.getSpell();
+    int totalMana = (this.getCurrentMana() - spell.manaCost());
+    if (totalMana < 0) {
+      //If the mage doesn't have enough mana, it can't use the spell
+      return;
+    }
+    Staff weapon = (Staff) this.getEquippedWeapon();
+    if (!weapon.isNull()) {
+      character.receiveWhiteMageSpell(this);
+    }
   }
 }

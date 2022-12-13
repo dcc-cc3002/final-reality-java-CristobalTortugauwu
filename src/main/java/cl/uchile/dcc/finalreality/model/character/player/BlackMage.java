@@ -10,8 +10,12 @@ package cl.uchile.dcc.finalreality.model.character.player;
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.exceptions.Require;
+import cl.uchile.dcc.finalreality.model.character.Enemy;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
-import java.util.Objects;
+import cl.uchile.dcc.finalreality.model.spells.Spell;
+import cl.uchile.dcc.finalreality.model.spells.blackmagespells.BlackMageSpells;
+import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
+import cl.uchile.dcc.finalreality.model.weapon.Staff;
 import java.util.concurrent.BlockingQueue;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,10 +26,9 @@ import org.jetbrains.annotations.NotNull;
  * @author ~Your name~
  * @version 2.0
  */
-public class BlackMage extends AbstractPlayerCharacter {
+public class BlackMage extends AbstractMage {
 
-  private int currentMp;
-  private final int maxMp;
+  private BlackMageSpells spell;
 
   /**
    * Creates a new Black Mage.
@@ -39,66 +42,53 @@ public class BlackMage extends AbstractPlayerCharacter {
    * @param turnsQueue
    *     the queue with the characters waiting for their turn
    */
-  protected BlackMage(final @NotNull String name, final int maxHp, final int defense,
-      int maxMp, final @NotNull BlockingQueue<GameCharacter> turnsQueue)
+  public BlackMage(final @NotNull String name, final int maxHp, final int defense,
+      int maxMana, final @NotNull BlockingQueue<GameCharacter> turnsQueue)
       throws InvalidStatValueException {
-    super(name, maxHp, defense, turnsQueue);
-    Require.statValueAtLeast(0, maxMp, "Max MP");
-    this.maxMp = maxMp;
-    this.currentMp = maxMp;
-  }
-
-  // region : ACCESSORS
-
-  /**
-   * Returns the character's current MP.
-   */
-  private int getCurrentMp() {
-    return currentMp;
+    super(name, maxHp, defense, turnsQueue, maxMana);
+    Require.statValueAtLeast(0, maxMana, "Max MP");
   }
 
   /**
-   * Sets the character's current MP.
+   * Returns a string with the fields and the name of the class.
    */
-  private void setCurrentMp(final int currentMp) throws InvalidStatValueException {
-    Require.statValueAtLeast(0, currentMp, "Current MP");
-    Require.statValueAtMost(maxMp, currentMp, "Current MP");
-    this.currentMp = currentMp;
-  }
-
-  /**
-   * Returns the character's max MP.
-   */
-  private int getMaxMp() {
-    return maxMp;
-  }
-  // endregion
-
-  // region : UTILITY METHODS
-  @Override
-  public boolean equals(final Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (!(o instanceof final BlackMage that)) {
-      return false;
-    }
-    return hashCode() == that.hashCode()
-        && name.equals(that.name)
-        && maxHp == that.maxHp
-        && defense == that.defense
-        && maxMp == that.maxMp;
-  }
-
   @Override
   public String toString() {
     return "BlackMage{currentMp=%d, maxMp=%d, maxHp=%d, defense=%d, name='%s'}"
-        .formatted(currentMp, maxMp, maxHp, defense, name);
+        .formatted(this.getCurrentMana(), this.getMaxMana(), maxHp, defense, name);
+  }
+
+  public void equip(Iweapon weapon) {
+    weapon.equippableByBlackMage(this);
+  }
+
+  public void setSpell(BlackMageSpells spell) {
+    this.spell = spell;
+  }
+
+  public BlackMageSpells getSpell() {
+    return this.spell;
+  }
+
+  public void equipSpell(Spell spell) {
+    spell.equippableByBlackMage(this);
   }
 
   @Override
-  public int hashCode() {
-    return Objects.hash(BlackMage.class, name, maxHp, defense, maxMp);
+  public void useSpell(GameCharacter enemy) throws InvalidStatValueException {
+    //First we check if the mage has enough mana to use the spell
+    BlackMageSpells spell = this.getSpell();
+    int totalMana = (this.getCurrentMana() - spell.manaCost());
+    if (totalMana < 0) {
+      //If the mage doesn't have enough mana, it can't use the spell
+      return;
+    }
+    //If the object has magic damage, it can use spells, otherwise it won't
+    Staff weapon = (Staff) this.getEquippedWeapon();
+    if (this.getEquippedWeapon().hasMagicDamage() && !weapon.isNull()) {
+      //implementar ataque
+      enemy.receiveBlackMageSpell(this);
+    }
   }
-  // endregion
+
 }

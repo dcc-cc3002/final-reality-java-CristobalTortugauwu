@@ -1,43 +1,51 @@
 package cl.uchile.dcc.finalreality.model.character;
 
+import cl.uchile.dcc.finalreality.ArgObsPattern;
+import cl.uchile.dcc.finalreality.ArgSpellObsPattern;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.exceptions.Require;
+import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
 import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
+import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
+import cl.uchile.dcc.finalreality.model.effects.Effect;
+import java.util.Objects;
+import java.util.Observable;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import org.jetbrains.annotations.NotNull;
+
 
 /**
  * An abstract class that holds the common behaviour of all the characters in the game.
- *
- * @author <a href="https://www.github.com/r8vnhill">R8V</a>
- * @author ~Your name~
+ * We will use observable instead of "propertychangesupport" because it´s easier XD,
+ * I will change it after I've delivered the last task.
  */
-public abstract class AbstractCharacter implements GameCharacter {
+public abstract class AbstractCharacter extends Observable
+        implements GameCharacter {
 
+  //attributes of the character
   private int currentHp;
   protected int maxHp;
   protected int defense;
-  protected final BlockingQueue<GameCharacter> turnsQueue;
   protected final String name;
-  private ScheduledExecutorService scheduledExecutor;
+
+  //Queue elements
+  protected final BlockingQueue<GameCharacter> turnsQueue;
+  protected ScheduledExecutorService scheduledExecutor;
+
+  //Observer Pattern variable
 
   /**
    * Creates a new character.
    *
-   * @param name
-   *     the character's name
-   * @param maxHp
-   *     the character's max hp
-   * @param defense
-   *     the character's defense
-   * @param turnsQueue
-   *     the queue with the characters waiting for their turn
+   * @param name       the character's name
+   * @param maxHp      the character's max hp
+   * @param defense    the character's defense
+   * @param turnsQueue the queue with the characters waiting for their turn
    */
   protected AbstractCharacter(@NotNull String name, int maxHp, int defense,
-      @NotNull BlockingQueue<GameCharacter> turnsQueue) throws InvalidStatValueException {
+                              @NotNull BlockingQueue<GameCharacter> turnsQueue)
+          throws InvalidStatValueException {
     Require.statValueAtLeast(1, maxHp, "Max HP");
     Require.statValueAtLeast(0, defense, "Defense");
     this.maxHp = maxHp;
@@ -47,33 +55,49 @@ public abstract class AbstractCharacter implements GameCharacter {
     this.name = name;
   }
 
+  /**
+   * Equals method that will be used for al GameCharacters, we did not include turnsQueue
+   * because it´s different for every instance.
+   */
   @Override
-  public void waitTurn() {
-    scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
-    if (this instanceof PlayerCharacter player) {
-      scheduledExecutor.schedule(
-          /* command = */ this::addToQueue,
-          /* delay = */ player.getEquippedWeapon().getWeight() / 10,
-          /* unit = */ TimeUnit.SECONDS);
-    } else {
-      var enemy = (Enemy) this;
-      scheduledExecutor.schedule(
-          /* command = */ this::addToQueue,
-          /* delay = */ enemy.getWeight() / 10,
-          /* unit = */ TimeUnit.SECONDS);
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    GameCharacter that = (GameCharacter) o;
+    return maxHp == that.getMaxHp() && defense == that.getDefense() && name.equals(that.getName());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(maxHp, defense, name);
   }
 
   /**
-   * Adds this character to the turns queue.
+   * This method is used with the purpose in which the GameCharacters will wait in a specific Queue.
    */
-  private void addToQueue() {
+  @Override
+  public abstract void waitTurn();
+
+
+  /**
+   * {@inheritDoc}
+   */
+  public void addToQueue() {
     try {
       turnsQueue.put(this);
     } catch (Exception e) {
       e.printStackTrace();
     }
     scheduledExecutor.shutdown();
+  }
+
+  @Override
+  public void addEffects(Effect effect) {
+    throw new AssertionError("you don't have the property effect");
   }
 
   @Override
@@ -102,4 +126,43 @@ public abstract class AbstractCharacter implements GameCharacter {
     Require.statValueAtMost(maxHp, hp, "Current HP");
     currentHp = hp;
   }
+
+  public boolean isEnemy() {
+    return false;
+  }
+
+  //------------------Assertion errors section------------------------
+  void attackError() {
+    throw new AssertionError("You can't attack this character");
+  }
+
+  void spellError() {
+    throw new AssertionError("Invalid target for spell");
+  }
+
+
+  //-------------------------Attack section-----------------------------
+  public abstract void attack(GameCharacter target) throws InvalidStatValueException;
+
+  public void attackableByPlayerCharacter(PlayerCharacter pc) throws InvalidStatValueException {
+    attackError();
+  }
+
+  public void attackableByEnemy(Enemy enemy) throws InvalidStatValueException {
+    attackError();
+  }
+
+  //-----------------------Spell section----------------------------------
+  public void useSpell(GameCharacter gc) throws InvalidStatValueException {
+    spellError();
+  }
+
+  public void receiveBlackMageSpell(BlackMage bm) throws InvalidStatValueException {
+    spellError();
+  }
+
+  public void receiveWhiteMageSpell(WhiteMage wm) throws InvalidStatValueException {
+    spellError();
+  }
+
 }

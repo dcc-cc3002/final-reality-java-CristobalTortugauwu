@@ -1,20 +1,31 @@
 package cl.uchile.dcc.finalreality.model.character;
 
+import cl.uchile.dcc.finalreality.ArgObsPattern;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.exceptions.Require;
+import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
+import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
+import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
+import cl.uchile.dcc.finalreality.model.effects.CompositeEffect;
+import cl.uchile.dcc.finalreality.model.effects.Effect;
+import cl.uchile.dcc.finalreality.model.spells.blackmagespells.BlackMageSpells;
+import cl.uchile.dcc.finalreality.model.spells.whitemagespells.WhiteMageSpells;
+import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
+import cl.uchile.dcc.finalreality.model.weapon.Staff;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * A class that holds all the information of a single enemy of the game.
- *
- * @author <a href="https://www.github.com/r8vnhill">R8V</a>
- * @author ~Your name~
  */
 public class Enemy extends AbstractCharacter {
 
   private final int weight;
+
+  private CompositeEffect effects = new CompositeEffect();
 
   /**
    * Creates a new enemy with a name, a weight and the queue with the characters ready to
@@ -35,23 +46,97 @@ public class Enemy extends AbstractCharacter {
     return weight;
   }
 
+  /**
+   *Equals method for the Enemy class, we did not consider the turnsQueue parameter in the
+   * input, because for every instance of an object, they can´t share a turn.
+   */
   @Override
-  public boolean equals(final Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof final Enemy enemy)) {
+    if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    return hashCode() == enemy.hashCode()
-        && name.equals(enemy.name)
-        && weight == enemy.weight
-        && maxHp == enemy.maxHp
-        && defense == enemy.defense;
+    if (!super.equals(o)) {
+      return false;
+    }
+    Enemy enemy = (Enemy) o;
+    return weight == enemy.weight;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void waitTurn() {
+    scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
+    scheduledExecutor.schedule(
+            /* command = */ this::addToQueue,
+            /* delay = */ this.getWeight() / 10,
+            /* unit = */ TimeUnit.SECONDS);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(Enemy.class, name, weight, maxHp, defense);
+    return Objects.hash(super.hashCode(), weight, this.getClass());
   }
+
+  /**
+   * Returns a string with the fields and the name of the class.
+   */
+  @Override
+  public String toString() {
+    return "Enemy{name='%s', damage=%d, weight=%d,, class='%s'}"
+            .formatted(getName(), getMaxHp(), getWeight(), getClass().getSimpleName());
+  }
+
+  @Override
+  public void addEffects(Effect ce) {
+    getEffects().addEffect(ce);
+  }
+
+  public CompositeEffect getEffects() {
+    return this.effects;
+  }
+
+  @Override
+  public void attack(GameCharacter target) throws InvalidStatValueException {
+    target.attackableByEnemy(this);
+  }
+
+  @Override
+  public void attackableByPlayerCharacter(PlayerCharacter pc) throws InvalidStatValueException {
+    int enemyHp = this.getCurrentHp();
+    Iweapon weapon = pc.getEquippedWeapon();
+    //If the weapon is not null, then the attack will be valid
+    if (!weapon.isNull()) {
+      int newHp = enemyHp - weapon.getDamage();
+      setChanged();
+      notifyObservers(new ArgObsPattern("attackByPlayerCharacter", this, newHp, null));
+    }
+  }
+
+  @Override
+  public void receiveBlackMageSpell(BlackMage blackmage) throws InvalidStatValueException {
+    //We know that this weapon, has magicDamage. Pero sería mejor tener
+    //una clase que represente a los weapons que tengan magic damage, para que sea extensible.
+    //Por ahora dejemoslo así XD
+    Staff weapon = (Staff) blackmage.getEquippedWeapon();
+    BlackMageSpells spell = blackmage.getSpell();
+    int md = weapon.getMagicDamage();
+    spell.useBlackMageSpell(this, md);
+  }
+
+  @Override
+  public void receiveWhiteMageSpell(WhiteMage whitemage) throws InvalidStatValueException {
+    WhiteMageSpells spell = whitemage.getSpell();
+    spell.useWhiteMageSpell(this);
+  }
+
+  @Override
+  public boolean isEnemy() {
+    return true;
+  }
+
 }

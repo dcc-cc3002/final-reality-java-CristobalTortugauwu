@@ -8,20 +8,31 @@ package cl.uchile.dcc.finalreality.model.character.player;
  * work. If not, see <http://creativecommons.org/licenses/by/4.0/>.
  */
 
+import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
-import cl.uchile.dcc.finalreality.model.weapon.Weapon;
+import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
+
 
 /**
  * A {@link GameCharacter} that can equip a weapon.
  */
 public interface PlayerCharacter extends GameCharacter {
-  /**
-   * Equips a weapon to the character.
-   */
-  void equip(Weapon weapon);
 
   /**
    * Return this character's equipped weapon.
    */
-  Weapon getEquippedWeapon();
+  Iweapon getEquippedWeapon();
+
+  void setWeapon(Iweapon weapon);
+
+  void equip(Iweapon weapon);
+
+  boolean hasMana();
+
+  void setCurrentMana(int mana) throws InvalidStatValueException;
+
+  int getMaxMana();
+
+  int getCurrentMana();
+
 }
