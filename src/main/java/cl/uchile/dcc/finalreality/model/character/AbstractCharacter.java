@@ -11,6 +11,8 @@ import java.util.Objects;
 import java.util.Observable;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
+
+import cl.uchile.dcc.finalreality.model.effects.Effect;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -95,6 +97,10 @@ public abstract class AbstractCharacter extends Observable
   }
 
   @Override
+  public void addEffects(Effect effect) {
+    throw new AssertionError("you don't have the property effect");
+  }
+  @Override
   public String getName() {
     return name;
   }
@@ -133,6 +139,7 @@ public abstract class AbstractCharacter extends Observable
   void spellError() {
     throw new AssertionError("Invalid target for spell");
   }
+
 
   //-------------------------Attack section-----------------------------
   public abstract void attack(GameCharacter target) throws InvalidStatValueException;

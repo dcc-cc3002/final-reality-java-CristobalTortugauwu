@@ -91,6 +91,7 @@ public class Enemy extends AbstractCharacter {
             .formatted(getName(), getMaxHp(), getWeight(), getClass().getSimpleName());
   }
 
+  @Override
   public void addEffects(Effect ce) {
     getEffects().addEffect(ce);
   }

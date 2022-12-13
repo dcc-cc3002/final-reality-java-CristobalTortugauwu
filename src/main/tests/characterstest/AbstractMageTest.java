@@ -6,10 +6,12 @@ import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
 import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
 import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
+import cl.uchile.dcc.finalreality.model.effects.Poisoned;
 import cl.uchile.dcc.finalreality.model.spells.Spell;
 import cl.uchile.dcc.finalreality.model.spells.blackmagespells.Fire;
 import cl.uchile.dcc.finalreality.model.spells.blackmagespells.Thunder;
 import cl.uchile.dcc.finalreality.model.spells.whitemagespells.Poison;
+import cl.uchile.dcc.finalreality.model.weapon.Staff;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,8 +19,7 @@ import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 public class AbstractMageTest {
 
@@ -92,14 +93,24 @@ public class AbstractMageTest {
         assertNotEquals(blackmage.getSpell(),poison);
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testUseSpell() throws InvalidStatValueException {
       Enemy enemy = new Enemy("enemy", 100, 1000,10,queue2);
       Spell spell = new Fire("fire");
       Spell spellWm = new Poison("poison");
+      Staff staff = new Staff("staff",50,30,400);
+      blackmage.equip(staff);
+      whitemage.equip(staff);
       blackmage.equipSpell(spell);
       whitemage.equipSpell(spellWm);
-
+      whitemage.useSpell(enemy);
+      blackmage.useSpell(enemy);
+      int expected = 600;
+      assertEquals(expected, enemy.getCurrentHp());
+      expected = 1;
+      Poisoned pos = new Poisoned("poisoned");
+      enemy.addEffects(pos);
+      assertTrue("nani",enemy.getEffects().getHashSet().contains(pos));
 
     }
 

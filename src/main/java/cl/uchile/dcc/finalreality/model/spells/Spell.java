@@ -5,6 +5,10 @@ import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
 import cl.uchile.dcc.finalreality.model.effects.CompositeEffect;
 import cl.uchile.dcc.finalreality.model.effects.Effect;
 
+/**
+ * Spell interface.
+ */
+
 public interface Spell {
 
   void setEffect(CompositeEffect effects);

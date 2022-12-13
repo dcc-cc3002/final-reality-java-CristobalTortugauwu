@@ -313,17 +313,13 @@ public class GameController implements Observer {
    * This method is supposed to use the waitTurn method of an Enemy.
    */
   public void waitTurnByEnemy(Enemy enemy) {
-    if (this.getEnemyList().contains(enemy)) {
-    }
+
   }
 
-   /**
-    * This method is supposed to use the waitTurn method of a PlayerCharacter.
-    */
+  /**
+   * This method is supposed to use the waitTurn method of a PlayerCharacter.
+   */
   public void waitTurnByPlayerCharacter(PlayerCharacter pc) {
-    if (this.getPlayerCharacterList().contains(pc)) {
-
-    }
   }
 
   public void onPlayerWin() {
@@ -335,7 +331,7 @@ public class GameController implements Observer {
   }
 
   /**
-   *This method is used in the init method, if someone wants to create a certain type of character,
+   *This method is used in the init method, if someone wants to create a certain type of character.
    * he/she has to use the following ints in the character input:
    *             case 0 -> createBlackMage(name, hp, defense, mana,weapon);
    *             case 1 -> createEngineer(name, hp, defense, weapon);
@@ -367,7 +363,7 @@ public class GameController implements Observer {
       return true;
     }
     if (target.getCurrentHp() == 0) {
-    //if the attacker doesn't have hp, he also can not attack and his turn ends.
+      //if the attacker doesn't have hp, he also can not attack and his turn ends.
       System.out.println("select another target");
       return true;
     }
@@ -403,36 +399,36 @@ public class GameController implements Observer {
         int index = enemyList.indexOf((Enemy) newArg.getGameCharacter());
         Enemy enemy = enemyList.get(index);
         try {
-            enemy.setCurrentHp(newArg.getNewHp());
+          enemy.setCurrentHp(newArg.getNewHp());
         } catch (InvalidStatValueException e) {
-            throw new RuntimeException(e);
+          throw new RuntimeException(e);
         }
       }
     }
 
-    if (arg instanceof ArgSpellObsPattern){
+    if (arg instanceof ArgSpellObsPattern) {
       ArgSpellObsPattern newArg = (ArgSpellObsPattern) arg;
       //Here we will use the HealSpell
       if (newArg.getArg().getAction().equals("healSpell")) {
-      //in this section, we will reduce the mana of the playerCharacter that used the
-      //spell and restore some missing hp to the selected playerCharacter.
+        //in this section, we will reduce the mana of the playerCharacter that used the
+        //spell and restore some missing hp to the selected playerCharacter.
         int index = playersList.indexOf((PlayerCharacter) newArg.getMage());
         PlayerCharacter mage = playersList.get(index);
-          try {
-            mage.setCurrentMana(newArg.getNewMana());
-          } catch (InvalidStatValueException e) {
-            throw new RuntimeException(e);
-          }
+        try {
+          mage.setCurrentMana(newArg.getNewMana());
+        } catch (InvalidStatValueException e) {
+          throw new RuntimeException(e);
+        }
         index = playersList.indexOf((PlayerCharacter) newArg.getArg().getGameCharacter());
         PlayerCharacter pc = playersList.get(index);
-          try {
-            pc.setCurrentHp(newArg.getArg().getNewHp());
-          } catch (InvalidStatValueException e) {
-            throw new RuntimeException(e);
-          }
+        try {
+          pc.setCurrentHp(newArg.getArg().getNewHp());
+        } catch (InvalidStatValueException e) {
+          throw new RuntimeException(e);
+        }
       }
       if (newArg.getArg().getAction().equals("paralysisSpell")
-      || newArg.getArg().getAction().equals("poisonSpell")) {
+          || newArg.getArg().getAction().equals("poisonSpell")) {
         int index = playersList.indexOf((PlayerCharacter) newArg.getMage());
         PlayerCharacter mage = playersList.get(index);
         try {
@@ -443,6 +439,11 @@ public class GameController implements Observer {
         index = enemyList.indexOf((Enemy) newArg.getArg().getGameCharacter());
         Enemy enemy = enemyList.get(index);
         enemy.addEffects(newArg.getArg().getEffect());
+        try {
+          enemy.setCurrentHp(newArg.getArg().getNewHp());
+        } catch (InvalidStatValueException e) {
+          throw new RuntimeException(e);
+        }
       }
 
     }

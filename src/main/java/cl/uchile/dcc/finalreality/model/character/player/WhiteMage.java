@@ -10,12 +10,11 @@ package cl.uchile.dcc.finalreality.model.character.player;
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
-import java.util.concurrent.BlockingQueue;
-import cl.uchile.dcc.finalreality.model.character.player.validspell.ValidWhiteMageSpell;
 import cl.uchile.dcc.finalreality.model.spells.Spell;
 import cl.uchile.dcc.finalreality.model.spells.whitemagespells.WhiteMageSpells;
 import cl.uchile.dcc.finalreality.model.weapon.Iweapon;
 import cl.uchile.dcc.finalreality.model.weapon.Staff;
+import java.util.concurrent.BlockingQueue;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -39,6 +38,7 @@ public class WhiteMage extends AbstractMage {
    * @param turnsQueue
    *     the queue with the characters waiting for their turn
    */
+
   public WhiteMage(final @NotNull String name, final int maxHp, final int defense,
       int maxMana, final @NotNull BlockingQueue<GameCharacter> turnsQueue)
       throws InvalidStatValueException {
@@ -56,15 +56,15 @@ public class WhiteMage extends AbstractMage {
 
   @Override
   public void equip(Iweapon weapon) {
-      weapon.equippableByWhiteMage(this);
+    weapon.equippableByWhiteMage(this);
   }
 
   public void setSpell(WhiteMageSpells spell) {
-      this.spell = spell;
+    this.spell = spell;
   }
 
   public WhiteMageSpells getSpell() {
-      return this.spell;
+    return this.spell;
   }
 
   @Override
@@ -72,17 +72,21 @@ public class WhiteMage extends AbstractMage {
     spell.equippableByWhiteMage(this);
   }
 
+  /**
+   *  This methods allow the white mage to uses his spells.
+   */
   public void useSpell(GameCharacter character) throws InvalidStatValueException {
-      //First we check if the mage has enough mana to use the spell
+    //First we check if the mage has enough mana to use the spell
 
-      WhiteMageSpells spell = this.getSpell();
-      int totalMana = (this.getCurrentMana()-spell.manaCost());
-      if (totalMana<0)
-        //If the mage doesn't have enough mana, it can't use the spell
-        return;
-      Staff weapon = (Staff) this.getEquippedWeapon();
-      if (!weapon.isNull()) {
-        character.receiveWhiteMageSpell(this);
-      }
+    WhiteMageSpells spell = this.getSpell();
+    int totalMana = (this.getCurrentMana() - spell.manaCost());
+    if (totalMana < 0) {
+      //If the mage doesn't have enough mana, it can't use the spell
+      return;
+    }
+    Staff weapon = (Staff) this.getEquippedWeapon();
+    if (!weapon.isNull()) {
+      character.receiveWhiteMageSpell(this);
+    }
   }
 }

@@ -21,13 +21,16 @@ public class Poison extends AbstractWhiteMageSpells {
     return 40;
   }
 
+  /**
+   * This methods uses the white mage spell.
+   */
   public void useWhiteMageSpell(GameCharacter gamecharacter) {
     if (gamecharacter.isEnemy()) {
       //At this point, we're sure that we can use the spell on an enemy.
       ArgObsPattern arg = new ArgObsPattern("poisonSpell",
-              gamecharacter, 0, new Poisoned());
+              gamecharacter, gamecharacter.getCurrentHp(), new Poisoned("poisoned"));
       setChanged();
-      notifyObservers(new ArgSpellObsPattern(null,manaCost(),arg));
+      notifyObservers(new ArgSpellObsPattern(null, manaCost(), arg));
     }
   }
 

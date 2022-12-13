@@ -2,10 +2,38 @@ package cl.uchile.dcc.finalreality.model.effects;
 
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 
-public class Poisoned implements Effect{
+import java.util.Objects;
 
-    public void applyEffect(GameCharacter gc) {
-        //mismo comentario que en paralyzed
+/**
+ * Poisoned class effect.
+ */
+public class Poisoned implements Effect {
+
+  private String name;
+
+  public Poisoned(String name) {
+    this.name = name;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Poisoned poisoned = (Poisoned) o;
+    return Objects.equals(name, poisoned.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name);
+  }
+
+  public void applyEffect(GameCharacter gc) {
+        //mismo comentario que en paralyzed
+  }
 
 }

@@ -6,13 +6,14 @@ import cl.uchile.dcc.finalreality.model.character.player.*;
 /**
  * NullWeapon Class.
  */
-public class NullWeapon implements Iweapon{
+public class NullWeapon implements Iweapon {
 
   public NullWeapon() {
 
   }
+
   @Override
-  public boolean hasMagicDamage(){
+  public boolean hasMagicDamage() {
     return false;
   }
 

@@ -17,6 +17,9 @@ public class Thunder extends AbstractBlackMageSpells {
     super(name);
   }
 
+  /**
+   * Uses the thunder spell of the black mage.
+   */
   public void useBlackMageSpell(Enemy enemy, int magicDamage) throws InvalidStatValueException {
     //First we do the magic damage
     int enemyHp = enemy.getCurrentHp();
@@ -26,9 +29,9 @@ public class Thunder extends AbstractBlackMageSpells {
     //Now we care about the effect being added to the
     //effects instance in the enemy class.
     if (Math.random() <= 0.2) {
-      arg.setEffects(new Paralyzed());
+      arg.setEffects(new Paralyzed("paralyzed"));
     }
     setChanged();
-    notifyObservers(new ArgSpellObsPattern(null,manaCost(),arg));
+    notifyObservers(new ArgSpellObsPattern(null, manaCost(), arg));
   }
 }

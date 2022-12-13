@@ -5,6 +5,9 @@ import cl.uchile.dcc.finalreality.ArgSpellObsPattern;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 
+/**
+ * Heal class spell.
+ */
 public class Heal extends AbstractWhiteMageSpells {
 
   public Heal(String name) {
@@ -15,6 +18,9 @@ public class Heal extends AbstractWhiteMageSpells {
     return 15;
   }
 
+  /**
+   * Uses the white mage spell.
+   */
   public void useWhiteMageSpell(GameCharacter gamecharacter) throws InvalidStatValueException {
     int maxHp = gamecharacter.getMaxHp();
     int currHp = gamecharacter.getCurrentHp();

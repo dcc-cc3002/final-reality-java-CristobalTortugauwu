@@ -3,6 +3,7 @@ package cl.uchile.dcc.finalreality.model.character.player;
 import cl.uchile.dcc.finalreality.ArgSpellObsPattern;
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
 import cl.uchile.dcc.finalreality.exceptions.Require;
+import cl.uchile.dcc.finalreality.model.character.Enemy;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import cl.uchile.dcc.finalreality.model.spells.Spell;
 import java.util.Objects;
@@ -90,36 +91,26 @@ public abstract class AbstractMage extends AbstractPlayerCharacter
 
     if (arg instanceof ArgSpellObsPattern) {
       ArgSpellObsPattern newArg = (ArgSpellObsPattern) arg;
-      if (newArg.getArg().getAction().equals("healSpell")) {
-        //we set the mage that used the spell, so the controller knows
-        //who he has to update, and also set the new mana
-        newArg.setMage(this);
-        int newMana = this.getCurrentMana() - newArg.getNewMana();
-        newArg.setMana(newMana);
+      int newMana = this.getCurrentMana() - newArg.getNewMana();
+      newArg.setMage(this);
+      newArg.setMana(newMana);
+      GameCharacter gc = newArg.getArg().getGameCharacter();
+      if (this.countObservers()>0) {
         setChanged();
         notifyObservers(newArg);
       }
-      if (newArg.getArg().getAction().equals("paralysisSpell")) {
-        newArg.setMage(this);
-        int newMana = this.getCurrentMana() - newArg.getNewMana();
-        newArg.setMana(newMana);
-        setChanged();
-        notifyObservers(newArg);
-      }
-      if (newArg.getArg().getAction().equals("poisonSpell")) {
-        newArg.setMage(this);
-        int newMana = this.getCurrentMana() - newArg.getNewMana();
-        newArg.setMana(newMana);
-        setChanged();
-        notifyObservers(newArg);
-      }
-      if (newArg.getArg().getAction().equals("thunderSpell")
-              || newArg.getArg().getAction().equals("fireSpell")) {
-        newArg.setMage(this);
-        int newMana = this.getCurrentMana() - newArg.getNewMana();
-        newArg.setMana(newMana);
-        setChanged();
-        notifyObservers(newArg);
+      else {
+        try {
+          this.setCurrentMana(newMana);
+        } catch (InvalidStatValueException e) {
+          throw new RuntimeException(e);
+        }
+        try {
+          gc.setCurrentHp(newArg.getArg().getNewHp());
+        } catch (InvalidStatValueException e) {
+          throw new RuntimeException(e);
+        }
+        gc.addEffects(newArg.getArg().getEffect());
       }
     }
   }

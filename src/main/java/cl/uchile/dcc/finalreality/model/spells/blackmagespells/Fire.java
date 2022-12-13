@@ -19,6 +19,10 @@ public class Fire extends AbstractBlackMageSpells {
     super(name);
   }
 
+
+  /**
+   *This method allows a black mage to use his spell.
+   */
   public void useBlackMageSpell(Enemy enemy, int magicDamage) throws InvalidStatValueException {
     //First we do the magic damage
     int enemyHp = enemy.getCurrentHp();
@@ -28,7 +32,7 @@ public class Fire extends AbstractBlackMageSpells {
     //Now we care about the effect being added to the
     //effects instance in the enemy class.
     if (Math.random() <= 0.2) {
-      arg.setEffects(new Burned());
+      arg.setEffects(new Burned("burned"));
     }
     setChanged();
     notifyObservers(new ArgSpellObsPattern(null, manaCost(), arg));

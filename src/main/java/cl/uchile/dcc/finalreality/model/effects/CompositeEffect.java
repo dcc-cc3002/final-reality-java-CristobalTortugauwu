@@ -29,6 +29,9 @@ public class CompositeEffect implements Effect {
   }
 
   public void addEffect(Effect effect) {
+    if(effect.equals(null)) {
+      return;
+    }
     effects.add(effect);
   }
 

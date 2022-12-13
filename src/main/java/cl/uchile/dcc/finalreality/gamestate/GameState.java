@@ -2,6 +2,9 @@ package cl.uchile.dcc.finalreality.gamestate;
 
 import cl.uchile.dcc.finalreality.GameController;
 
+/**
+ * Class to implement the states of the game, I couldn't finish it :C.
+ */
 public class GameState {
   private GameController context;
 

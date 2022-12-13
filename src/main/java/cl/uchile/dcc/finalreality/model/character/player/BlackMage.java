@@ -87,7 +87,7 @@ public class BlackMage extends AbstractMage {
     Staff weapon = (Staff) this.getEquippedWeapon();
     if (this.getEquippedWeapon().hasMagicDamage() && !weapon.isNull()) {
       //implementar ataque
-      ((Enemy) enemy).receiveBlackMageSpell(this);
+      enemy.receiveBlackMageSpell(this);
     }
   }
 
