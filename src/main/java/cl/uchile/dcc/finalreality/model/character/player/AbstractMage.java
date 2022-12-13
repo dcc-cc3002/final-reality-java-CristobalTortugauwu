@@ -113,7 +113,14 @@ public abstract class AbstractMage extends AbstractPlayerCharacter
         setChanged();
         notifyObservers(newArg);
       }
-
+      if (newArg.getArg().getAction().equals("thunderSpell")
+              || newArg.getArg().getAction().equals("fireSpell")) {
+        newArg.setMage(this);
+        int newMana = this.getCurrentMana() - newArg.getNewMana();
+        newArg.setMana(newMana);
+        setChanged();
+        notifyObservers(newArg);
+      }
     }
   }
 

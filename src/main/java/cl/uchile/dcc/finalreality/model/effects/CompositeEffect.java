@@ -3,15 +3,23 @@ package cl.uchile.dcc.finalreality.model.effects;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import java.util.HashSet;
 
+/**
+ * CompositeEffect class.
+ */
 public class CompositeEffect implements Effect {
 
   private HashSet<Effect> effects = new HashSet<Effect>();
 
+  /**
+   *Getter for the HashSet.
+   */
   public HashSet<Effect> getHashSet() {
     return this.effects;
   }
 
-  //Quiero que los efectos sean únicos, para que no se acumulen (?) ayudaaaa
+  /**
+   *This method can apply all the effect that are contained in the HashSet.
+   */
   public void applyEffect(GameCharacter gc) {
 
     for (Effect i : this.getHashSet()) {

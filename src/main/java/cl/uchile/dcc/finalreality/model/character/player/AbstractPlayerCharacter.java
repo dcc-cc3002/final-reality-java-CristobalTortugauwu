@@ -92,12 +92,12 @@ public abstract class AbstractPlayerCharacter extends AbstractCharacter
 
   @Override
   public int getMaxMana() {
-    return -1;
+    return 0;
   }
 
   @Override
   public int getCurrentMana() {
-    return -1;
+    return 0;
   }
 
   @Override

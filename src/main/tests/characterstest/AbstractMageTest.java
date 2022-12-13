@@ -1,11 +1,13 @@
 package characterstest;
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException;
+import cl.uchile.dcc.finalreality.model.character.Enemy;
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
 import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
 import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
 import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
 import cl.uchile.dcc.finalreality.model.spells.Spell;
+import cl.uchile.dcc.finalreality.model.spells.blackmagespells.Fire;
 import cl.uchile.dcc.finalreality.model.spells.blackmagespells.Thunder;
 import cl.uchile.dcc.finalreality.model.spells.whitemagespells.Poison;
 import org.junit.Before;
@@ -58,7 +60,6 @@ public class AbstractMageTest {
     public void testHashCodeMage() throws InvalidStatValueException {
         WhiteMage expected = new WhiteMage("whitemage",2,2,40,queue2);
         assertEquals(expected.hashCode(),whitemage.hashCode());
-
     }
 
     @Test
@@ -91,5 +92,15 @@ public class AbstractMageTest {
         assertNotEquals(blackmage.getSpell(),poison);
     }
 
+    @Test
+    public void testUseSpell() throws InvalidStatValueException {
+      Enemy enemy = new Enemy("enemy", 100, 1000,10,queue2);
+      Spell spell = new Fire("fire");
+      Spell spellWm = new Poison("poison");
+      blackmage.equipSpell(spell);
+      whitemage.equipSpell(spellWm);
+
+
+    }
 
 }

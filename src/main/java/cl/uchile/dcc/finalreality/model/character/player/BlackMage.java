@@ -29,6 +29,7 @@ import org.jetbrains.annotations.NotNull;
 public class BlackMage extends AbstractMage {
 
   private BlackMageSpells spell;
+
   /**
    * Creates a new Black Mage.
    *
@@ -62,7 +63,7 @@ public class BlackMage extends AbstractMage {
   }
 
   public void setSpell(BlackMageSpells spell) {
-      this.spell = spell;
+    this.spell = spell;
   }
 
   public BlackMageSpells getSpell() {

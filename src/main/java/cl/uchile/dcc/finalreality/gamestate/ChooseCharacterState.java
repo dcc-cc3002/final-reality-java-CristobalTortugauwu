@@ -7,6 +7,9 @@ import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
 import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * ChooseCharacterState class.
+ */
 public class ChooseCharacterState extends GameState {
 
   @Override

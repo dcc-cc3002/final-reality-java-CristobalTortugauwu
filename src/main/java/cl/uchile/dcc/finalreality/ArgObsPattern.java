@@ -46,4 +46,8 @@ public class ArgObsPattern {
   public Effect getEffect() {
     return this.effects;
   }
+
+  public void setEffects(Effect effect) {
+    this.effects = effect;
+  }
 }
