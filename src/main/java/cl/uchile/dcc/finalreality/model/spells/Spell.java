@@ -24,4 +24,5 @@ public interface Spell {
   void removeObserver(WhiteMage wm);
 
   void removeObserver(BlackMage bm);
+
 }

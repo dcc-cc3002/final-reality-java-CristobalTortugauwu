@@ -95,11 +95,10 @@ public abstract class AbstractMage extends AbstractPlayerCharacter
       newArg.setMage(this);
       newArg.setMana(newMana);
       GameCharacter gc = newArg.getArg().getGameCharacter();
-      if (this.countObservers()>0) {
+      if (this.countObservers() > 0) {
         setChanged();
         notifyObservers(newArg);
-      }
-      else {
+      } else {
         try {
           this.setCurrentMana(newMana);
         } catch (InvalidStatValueException e) {

@@ -8,6 +8,7 @@ import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
 import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
 import cl.uchile.dcc.finalreality.model.effects.Poisoned;
 import cl.uchile.dcc.finalreality.model.spells.Spell;
+import cl.uchile.dcc.finalreality.model.spells.blackmagespells.BlackMageSpells;
 import cl.uchile.dcc.finalreality.model.spells.blackmagespells.Fire;
 import cl.uchile.dcc.finalreality.model.spells.blackmagespells.Thunder;
 import cl.uchile.dcc.finalreality.model.spells.whitemagespells.Poison;
@@ -34,7 +35,7 @@ public class AbstractMageTest {
 
         whitemage = new WhiteMage("whitemage",2,2,40,queue2);
 
-        blackmage = new BlackMage("blackmage",5,5,20,queue2);
+        blackmage = new BlackMage("blackmage",5,5,60,queue2);
 
     }
 
@@ -99,7 +100,8 @@ public class AbstractMageTest {
       Spell spell = new Fire("fire");
       Spell spellWm = new Poison("poison");
       Staff staff = new Staff("staff",50,30,400);
-      blackmage.equip(staff);
+      Staff staff2 = new Staff("staff2",50,30,400);
+      blackmage.equip(staff2);
       whitemage.equip(staff);
       blackmage.equipSpell(spell);
       whitemage.equipSpell(spellWm);
@@ -111,7 +113,12 @@ public class AbstractMageTest {
       Poisoned pos = new Poisoned("poisoned");
       enemy.addEffects(pos);
       assertTrue("nani",enemy.getEffects().getHashSet().contains(pos));
-
+      BlackMageSpells spell2 = new Thunder("thunder");
+      spell.removeObserver(blackmage);
+      blackmage.equipSpell(spell2);
+      blackmage.useSpell(enemy);
+      assertEquals(spell2,blackmage.getSpell());
+      expected = 200;
+      assertEquals(expected,enemy.getCurrentHp());
     }
-
 }

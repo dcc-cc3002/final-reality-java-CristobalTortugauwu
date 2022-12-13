@@ -1,7 +1,6 @@
 package cl.uchile.dcc.finalreality.model.effects;
 
 import cl.uchile.dcc.finalreality.model.character.GameCharacter;
-
 import java.util.Objects;
 
 /**

@@ -7,12 +7,11 @@ import cl.uchile.dcc.finalreality.exceptions.Require;
 import cl.uchile.dcc.finalreality.model.character.player.BlackMage;
 import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter;
 import cl.uchile.dcc.finalreality.model.character.player.WhiteMage;
+import cl.uchile.dcc.finalreality.model.effects.Effect;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
-
-import cl.uchile.dcc.finalreality.model.effects.Effect;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -100,6 +99,7 @@ public abstract class AbstractCharacter extends Observable
   public void addEffects(Effect effect) {
     throw new AssertionError("you don't have the property effect");
   }
+
   @Override
   public String getName() {
     return name;

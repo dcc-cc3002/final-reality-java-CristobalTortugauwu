@@ -28,8 +28,12 @@ public class CompositeEffect implements Effect {
 
   }
 
+  /**
+   * add an effect to the enemy.
+   */
   public void addEffect(Effect effect) {
-    if(effect.equals(null)) {
+
+    if (effect.equals(null)) {
       return;
     }
     effects.add(effect);
